@@ -27,6 +27,7 @@
     "archive": {
         "exclude": [
             "/AGENTS.md",
+            "/SECURITY.md",
             "/docs/",
             "/.instructions.md",
             "/.vscode/"

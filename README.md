@@ -5,8 +5,8 @@ This README is the primary summary for the platform.
 
 ## Documentation Model
 
-- Primary summary: [docs/mesh-factory.md](docs/mesh-factory.md)
-- Detailed architecture encyclopedia: [docs/architecture/README.md](docs/architecture/README.md)
+- Docs entrypoint and namespace summary: [docs/.instructions.md](docs/.instructions.md)
+- Detailed architecture encyclopedia: [docs/architecture/AX-overview.md](docs/architecture/AX-overview.md)
 - Agent governance and operating policy: [AGENTS.md](AGENTS.md)
 
 ## Platform Summary
@@ -18,23 +18,26 @@ MeshFactory builds DOM and HTML element output through a predictable PHP factory
 - Concrete classes provide element-specific behavior.
 - Attribute management remains the dynamic extension layer.
 
-## Architecture Clarification Workflow
+## Behavioral Clarification Workflow
 
-Use the Architecture Clarification workflow when evaluating new ideas, implementation examples, or edge-case behavior:
+Use the clarification workflow when evaluating new ideas, implementation examples, or edge-case behavior:
 
-- Task definition: [docs/tasks/architecture-clarification-task.md](docs/tasks/architecture-clarification-task.md)
-- Clarification reports folder: [docs/architecture/clarifications](docs/architecture/clarifications)
+- Task definition: [docs/tasks/TK-architecture-clarification-task.md](docs/tasks/TK-architecture-clarification-task.md)
+- Clarification reports folder: [docs/behavior](docs/behavior)
 
 ## Documentation Conventions
 
-- Use kebab-case for markdown filenames, for example mesh-factory.md and architecture-clarification-task.md.
+- Use domain-prefixed markdown names in docs domains using `{DomainCode}-{name}.md`.
+- Domain codes: `AX` for Architecture, `BV` for Behavior, and `TK` for Task.
+- Examples: `AX-system-overview.md`, `BV-20261011-initial-meshfactory-distribution.md`, and `TK-architecture-clarification-task.md`.
 - Use lowercase directory names, for example architecture, tasks, and agents.
 - Keep reserved index filenames in uppercase where conventional, for example README.md and AGENTS.md.
 
 ## Documentation Structure
 
-- Root summary: docs/mesh-factory.md
+- Docs entrypoint: docs/.instructions.md
 - Architecture encyclopedia: docs/architecture/
+- Behavioral clarifications: docs/behavior/
 - Task workflows: docs/tasks/
 - Agent governance docs: docs/agents/
 

@@ -54,8 +54,8 @@ Use this structure in clarification reports:
 ## Documentation Linkage Checklist
 
 - Root summary source: README.md
-- Namespace summary source: docs/mesh-factory.md
-- Detailed architecture source: docs/architecture/README.md and topic pages
+- Namespace summary source: docs/.instructions.md
+- Detailed architecture source: docs/architecture/AX-overview.md and topic pages
 - Task source folder: docs/tasks/
-- Agent governance source: AGENTS.md and docs/agents/repository-governance.md
+- Agent governance source: AGENTS.md and docs/agents/AG-repository-governance.md
 

@@ -4,7 +4,8 @@ This folder contains task-oriented markdown workflows.
 
 ## Tasks
 
-- [Architecture Clarification Task](architecture-clarification-task.md)
+- [Architecture Clarification Task](TK-architecture-clarification-task.md)
+- [Quality Check Playbook](TK-quality-check-playbook.md)
 
 ## Policy
 
