@@ -5,9 +5,8 @@ namespace MvpLounge\MeshFactory\Element\Table;
 
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Element\Table\TableRowBodyFactory;
+use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 require_once __DIR__ . '/TableHead.php';
 require_once __DIR__ . '/TableFooter.php';
 require_once __DIR__ . '/TableRowBody.php';
@@ -22,7 +21,7 @@ class TableBodyFactory extends FactoryElementTableAbstract
 		FactoryElementAttribute::CELLPADDING,
 		FactoryElementAttribute::BORDER
 	];
-	protected \MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE;
+	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE;
 	protected ?string $FactoryElementSystemClass = 'generic-table';
 	protected ?TableFooterFactory $FactoryElementTableFooter = NULL;
 	protected ?TableHeadFactory $FactoryElementTableHead = NULL;

@@ -7,8 +7,6 @@ use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElementFieldType;
 
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 
 require_once __DIR__ . '/../Field/TextInput.php';
 require_once __DIR__ . '/../../Enum/FactoryElementAttribute.php';
@@ -21,7 +19,7 @@ class EmailerInput extends TextInput
 	protected array $AllowedFactoryElements = [
 		FactoryElement::INPUT
 	];
-	protected FactoryElement $FactoryElement = FactoryElement::INPUT;
+	protected ?FactoryElement $FactoryElement = FactoryElement::INPUT;
 	protected ?FactoryElementFieldType $FactoryElementFieldType = FactoryElementFieldType::EMAIL;
 	protected ?object $FactoryElementFieldFieldset = NULL;
 

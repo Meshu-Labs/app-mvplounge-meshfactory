@@ -7,8 +7,6 @@ use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 
 require_once __DIR__ . '/FactoryElementFieldsetAbstract.php';
 require_once __DIR__ . '/FactoryElementAbstract.php';

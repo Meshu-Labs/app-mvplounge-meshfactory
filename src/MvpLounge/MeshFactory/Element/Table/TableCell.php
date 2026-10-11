@@ -4,16 +4,14 @@ namespace MvpLounge\MeshFactory\Element\Table;
 
 
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
-use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
+use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
 class TableCellFactory extends FactoryElementTableAbstract
 {
-	protected \MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_CELL;
+	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_CELL;
 	protected ?string $FactoryElementSystemClass = 'generic-cell';
 
 	public function __construct($params = [])

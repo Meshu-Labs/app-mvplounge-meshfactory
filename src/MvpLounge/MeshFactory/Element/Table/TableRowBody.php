@@ -2,17 +2,15 @@
 
 namespace MvpLounge\MeshFactory\Element\Table;
 
-use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
+use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 require_once __DIR__ . '/TableRow.php';
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
 
 	class TableRowBodyFactory extends FactoryElementTableAbstract {
 		
-		protected \MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_BODY;
+		protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_BODY;
 		protected ?string $FactoryElementSystemClass = 'generic-tbody';
 		protected ?array $FactoryElementTableRows = [];
 		

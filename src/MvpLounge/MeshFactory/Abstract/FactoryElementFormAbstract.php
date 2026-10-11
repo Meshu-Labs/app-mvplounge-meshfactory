@@ -6,8 +6,6 @@ namespace MvpLounge\MeshFactory\Abstract;
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 
 require_once __DIR__ . '/FactoryElementAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';
@@ -31,7 +29,7 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		FactoryElementAttribute::AUTOCOMPLETE,
 	];
 
-	protected FactoryElement $FactoryElement = FactoryElement::FORM;
+	protected ?FactoryElement $FactoryElement = FactoryElement::FORM;
 	protected ?string $FactoryElementFormAction = NULL;
 	protected ?string $FactoryElementFormActivity = NULL;
 	protected string $FactoryElementFormAuto = 'off';

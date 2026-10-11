@@ -4,10 +4,8 @@ namespace MvpLounge\MeshFactory\Element\Html5;
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 
-require_once __DIR__ . '/FactoryElementHtml5Abstract.php';
+require_once __DIR__ . '/Html5.php';
 
 class Aside extends FactoryElementHtml5Abstract
 {
@@ -15,5 +13,5 @@ class Aside extends FactoryElementHtml5Abstract
 		FactoryElement::ASIDE,
 	];
 
-	protected FactoryElement $FactoryElement = FactoryElement::ASIDE;
+	protected ?FactoryElement $FactoryElement = FactoryElement::ASIDE;
 }

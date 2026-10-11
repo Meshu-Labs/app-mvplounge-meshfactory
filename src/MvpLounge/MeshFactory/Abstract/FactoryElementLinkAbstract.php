@@ -6,8 +6,6 @@ namespace MvpLounge\MeshFactory\Abstract;
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 require_once __DIR__ . '/FactoryElementAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
@@ -32,7 +30,7 @@ class FactoryElementLinkAbstract extends FactoryElementAbstract
 		FactoryElementAttribute::TYPE
 	];
 
-	protected FactoryElement $FactoryElement = FactoryElement::ANCHOR;
+	protected ?FactoryElement $FactoryElement = FactoryElement::ANCHOR;
 	protected ?string $FactoryElementLinkHreflang = NULL;
 	protected ?string $FactoryElementLinkMedia = NULL;
 	protected ?string $FactoryElementLinkPing = NULL;
