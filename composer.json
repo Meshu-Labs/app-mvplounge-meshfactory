@@ -1,0 +1,23 @@
+{
+    "name": "mvplounge/meshfactory",
+    "description": "Browser UI elements generated through a PHP factory model.",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "keywords": [
+        "php",
+        "ui",
+        "factory",
+        "html"
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "classmap": [
+            "src/MvpLounge/MeshFactory/"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

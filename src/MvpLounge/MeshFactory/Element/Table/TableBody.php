@@ -1,0 +1,108 @@
+<?php
+
+namespace MvpLounge\MeshFactory\Element\Table;
+
+
+use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+use MvpLounge\MeshFactory\Element\Table\TableRowBodyFactory;
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
+require_once __DIR__ . '/TableHead.php';
+require_once __DIR__ . '/TableFooter.php';
+require_once __DIR__ . '/TableRowBody.php';
+require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
+
+
+class TableBodyFactory extends FactoryElementTableAbstract
+{
+
+	protected array $AllowedFactoryElementAttributes = [
+		FactoryElementAttribute::CELLSPACING,
+		FactoryElementAttribute::CELLPADDING,
+		FactoryElementAttribute::BORDER
+	];
+	protected \MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE;
+	protected ?string $FactoryElementSystemClass = 'generic-table';
+	protected ?TableFooterFactory $FactoryElementTableFooter = NULL;
+	protected ?TableHeadFactory $FactoryElementTableHead = NULL;
+	protected ?TableRowBodyFactory $FactoryElementTableRowBody = NULL;
+
+	public function __construct($params = [])
+	{
+		parent::__construct($params);
+	}
+
+	public function addHeader($content, $id = NULL, $user = NULL, $data = NULL, $extended = [], $system = NULL)
+	{
+		$this->getHeader()->addHeader($content, $id, $user, $data, $extended, $system);
+		return $this;
+	}
+
+	public function getHeader($params = NULL): TableHeadFactory
+	{
+		if (!$this->FactoryElementTableHead or !($this->FactoryElementTableHead instanceof TableHeadFactory)) {
+			$this->FactoryElementTableHead = new TableHeadFactory($params);
+		}
+
+		return $this->FactoryElementTableHead;
+	}
+
+	public function addRow($params = NULL)
+	{
+		return $this->getRowBody()->addRow($params);
+	}
+
+	public function getRowBody($params = NULL): TableRowBodyFactory
+	{
+		if (!$this->FactoryElementTableRowBody or !($this->FactoryElementTableRowBody instanceof TableRowBodyFactory)) {
+			$this->FactoryElementTableRowBody = new TableRowBodyFactory($params);
+		}
+
+		return $this->FactoryElementTableRowBody;
+	}
+
+	public function build()
+	{
+		echo $this->getElementOpen() . "\n\t";
+		echo $this->getHeader()->build() . "\n\t";
+		echo $this->getRowBody()->build() . "\n\t";
+		echo $this->getFooter()->build() . "\n\t";
+		echo $this->getElementClose() . "\n\t";
+	}
+
+	public function getFooter($params = NULL): TableFooterFactory
+	{
+		if (!$this->FactoryElementTableFooter or !($this->FactoryElementTableFooter instanceof TableFooterFactory)) {
+			$this->FactoryElementTableFooter = new TableFooterFactory($params);
+		}
+
+		return $this->FactoryElementTableFooter;
+	}
+
+	public function getFactoryAttributePropertyCollection(): array
+	{
+		$_allowed = $this->getAllowedFactoryElementAttributes();
+
+		return array_merge(
+			$this->getDefaultFactoryAttributePropertyCollection(),
+			[
+				'cellspacing' => $this->getFactoryElementTableCellspacing($_allowed),
+				'cellpadding' => $this->getFactoryElementTableCellpadding($_allowed),
+				'border' => $this->getFactoryElementTableBorder($_allowed),
+			]
+		);
+	}
+
+	public function getFactoryModel(): array
+	{
+		return
+			[
+				'open' => $this->getElementOpen(),
+				'thead' => $this->getHeader()->compile(),
+				'tbody' => $this->getRowBody()->compile(),
+				'tfoot' => $this->getFooter()->compile(),
+				'close' => $this->getElementClose()
+			];
+	}
+}
