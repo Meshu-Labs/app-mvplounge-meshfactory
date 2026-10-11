@@ -1,12 +1,39 @@
 {
     "folders": [
         {
-            "path": "."
+            "path": ".."
         }
     ],
     "settings": {
+        "php.executablePath": "C:/xampp_devops_test/php/php.exe",
+        "composer.workingPath": "/src/MvpLounge/",
+        "window.zoomLevel": 0.35,
+        "files.autoSave": "afterDelay",
         "files.exclude": {
-            "**/.git": true
-        }
+            "/xamppires/plaforms": true,
+            "/xamppires/utilities": true,
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/node_modules": true,
+            "**/bower_components": true,
+            "**/tmp": true
+        },
+        "[javascript][json][css][html]": {
+            "editor.formatOnSave": true,
+            "editor.formatOnPaste": true
+        },
+        "[typescript]": {
+            "editor.formatOnSave": true,
+            "editor.formatOnPaste": true
+        },
+        "[markdown]": {
+            "editor.formatOnSave": true,
+            "editor.wordWrap": "on",
+            "editor.renderWhitespace": "all",
+            "editor.acceptSuggestionOnEnter": "off"
+        },
+        "powershell.cwd": ".."
     }
 }

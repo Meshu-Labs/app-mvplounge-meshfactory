@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "valeryanm.vscode-phpsab",
+        "mkloubert.vscode-deploy-reloaded",
+        "ms-vscode.powershell",
+        "devsense.composer-php-vscode",
+        "github.vscode-pull-request-github",
+        "devsense.intelli-php-vscode",
+        "devsense.phptools-vscode",
+        "devsense.profiler-php-vscode"
+    ]
+}

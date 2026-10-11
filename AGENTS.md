@@ -1,6 +1,18 @@
 # MeshFactory Code Generation Governance
 
+Canonical docs source: `docs/agents/repository-governance.md`.
+Namespace guidance source: `docs/agents/meshfactory-namespace-guide.md`.
+
 This file defines repository-level rules for AI-assisted code generation targeting the MvpLounge MeshFactory library.
+
+## Documentation Architecture Policy
+
+- Root README is the primary summary for platform understanding.
+- docs/meshfactory.md provides namespace-level summary.
+- docs/architecture/ is the encyclopedia for detailed architecture topics.
+- Architecture proposals and examples must use the Architecture Clarification workflow in docs/tasks/architecture-clarification-task.md.
+
+Architecture Clarification workflow outputs should be written to docs/architecture/clarifications/.
 
 ## UNIVERSAL: Quality Assurance for Namespace-Driven Codebases
 

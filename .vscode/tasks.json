@@ -74,7 +74,7 @@
     {
       "label": "Quality Check: All Domains",
       "type": "shell",
-      "command": "Write-Host '=== COMPLETE QUALITY CHECK ===' -ForegroundColor Cyan; $domains = @('Abstract','Field','Form','Links','Table'); $totalFailed = 0; foreach ($domain in $domains) { Write-Host \"`n$domain Domain:\" -ForegroundColor Yellow; $path = if ($domain -eq 'Abstract') { 'c:\\_src\\app-mvplounge-meshfactory\\src\\MvpLounge\\MeshFactory\\Abstract' } else { \"c:\\_src\\app-mvplounge-meshfactory\\src\\MvpLounge\\MeshFactory\\Element\\$domain\" }; if (Test-Path $path) { $failed = 0; Get-ChildItem $path -Filter '*.php' | ForEach-Object { $lintResult = & 'C:/xampp_devops_test/php/php.exe' -l $_.FullName 2>&1; if ($lintResult -notmatch 'No syntax errors') { Write-Host \"  ✗ $($_.Name)\"; $failed++; $totalFailed++ } else { Write-Host \"  ✓ $($_.Name)\" } }; Write-Host \"  Result: $($(Get-ChildItem $path -Filter '*.php').Count) file(s), $failed failed\" } }; Write-Host \"`n=== FINAL RESULT ===' -ForegroundColor $(if ($totalFailed -gt 0) { 'Red' } else { 'Green' }); Write-Host \"Total Failed: $totalFailed\" -ForegroundColor $(if ($totalFailed -gt 0) { 'Red' } else { 'Green' })",
+      "command": "Write-Host '=== COMPLETE QUALITY CHECK ===' -ForegroundColor Cyan; $domains = @('Abstract','Field','Form','Links','Table'); $totalFailed = 0; foreach ($domain in $domains) { Write-Host ''; Write-Host (\"{0} Domain:\" -f $domain) -ForegroundColor Yellow; if ($domain -eq 'Abstract') { $path = 'c:\\_src\\app-mvplounge-meshfactory\\src\\MvpLounge\\MeshFactory\\Abstract' } else { $path = Join-Path 'c:\\_src\\app-mvplounge-meshfactory\\src\\MvpLounge\\MeshFactory\\Element' $domain }; if (Test-Path $path) { $failed = 0; Get-ChildItem $path -Filter '*.php' | ForEach-Object { $lintResult = & 'C:/xampp_devops_test/php/php.exe' -l $_.FullName 2>&1; if ($lintResult -notmatch 'No syntax errors') { Write-Host (\"  ✗ {0}\" -f $_.Name); $failed++; $totalFailed++ } else { Write-Host (\"  ✓ {0}\" -f $_.Name) } }; $count = (Get-ChildItem $path -Filter '*.php').Count; Write-Host (\"  Result: {0} files, {1} failed\" -f $count, $failed) } }; Write-Host ''; Write-Host '=== FINAL RESULT ===' -ForegroundColor $(if ($totalFailed -gt 0) { 'Red' } else { 'Green' }); Write-Host (\"Total Failed: {0}\" -f $totalFailed) -ForegroundColor $(if ($totalFailed -gt 0) { 'Red' } else { 'Green' })",
       "group": {
         "kind": "test",
         "isDefault": false
@@ -98,6 +98,28 @@
         "reveal": "always",
         "panel": "shared"
       }
+    },
+    {
+      "label": "Architecture Clarification: Create Report",
+      "type": "shell",
+      "command": "$question = \"${input:architectureClarificationInput}\"; $stamp = Get-Date -Format \"yyyyMMdd-HHmmss\"; $outDir = \"c:\\_src\\app-mvplounge-meshfactory\\docs\\architecture\\clarifications\"; if (!(Test-Path $outDir)) { New-Item -ItemType Directory -Path $outDir | Out-Null }; $outFile = Join-Path $outDir \"$stamp-clarification.md\"; @\"\n# Architecture Clarification Report\n\n## Input Summary\n$question\n\n## Architecture Fit Assessment\n- Does this align with current architecture layers and naming contracts?\n\n## Push-Back and Risk Review\n- Compatibility:\n- Style consistency:\n- Performance:\n- Security:\n- Functional correctness:\n- Efficiency and maintainability:\n\n## Hybrid Recommendation\n- Style-preserving baseline:\n- Experimental option:\n- Recommended hybrid path:\n\n## Terminology and Documentation Linkage\n- README.md terms used:\n- docs/meshfactory.md terms used:\n- docs/architecture/* pages linked:\n- Required doc updates:\n\n## Implementation Decision\n- Decision:\n- Reasoning:\n\n## Follow-up Documentation Updates\n- [ ] README.md summary aligned\n- [ ] docs/meshfactory.md summary aligned\n- [ ] docs/architecture content updated\n\"@ | Set-Content -Path $outFile -Encoding utf8; Write-Host \"Created Architecture Clarification report: $outFile\" -ForegroundColor Green",
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "architectureClarificationInput",
+      "type": "promptString",
+      "description": "Question, proposal, or example to evaluate",
+      "default": "Describe the proposed architecture or implementation example"
     }
   ]
 }
