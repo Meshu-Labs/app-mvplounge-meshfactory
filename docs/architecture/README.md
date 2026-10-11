@@ -1,9 +1,9 @@
-# MeshFactory Architecture Encyclopedia
+﻿# MeshFactory Architecture Encyclopedia
 
 This folder is the detailed architecture reference for the MeshFactory platform.
 
 Use the root README as the primary summary.
-Use docs/meshfactory.md as the namespace summary.
+Use docs/mesh-factory.md as the namespace summary.
 Use this folder for deep technical and design details.
 
 ## Architecture Map
@@ -23,3 +23,4 @@ Architecture Clarification output reports should be saved in:
 - clarifications/
 
 Use naming format: YYYYMMDD-HHMMSS-topic.md
+

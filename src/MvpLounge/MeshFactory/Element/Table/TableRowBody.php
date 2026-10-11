@@ -8,7 +8,7 @@ require_once __DIR__ . '/TableRow.php';
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
 
-	class TableRowBodyFactory extends FactoryElementTableAbstract {
+	class TableRowBody extends FactoryElementTableAbstract {
 		
 		protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_BODY;
 		protected ?string $FactoryElementSystemClass = 'generic-tbody';
@@ -20,13 +20,13 @@ require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 			
 		}
 		
-		public function addRow($params = NULL) : ?TableRowFactory {
+		public function addRow($params = NULL) : ?TableRow {
 			$_count = 0;
 			
 			if(count($this->FactoryElementTableRows) > 0) {
 				$_count = count($this->FactoryElementTableRows);
 			}
-			$this->FactoryElementTableRows[$_count] = new TableRowFactory($params);
+			$this->FactoryElementTableRows[$_count] = new TableRow($params);
 			return $this->FactoryElementTableRows[$_count];
 		}
 		

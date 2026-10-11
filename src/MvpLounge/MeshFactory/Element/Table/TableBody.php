@@ -4,7 +4,7 @@ namespace MvpLounge\MeshFactory\Element\Table;
 
 
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
-use MvpLounge\MeshFactory\Element\Table\TableRowBodyFactory;
+use MvpLounge\MeshFactory\Element\Table\TableRowBody;
 use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 
 require_once __DIR__ . '/TableHead.php';
@@ -13,7 +13,7 @@ require_once __DIR__ . '/TableRowBody.php';
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
 
-class TableBodyFactory extends FactoryElementTableAbstract
+class TableBody extends FactoryElementTableAbstract
 {
 
 	protected array $AllowedFactoryElementAttributes = [
@@ -23,9 +23,9 @@ class TableBodyFactory extends FactoryElementTableAbstract
 	];
 	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE;
 	protected ?string $FactoryElementSystemClass = 'generic-table';
-	protected ?TableFooterFactory $FactoryElementTableFooter = NULL;
-	protected ?TableHeadFactory $FactoryElementTableHead = NULL;
-	protected ?TableRowBodyFactory $FactoryElementTableRowBody = NULL;
+	protected ?TableFooter $FactoryElementTableFooter = NULL;
+	protected ?TableHead $FactoryElementTableHead = NULL;
+	protected ?TableRowBody $FactoryElementTableRowBody = NULL;
 
 	public function __construct($params = [])
 	{
@@ -38,10 +38,10 @@ class TableBodyFactory extends FactoryElementTableAbstract
 		return $this;
 	}
 
-	public function getHeader($params = NULL): TableHeadFactory
+	public function getHeader($params = NULL): TableHead
 	{
-		if (!$this->FactoryElementTableHead or !($this->FactoryElementTableHead instanceof TableHeadFactory)) {
-			$this->FactoryElementTableHead = new TableHeadFactory($params);
+		if (!$this->FactoryElementTableHead or !($this->FactoryElementTableHead instanceof TableHead)) {
+			$this->FactoryElementTableHead = new TableHead($params);
 		}
 
 		return $this->FactoryElementTableHead;
@@ -52,10 +52,10 @@ class TableBodyFactory extends FactoryElementTableAbstract
 		return $this->getRowBody()->addRow($params);
 	}
 
-	public function getRowBody($params = NULL): TableRowBodyFactory
+	public function getRowBody($params = NULL): TableRowBody
 	{
-		if (!$this->FactoryElementTableRowBody or !($this->FactoryElementTableRowBody instanceof TableRowBodyFactory)) {
-			$this->FactoryElementTableRowBody = new TableRowBodyFactory($params);
+		if (!$this->FactoryElementTableRowBody or !($this->FactoryElementTableRowBody instanceof TableRowBody)) {
+			$this->FactoryElementTableRowBody = new TableRowBody($params);
 		}
 
 		return $this->FactoryElementTableRowBody;
@@ -70,10 +70,10 @@ class TableBodyFactory extends FactoryElementTableAbstract
 		echo $this->getElementClose() . "\n\t";
 	}
 
-	public function getFooter($params = NULL): TableFooterFactory
+	public function getFooter($params = NULL): TableFooter
 	{
-		if (!$this->FactoryElementTableFooter or !($this->FactoryElementTableFooter instanceof TableFooterFactory)) {
-			$this->FactoryElementTableFooter = new TableFooterFactory($params);
+		if (!$this->FactoryElementTableFooter or !($this->FactoryElementTableFooter instanceof TableFooter)) {
+			$this->FactoryElementTableFooter = new TableFooter($params);
 		}
 
 		return $this->FactoryElementTableFooter;
@@ -105,3 +105,4 @@ class TableBodyFactory extends FactoryElementTableAbstract
 			];
 	}
 }
+

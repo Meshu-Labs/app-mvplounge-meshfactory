@@ -8,7 +8,7 @@ use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 require_once __DIR__ . '/TableCell.php';
 
 
-class TableHeaderFactory extends TableCellFactory
+class TableHeader extends TableCell
 {
 	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_HEADER_CELL;
 	protected ?string $FactoryElementSystemClass = 'generic-th';
@@ -19,3 +19,4 @@ class TableHeaderFactory extends TableCellFactory
 	}
 
 }
+

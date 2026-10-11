@@ -21,14 +21,12 @@
         ],
         "exclude-from-classmap": [
             "/AGENTS.md",
-            "/src/MvpLounge/MeshFactory/AGENTS.md",
             "/docs/"
         ]
     },
     "archive": {
         "exclude": [
             "/AGENTS.md",
-            "/src/MvpLounge/MeshFactory/AGENTS.md",
             "/docs/",
             "/.instructions.md",
             "/.vscode/"

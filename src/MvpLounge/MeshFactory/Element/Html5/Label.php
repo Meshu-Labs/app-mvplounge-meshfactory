@@ -9,7 +9,7 @@ use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 require_once __DIR__ . '/Html5.php';
 require_once __DIR__ . '/../../Enum/FactoryElementAttribute.php';
 
-class Label extends FactoryElementHtml5Abstract
+class Label extends Html5
 {
     protected array $AllowedFactoryElements = [
         FactoryElement::LABEL
@@ -48,3 +48,4 @@ class Label extends FactoryElementHtml5Abstract
 	    return in_array(FactoryElementAttribute::FOR->value, $allowed, TRUE) ? $this->FactoryElementHtmlFor : NULL;
     }
 }
+

@@ -1,4 +1,4 @@
-# MeshFactory Code Generation Governance
+﻿# MeshFactory Code Generation Governance
 
 Canonical docs source: `docs/agents/repository-governance.md`.
 Namespace guidance source: `docs/agents/meshfactory-namespace-guide.md`.
@@ -8,7 +8,7 @@ This file defines repository-level rules for AI-assisted code generation targeti
 ## Documentation Architecture Policy
 
 - Root README is the primary summary for platform understanding.
-- docs/meshfactory.md provides namespace-level summary.
+- docs/mesh-factory.md provides namespace-level summary.
 - docs/architecture/ is the encyclopedia for detailed architecture topics.
 - Architecture proposals and examples must use the Architecture Clarification workflow in docs/tasks/architecture-clarification-task.md.
 
@@ -83,7 +83,7 @@ foreach ($filename in $filesToFix) {
     if (Test-Path $filePath) {
         $content = Get-Content -Path $filePath -Raw
         [System.IO.File]::WriteAllText($filePath, $content, [System.Text.UTF8Encoding]::new($false))
-        Write-Host "✓ Fixed: $filename"
+        Write-Host "âœ“ Fixed: $filename"
     }
 }
 
@@ -91,7 +91,7 @@ foreach ($filename in $filesToFix) {
 Write-Host "`nVerifying bulk fix..."
 Get-ChildItem $directory -Filter "*.php" | ForEach-Object {
     $result = & "C:/xampp_devops_test/php/php.exe" -l $_.FullName 2>&1
-    $status = if ($result -match "No syntax errors") { "✓" } else { "✗" }
+    $status = if ($result -match "No syntax errors") { "âœ“" } else { "âœ—" }
     Write-Host "$status $($_.Name)"
 }
 ```
@@ -100,12 +100,12 @@ Get-ChildItem $directory -Filter "*.php" | ForEach-Object {
 
 Every code change involving namespace-driven files should include:
 
-- ✓ Syntax validation via `php -l` on every touched file
-- ✓ Encoding validation (no BOM bytes `EF BB BF`)
-- ✓ Domain-wide verification when abstracts or paths change
-- ✓ Concrete implementation verification when parent classes change
-- ✓ Cross-domain checks for transitive dependencies
-- ✓ Documentation of any encoding corrections made
+- âœ“ Syntax validation via `php -l` on every touched file
+- âœ“ Encoding validation (no BOM bytes `EF BB BF`)
+- âœ“ Domain-wide verification when abstracts or paths change
+- âœ“ Concrete implementation verification when parent classes change
+- âœ“ Cross-domain checks for transitive dependencies
+- âœ“ Documentation of any encoding corrections made
 
 ---
 
@@ -193,13 +193,13 @@ Required outcomes:
 
 Manual review checklist:
 
-- ✓ Namespace correctly declared to match file location
-- ✓ `<?php` is absolutely first bytes (no output before namespace)
-- ✓ `namespace` declaration follows optional `declare()` calls
-- ✓ All `require_once` paths use relative `__DIR__` syntax
-- ✓ Parent class `require_once` matches inheritance chain
-- ✓ **Concrete implementations**: Require Abstract classes from `/Abstract/` directory
-- ✓ **Concrete implementations**: Use `parent::methodName()` not static class calls
+- âœ“ Namespace correctly declared to match file location
+- âœ“ `<?php` is absolutely first bytes (no output before namespace)
+- âœ“ `namespace` declaration follows optional `declare()` calls
+- âœ“ All `require_once` paths use relative `__DIR__` syntax
+- âœ“ Parent class `require_once` matches inheritance chain
+- âœ“ **Concrete implementations**: Require Abstract classes from `/Abstract/` directory
+- âœ“ **Concrete implementations**: Use `parent::methodName()` not static class calls
 
 ### Phase 4: Unused Legacy File Cleanup
 
@@ -243,7 +243,7 @@ Example: TableCell.php concrete implementation
 require_once __DIR__ . '/../Table/FactoryElementTableAbstract.php';
 public function getFactoryModel(): array {
     return array_merge(
-        FactoryElementAbstract::getFactoryModel(),  // ✗ Static call
+        FactoryElementAbstract::getFactoryModel(),  // âœ— Static call
         [/* ... */]
     );
 }
@@ -252,7 +252,7 @@ public function getFactoryModel(): array {
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 public function getFactoryModel(): array {
     return array_merge(
-        parent::getFactoryModel(),  // ✓ Instance method call
+        parent::getFactoryModel(),  // âœ“ Instance method call
         [/* ... */]
     );
 }
@@ -390,3 +390,4 @@ Guidelines:
 - Provide type-appropriate fallback values
 - For HTML attributes, use empty string fallback
 - For boolean attributes, provide explicit boolean or empty string
+

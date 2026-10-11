@@ -9,7 +9,7 @@ require_once __DIR__ . '/TableHead.php';
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
 	
-	class TableFooterFactory extends FactoryElementTableAbstract {
+	class TableFooter extends FactoryElementTableAbstract {
 		
 		protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_FOOT;
 		protected ?string $FactoryElementSystemClass = 'generic-footer';

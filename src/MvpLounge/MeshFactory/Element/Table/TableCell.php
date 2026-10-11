@@ -9,7 +9,7 @@ use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
-class TableCellFactory extends FactoryElementTableAbstract
+class TableCell extends FactoryElementTableAbstract
 {
 	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_CELL;
 	protected ?string $FactoryElementSystemClass = 'generic-cell';
@@ -44,3 +44,4 @@ class TableCellFactory extends FactoryElementTableAbstract
 	}
 
 }
+

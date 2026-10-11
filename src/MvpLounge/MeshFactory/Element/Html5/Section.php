@@ -7,7 +7,7 @@ use MvpLounge\MeshFactory\Enum\FactoryElement;
 
 require_once __DIR__ . '/Html5.php';
 
-class Section extends FactoryElementHtml5Abstract
+class Section extends Html5
 {
 	protected array $AllowedFactoryElements = [
 		FactoryElement::SECTION,
@@ -15,3 +15,4 @@ class Section extends FactoryElementHtml5Abstract
 
 	protected ?FactoryElement $FactoryElement = FactoryElement::SECTION;
 }
+

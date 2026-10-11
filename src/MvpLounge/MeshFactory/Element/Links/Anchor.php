@@ -10,7 +10,7 @@
 
 
 	
-	class AnchorFactory extends FactoryElementLinkAbstract {
+	class Anchor extends FactoryElementLinkAbstract {
 		
 		public function __construct($params = []) {
 			

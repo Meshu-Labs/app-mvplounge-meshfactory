@@ -6,7 +6,7 @@
 require_once __DIR__ . '/TableBody.php';
 
 	
-	class DataTableBodyFactory extends TableBodyFactory {
+	class DataTableBody extends TableBody {
 		
 		public function __construct($params = []) {
 			

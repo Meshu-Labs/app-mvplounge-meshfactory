@@ -1,11 +1,11 @@
-# MvpLounge MeshFactory
+﻿# MvpLounge MeshFactory
 
 This namespace builds HTML elements from PHP classes. Keep the structure simple and predictable.
 
 ## Documentation Architecture
 
 - Root README is the primary summary for platform understanding.
-- docs/meshfactory.md is the namespace summary.
+- docs/mesh-factory.md is the namespace summary.
 - docs/architecture/ is the detailed encyclopedia.
 
 For questions, proposals, and examples, run the Architecture Clarification workflow and save reports to docs/architecture/clarifications/.

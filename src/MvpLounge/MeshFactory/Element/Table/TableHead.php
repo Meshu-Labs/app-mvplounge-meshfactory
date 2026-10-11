@@ -3,7 +3,7 @@
 namespace MvpLounge\MeshFactory\Element\Table;
 
 
-use MvpLounge\MeshFactory\Element\Table\TableRowFactory;
+use MvpLounge\MeshFactory\Element\Table\TableRow;
 use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
 use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 
@@ -12,12 +12,12 @@ require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
 
 
-class TableHeadFactory extends FactoryElementTableAbstract
+class TableHead extends FactoryElementTableAbstract
 {
 
 	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_HEAD;
 	protected ?string $FactoryElementSystemClass = 'generic-thead';
-	protected ?TableRowFactory $FactoryElementTableHeaderRow = NULL;
+	protected ?TableRow $FactoryElementTableHeaderRow = NULL;
 
 	public function __construct($params = [])
 	{
@@ -33,10 +33,10 @@ class TableHeadFactory extends FactoryElementTableAbstract
 		return $this;
 	}
 
-	protected function getHeaderRow($params = NULL): ?TableRowFactory
+	protected function getHeaderRow($params = NULL): ?TableRow
 	{
-		if (!$this->FactoryElementTableHeaderRow or !($this->FactoryElementTableHeaderRow instanceof TableRowFactory)) {
-			$this->FactoryElementTableHeaderRow = new TableRowFactory($params);
+		if (!$this->FactoryElementTableHeaderRow or !($this->FactoryElementTableHeaderRow instanceof TableRow)) {
+			$this->FactoryElementTableHeaderRow = new TableRow($params);
 		}
 		return $this->FactoryElementTableHeaderRow;
 	}

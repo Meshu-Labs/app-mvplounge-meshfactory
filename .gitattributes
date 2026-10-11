@@ -4,6 +4,5 @@
 # Exclude agent and local workflow docs from archive artifacts.
 AGENTS.md export-ignore
 docs/ export-ignore
-src/MvpLounge/MeshFactory/AGENTS.md export-ignore
 .instructions.md export-ignore
 .vscode/ export-ignore

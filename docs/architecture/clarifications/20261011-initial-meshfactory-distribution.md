@@ -1,7 +1,7 @@
-# Architecture Clarification Report
+﻿# Architecture Clarification Report
 
 ## Input Summary
-Distribute docs/meshfactory.md into smaller architecture encyclopedia files while preserving consistent terminology and making README the primary summary layer.
+Distribute docs/mesh-factory.md into smaller architecture encyclopedia files while preserving consistent terminology and making README the primary summary layer.
 
 ## Architecture Fit Assessment
 - The request aligns with the existing layered documentation model.
@@ -18,15 +18,15 @@ Distribute docs/meshfactory.md into smaller architecture encyclopedia files whil
 
 ## Hybrid Recommendation
 - Style-preserving baseline:
-  Keep docs/meshfactory.md as concise namespace summary.
+  Keep docs/mesh-factory.md as concise namespace summary.
 - Experimental option:
   Move all summary content to README only.
 - Recommended hybrid path:
-  Keep README as primary platform summary, keep docs/meshfactory.md as namespace summary, and maintain docs/architecture/ as detailed encyclopedia.
+  Keep README as primary platform summary, keep docs/mesh-factory.md as namespace summary, and maintain docs/architecture/ as detailed encyclopedia.
 
 ## Terminology and Documentation Linkage
 - README.md terms used: primary summary, architecture clarification workflow, platform summary.
-- docs/meshfactory.md terms used: namespace summary, core concepts, architecture encyclopedia.
+- docs/mesh-factory.md terms used: namespace summary, core concepts, architecture encyclopedia.
 - docs/architecture pages linked: README, system-overview, attribute-model-and-deductions, family-responsibilities.
 - Required doc updates: AGENTS docs and task scaffolding were updated to enforce this structure.
 
@@ -38,5 +38,6 @@ Distribute docs/meshfactory.md into smaller architecture encyclopedia files whil
 
 ## Follow-up Documentation Updates
 - [x] README.md summary aligned
-- [x] docs/meshfactory.md summary aligned
+- [x] docs/mesh-factory.md summary aligned
 - [x] docs/architecture content updated
+

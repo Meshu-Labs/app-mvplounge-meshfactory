@@ -2,71 +2,10 @@
 
 namespace MvpLounge\MeshFactory\Element\Html5;
 
+use MvpLounge\MeshFactory\Abstract\FactoryElementHtml5Abstract;
 
-use MvpLounge\MeshFactory\Enum\FactoryElement;
-use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
-use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
+require_once __DIR__ . '/../../Abstract/FactoryElementHtml5Abstract.php';
 
-require_once __DIR__ . '/../../Abstract/FactoryElementAbstract.php';
-require_once __DIR__ . '/../../Enum/FactoryElement.php';
-require_once __DIR__ . '/../../Enum/FactoryElementAttribute.php';
-
-
-
-
-abstract class FactoryElementHtml5Abstract extends FactoryElementAbstract
+abstract class Html5 extends FactoryElementHtml5Abstract
 {
-
-	protected array $AllowedFactoryElements = [
-		FactoryElement::DIV,
-		FactoryElement::SPAN,
-		FactoryElement::LABEL,
-		FactoryElement::ASIDE,
-		FactoryElement::CONTENT,
-		FactoryElement::HEADER,
-		FactoryElement::FIGURE,
-		FactoryElement::MAIN,
-		FactoryElement::SECTION,
-		FactoryElement::ARTICLE,
-		FactoryElement::FOOTER,
-		FactoryElement::NAV
-	];
-	protected array $AllowedFactoryElementAttributes = [
-		FactoryElementAttribute::FOR
-	];
-	protected ?FactoryElement $FactoryElement = FactoryElement::DIV;
-	protected ?string $FactoryElementSystemClass = NULL;
-
-	public function __construct($params = [])
-	{
-		parent::__construct($params);
-	}
-
-	public function addElementClose(): void
-	{
-		if ($this->FactoryElement instanceof FactoryElement) {
-			$this->FactoryElementClose = $this->getElementFactoryClose($this->FactoryElement->value);
-		}
-	}
-
-	public function addElementOpen($params = []): void
-	{
-		if (count($params) > 0) {
-			$this->__process_params($params);
-		}
-		if ($this->FactoryElement instanceof FactoryElement) {
-			$this->FactoryElementOpen = $this->getElementFactoryOpen($this->FactoryElement->value, $this->getFactoryAttributePropertyCollection());
-		}
-	}
-
-	public function getFactoryAttributePropertyCollection(): array
-	{
-		return $this->getDefaultFactoryAttributePropertyCollection();
-	}
-
-	public function string(): ?string
-	{
-		return $this->getElementOpen() . $this->getElementContent() . $this->getElementClose();
-	}
-
 }

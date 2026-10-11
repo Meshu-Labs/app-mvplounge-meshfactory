@@ -3,15 +3,15 @@
 namespace MvpLounge\MeshFactory\Element\Table;
 
 
-use MvpLounge\MeshFactory\Element\Table\TableCellFactory;
+use MvpLounge\MeshFactory\Element\Table\TableCell;
 use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
-use MvpLounge\MeshFactory\Element\Table\TableHeaderFactory;
+use MvpLounge\MeshFactory\Element\Table\TableHeader;
 use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
 
 require_once __DIR__ . '/TableCell.php';
 require_once __DIR__ . '/TableHeader.php';
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
-class TableRowFactory extends FactoryElementTableAbstract
+class TableRow extends FactoryElementTableAbstract
 {
 
 	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_ROW;
@@ -25,7 +25,7 @@ class TableRowFactory extends FactoryElementTableAbstract
 
 	public function addCell($content, $id = NULL, $user = NULL, $data = NULL, $system = NULL)
 	{
-		$this->FactoryElementRowCells[] = new TableCellFactory([
+		$this->FactoryElementRowCells[] = new TableCell([
 			'content' => $content,
 			'id' => $id,
 			'user' => $user,
@@ -37,7 +37,7 @@ class TableRowFactory extends FactoryElementTableAbstract
 
 	public function addHeader($content, $id = NULL, $user = NULL, $data = NULL, $extended = [], $system = NULL)
 	{
-		$this->FactoryElementRowCells[] = new TableHeaderFactory([
+		$this->FactoryElementRowCells[] = new TableHeader([
 			'content' => $content,
 			'id' => $id,
 			'user' => $user,
