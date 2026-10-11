@@ -67,7 +67,7 @@ class TableRow extends FactoryElementTableAbstract
 			$_content['cells'][] = $RowCell->compile();
 		}
 
-		return array_merge(FactoryElementAbstract::getFactoryModel(), $_content);
+		return array_merge(parent::getFactoryModel(), $_content);
 	}
 
 }

@@ -7,6 +7,7 @@ use MvpLounge\MeshFactory\Element\Table\TableRow;
 use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
 use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 
+require_once __DIR__ . '/TableRow.php';
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
 
@@ -52,7 +53,7 @@ class TableHead extends FactoryElementTableAbstract
 	public function getFactoryModel(): array
 	{
 		return array_merge(
-			FactoryElementAbstract::getFactoryModel(),
+			parent::getFactoryModel(),
 			[
 				'headers' => $this->getHeaderRow()->compile()
 

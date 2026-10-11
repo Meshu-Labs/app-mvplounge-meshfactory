@@ -6,6 +6,7 @@
     ],
     "settings": {
         "php.executablePath": "C:/xampp_devops_test/php/php.exe",
+        "php.debug.executablePath": "C:/xampp_devops_test/php/php.exe",
         "composer.workingPath": "/src/MvpLounge/",
         "window.zoomLevel": 0.35,
         "files.autoSave": "afterDelay",

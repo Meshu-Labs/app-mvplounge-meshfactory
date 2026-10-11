@@ -8,6 +8,7 @@ use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
 use MvpLounge\MeshFactory\Abstract\FactoryElementFieldAbstract;
 
 
+require_once __DIR__ . '/../../Abstract/FactoryElementFieldAbstract.php';
 require_once __DIR__ . '/../../Enum/FactoryElementAttribute.php';
 require_once __DIR__ . '/../../Enum/FactoryElementPrimativeType.php';
 

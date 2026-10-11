@@ -8,7 +8,6 @@ use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
 
 
-require_once __DIR__ . '/FactoryElementFieldsetAbstract.php';
 require_once __DIR__ . '/FactoryElementAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
 require_once __DIR__ . '/../Enum/FactoryElementPrimativeType.php';
@@ -92,7 +91,9 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 
 	public function addFieldset($params): FactoryElementFieldAbstract
 	{
-
+		if (!class_exists(FactoryElementFieldsetAbstract::class, FALSE)) {
+			require_once __DIR__ . '/FactoryElementFieldsetAbstract.php';
+		}
 		$this->FactoryElementFieldFieldset = new FactoryElementFieldsetAbstract($params);
 		return $this;
 	}
@@ -308,6 +309,9 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 
 	public function getElementFieldset()
 	{
+		if (!class_exists(FactoryElementFieldsetAbstract::class, FALSE)) {
+			require_once __DIR__ . '/FactoryElementFieldsetAbstract.php';
+		}
 		if (!($this->FactoryElementFieldFieldset instanceof FactoryElementFieldsetAbstract)) {
 			$this->FactoryElementFieldFieldset = new FactoryElementFieldsetAbstract();
 		}

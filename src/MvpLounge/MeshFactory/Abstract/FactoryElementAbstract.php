@@ -7,6 +7,7 @@ use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
 
+require_once __DIR__ . '/FactoryAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
 

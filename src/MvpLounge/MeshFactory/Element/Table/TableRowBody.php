@@ -49,7 +49,7 @@ require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 				$_content['rows'][] = $TableRow->compile();
 			}
 			
-			return array_merge(FactoryElementAbstract::getFactoryModel(), $_content);
+			return array_merge(parent::getFactoryModel(), $_content);
 		}
 		
 	}
