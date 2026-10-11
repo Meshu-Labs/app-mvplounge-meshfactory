@@ -5,10 +5,8 @@ namespace MvpLounge\MeshFactory\Element\Html5;
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
 
-require_once __DIR__ . '/FactoryElementHtml5Abstract.php';
+require_once __DIR__ . '/Html5.php';
 require_once __DIR__ . '/../../Enum/FactoryElementAttribute.php';
 
 class Label extends FactoryElementHtml5Abstract
@@ -18,7 +16,7 @@ class Label extends FactoryElementHtml5Abstract
     ];
     protected ?string $FactoryElementHtmlFor = NULL;
 
-    protected FactoryElement $FactoryElement = FactoryElement::LABEL;
+    protected ?FactoryElement $FactoryElement = FactoryElement::LABEL;
 
     protected function __process_for($params): void
     {

@@ -4,18 +4,17 @@ namespace MvpLounge\MeshFactory\Element\Table;
 
 
 use MvpLounge\MeshFactory\Element\Table\TableCellFactory;
-use MvpLounge\MeshFactory\Element\Table\FactoryElementTableAbstract;
+use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 use MvpLounge\MeshFactory\Element\Table\TableHeaderFactory;
+use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 require_once __DIR__ . '/TableCell.php';
 require_once __DIR__ . '/TableHeader.php';
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 class TableRowFactory extends FactoryElementTableAbstract
 {
 
-	protected \MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_ROW;
+	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_ROW;
 	protected ?string $FactoryElementSystemClass = 'generic-tr';
 	protected ?array $FactoryElementRowCells = [];
 

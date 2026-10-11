@@ -5,10 +5,9 @@ namespace MvpLounge\MeshFactory\Element\Field;
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
+use MvpLounge\MeshFactory\Abstract\FactoryElementFieldAbstract;
 
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 require_once __DIR__ . '/../../Enum/FactoryElementAttribute.php';
 require_once __DIR__ . '/../../Enum/FactoryElementPrimativeType.php';
 
@@ -17,7 +16,7 @@ require_once __DIR__ . '/../../Enum/FactoryElementPrimativeType.php';
 
 class SelectOptions extends FactoryElementFieldAbstract
 {
-	protected FactoryElement $FactoryElement = FactoryElement::OPTION;
+	protected ?FactoryElement $FactoryElement = FactoryElement::OPTION;
 	protected ?FactoryElementPrimativeType $FactoryElementFieldValueType = FactoryElementPrimativeType::INT;
 	protected ?object $FactoryElementFieldFieldset = NULL;
 	protected ?bool $FactoryElementFieldSelected = FALSE;

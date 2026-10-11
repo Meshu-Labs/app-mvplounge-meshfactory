@@ -7,8 +7,6 @@ use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 require_once __DIR__ . '/../../Abstract/FactoryElementAbstract.php';
 require_once __DIR__ . '/../../Enum/FactoryElement.php';
 require_once __DIR__ . '/../../Enum/FactoryElementAttribute.php';
@@ -36,7 +34,7 @@ abstract class FactoryElementHtml5Abstract extends FactoryElementAbstract
 	protected array $AllowedFactoryElementAttributes = [
 		FactoryElementAttribute::FOR
 	];
-	protected FactoryElement $FactoryElement = FactoryElement::DIV;
+	protected ?FactoryElement $FactoryElement = FactoryElement::DIV;
 	protected ?string $FactoryElementSystemClass = NULL;
 
 	public function __construct($params = [])

@@ -5,9 +5,8 @@ namespace MvpLounge\MeshFactory\Element\Table;
 
 use MvpLounge\MeshFactory\Element\Table\TableRowFactory;
 use MvpLounge\MeshFactory\Abstract\FactoryElementAbstract;
+use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 
 
@@ -16,7 +15,7 @@ require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 class TableHeadFactory extends FactoryElementTableAbstract
 {
 
-	protected \MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_HEAD;
+	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::TABLE_HEAD;
 	protected ?string $FactoryElementSystemClass = 'generic-thead';
 	protected ?TableRowFactory $FactoryElementTableHeaderRow = NULL;
 

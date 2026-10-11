@@ -4,9 +4,8 @@
 	
 	use MvpLounge\MeshFactory\Enum\FactoryElement;
 	use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+	use MvpLounge\MeshFactory\Abstract\FactoryElementFormAbstract;
 	
-	if(!defined('BASEPATH'))
-		exit('No direct script access allowed');
 require_once __DIR__ . '/../../Abstract/FactoryElementFormAbstract.php';
 	class PostForm extends FactoryElementFormAbstract {
 		protected array $AllowedFactoryElements = [

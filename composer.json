@@ -10,9 +10,12 @@
         "html"
     ],
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.1"
     },
     "autoload": {
+        "psr-4": {
+            "MvpLounge\\MeshFactory\\": "src/MvpLounge/MeshFactory/"
+        },
         "classmap": [
             "src/MvpLounge/MeshFactory/"
         ]

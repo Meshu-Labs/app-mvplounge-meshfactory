@@ -3,8 +3,6 @@
 	namespace MvpLounge\MeshFactory\Element\Table;
 	
 	
-	if(!defined('BASEPATH'))
-		exit('No direct script access allowed');
 require_once __DIR__ . '/TableBody.php';
 
 	

@@ -4,11 +4,9 @@ namespace MvpLounge\MeshFactory\Abstract;
 
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
-require_once __DIR__ . '/../../Constants.php';
+require_once __DIR__ . '/../Constants.php';
 
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 
 abstract class FactoryAbstract
 {

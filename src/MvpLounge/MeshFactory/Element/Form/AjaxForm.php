@@ -7,8 +7,6 @@
 	use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 	use MvpLounge\MeshFactory\Element\Field\FormButton;
 	
-	if(!defined('BASEPATH'))
-		exit('No direct script access allowed');
 	require_once __DIR__ . '/../Form/PostForm.php';
 
 

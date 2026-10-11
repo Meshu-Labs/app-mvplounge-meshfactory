@@ -6,8 +6,6 @@ namespace MvpLounge\MeshFactory\Abstract;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 
-if (!defined('BASEPATH'))
-	exit('No direct script access allowed');
 
 require_once __DIR__ . '/FactoryElementAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';

@@ -5,8 +5,6 @@ namespace MvpLounge\MeshFactory\Abstract;
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
-if(!defined('BASEPATH'))
-	exit('No direct script access allowed');
 require_once __DIR__ . '/FactoryElementFieldAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
 
@@ -19,7 +17,7 @@ class FactoryElementFieldsetAbstract extends FactoryElementFieldAbstract {
 		FactoryElementAttribute::NAME,
 		FactoryElementAttribute::ACCESS,
 	];
-	protected FactoryElement $FactoryElement = FactoryElement::FIELDSET;
+	protected ?FactoryElement $FactoryElement = FactoryElement::FIELDSET;
 	protected ?string $FactoryElementSystemClass = 'generic-fieldset';
 	
 	public function __construct($params = []) {
