@@ -2,6 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Element\Field;
 
+
+require_once __DIR__ . '/../../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElementFieldType;
 use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
@@ -36,16 +43,15 @@ class RadioInput extends FactoryElementFieldInputAbstract
 		}
 	}
 
-	public function addChecked($checked): RadioInput
+	public function addChecked($checked): static
 	{
 		$this->FactoryElementFieldChecked = (bool) $checked;
 		return $this;
 	}
 
-	public function addCheckedElements($params): RadioInput
+	public function addCheckedElements($params): static
 	{
-
-		if (count($params) > 0) {
+		if (is_array($params)) {
 			foreach ($params as $_radios) {
 				$this->FactoryElementFieldCollection[] = new RadioInput($_radios);
 			}

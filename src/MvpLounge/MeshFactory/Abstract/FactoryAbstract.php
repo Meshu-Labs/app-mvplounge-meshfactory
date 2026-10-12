@@ -2,10 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Abstract;
 
-use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
-
 require_once __DIR__ . '/../Constants.php';
 
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
+use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
 
 abstract class FactoryAbstract
@@ -160,85 +163,85 @@ abstract class FactoryAbstract
 		$this->FactoryElementAttributeMap[$_attribute_property_check] = strtolower((string) $attribute->value);
 	}
 
-	public function addId($id): FactoryAbstract
+	public function addId($id): static
 	{
 		$this->FactoryId = $id;
 		return $this;
 	}
 
-	public function addClass($class): FactoryAbstract
+	public function addClass($class): static
 	{
 		$this->FactoryClass = $class;
 		return $this;
 	}
 
-	public function addTitle($title): FactoryAbstract
+	public function addTitle($title): static
 	{
 		$this->FactoryTitle = $title;
 		return $this;
 	}
 
-	public function addStyle($style): FactoryAbstract
+	public function addStyle($style): static
 	{
 		$this->FactoryStyle = $style;
 		return $this;
 	}
-	public function addLang($lang): FactoryAbstract
+	public function addLang($lang): static
 	{
 		$this->FactoryLang = $lang;
 		return $this;
 	}
-	public function addDir($dir): FactoryAbstract
+	public function addDir($dir): static
 	{
 		$this->FactoryDir = $dir;
 		return $this;
 	}
-	public function addHidden($hidden): FactoryAbstract
+	public function addHidden($hidden): static
 	{
 		$this->FactoryHidden = $hidden;
 		return $this;
 	}
-	public function addTabindex($tabindex): FactoryAbstract
+	public function addTabindex($tabindex): static
 	{
 		$this->FactoryTabindex = $tabindex;
 		return $this;
 	}
-	public function addDraggable($draggable): FactoryAbstract
+	public function addDraggable($draggable): static
 	{
 		$this->FactoryDraggable = $draggable;
 		return $this;
 	}
-	public function addContenteditable($contenteditable): FactoryAbstract
+	public function addContenteditable($contenteditable): static
 	{
 		$this->FactoryContenteditable = $contenteditable;
 		return $this;
 	}
-	public function addSpellcheck($spellcheck): FactoryAbstract
+	public function addSpellcheck($spellcheck): static
 	{
 		$this->FactorySpellcheck = $spellcheck;
 		return $this;
 	}
-	public function addTranslate($translate): FactoryAbstract
+	public function addTranslate($translate): static
 	{
 		$this->FactoryTranslate = $translate;
 		return $this;
 	}
-	public function addRole($role): FactoryAbstract
+	public function addRole($role): static
 	{
 		$this->FactoryRole = $role;
 		return $this;
 	}
-	public function addAriaLabel($label): FactoryAbstract
+	public function addAriaLabel($label): static
 	{
 		$this->FactoryAriaLabel = $label;
 		return $this;
 	}
-	public function addAriaLabelledby($labelledby): FactoryAbstract
+	public function addAriaLabelledby($labelledby): static
 	{
 		$this->FactoryAriaLabelledby = $labelledby;
 		return $this;
 	}
-	public function addAriaDescribedby($describedby): FactoryAbstract
+	public function addAriaDescribedby($describedby): static
 	{
 		$this->FactoryAriaDescribedby = $describedby;
 		return $this;
@@ -251,7 +254,7 @@ abstract class FactoryAbstract
 	{
 		return [];
 	}
-	public function configureFactory($params = []): FactoryAbstract
+	public function configureFactory($params = []): static
 	{
 		$this->__process_params($params);
 		return $this;
@@ -264,22 +267,57 @@ abstract class FactoryAbstract
 
 	public function getFactoryClasses(): string
 	{
-		if ($this->FactoryElementSystemClass != NULL) {
-			$this->addClass($this->FactoryElementSystemClass);
+		$_classes = [];
+
+		if (is_string($this->FactoryClass) && trim($this->FactoryClass) !== '') {
+			$_classes = array_merge($_classes, preg_split('/\s+/', trim($this->FactoryClass)) ?: []);
 		}
 
-		return is_array($this->FactoryElementUserClass) ? implode(' ', $this->FactoryElementUserClass) : '';
+		if (is_array($this->FactoryElementUserClass)) {
+			foreach ($this->FactoryElementUserClass as $_class) {
+				if (is_string($_class) && trim($_class) !== '') {
+					$_classes = array_merge($_classes, preg_split('/\s+/', trim($_class)) ?: []);
+				}
+			}
+		} elseif (is_string($this->FactoryElementUserClass) && trim($this->FactoryElementUserClass) !== '') {
+			$_classes = array_merge($_classes, preg_split('/\s+/', trim($this->FactoryElementUserClass)) ?: []);
+		}
+
+		if (is_string($this->FactoryElementSystemClass) && trim($this->FactoryElementSystemClass) !== '') {
+			$_classes = array_merge($_classes, preg_split('/\s+/', trim($this->FactoryElementSystemClass)) ?: []);
+		}
+
+		$_classes = array_values(array_unique(array_filter($_classes, static function ($value) {
+			return is_string($value) && trim($value) !== '';
+		})));
+
+		return implode(' ', $_classes);
 	}
 
 	public function getDefaultFactoryAttributePropertyCollection(): array
 	{
 		return [
 			'id' => $this->getFactoryId(),
+			'name' => $this->getFactoryName(),
+			'class' => $this->getFactoryClasses(),
+			'title' => $this->FactoryTitle,
+			'style' => $this->FactoryStyle,
+			'lang' => $this->FactoryLang,
+			'dir' => $this->FactoryDir,
+			'hidden' => $this->FactoryHidden,
+			'tabindex' => $this->FactoryTabindex,
+			'draggable' => $this->FactoryDraggable,
+			'contenteditable' => $this->FactoryContenteditable,
+			'spellcheck' => $this->FactorySpellcheck,
+			'translate' => $this->FactoryTranslate,
+			'role' => $this->FactoryRole,
+			'aria-label' => $this->FactoryAriaLabel,
+			'aria-labelledby' => $this->FactoryAriaLabelledby,
+			'aria-describedby' => $this->FactoryAriaDescribedby,
 			'configuration' => $this->getFactoryConfiguration(),
 			'user' => $this->getFactoryUserClass(),
 			'system' => $this->getFactorySystemClass(),
 			'data' => $this->getFactoryDataParams(),
-			'lang' => $this->getFactoryLang(),
 			'ext' => $this->getFactoryExtendedProperties()
 		];
 	}
@@ -338,3 +376,4 @@ abstract class FactoryAbstract
 		return NULL;
 	}
 }
+

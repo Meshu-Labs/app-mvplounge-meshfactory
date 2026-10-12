@@ -3,6 +3,13 @@
 namespace MvpLounge\MeshFactory\Abstract;
 
 
+
+require_once __DIR__ . '/../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
@@ -13,6 +20,13 @@ require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
 require_once __DIR__ . '/../Enum/FactoryElementPrimativeType.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';
 
+/**
+ * Form control support spanning input, select, option, textarea, and fieldset families.
+ *
+ * MDN element references:
+ * https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input
+ * https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea
+ */
 abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 {
 
@@ -37,6 +51,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 
 	protected ?FactoryElement $FactoryElement = NULL;
 	protected ?FactoryElementPrimativeType $FactoryElementFieldValueType = FactoryElementPrimativeType::STRING;
+	/** Internal enabled or disabled state rendered from the legacy access flag. */
 	protected ?bool $FactoryElementFieldAccess = NULL;
 	protected ?string $FactoryElementFieldAct = NULL;
 	protected ?bool $FactoryElementFieldBooleanValue = NULL;
@@ -61,7 +76,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addAccess($access): FactoryElementFieldAbstract
+	public function addAccess($access): static
 	{
 		$this->FactoryElementFieldAccess = $access;
 		return $this;
@@ -75,7 +90,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addAct($act): FactoryElementFieldAbstract
+	public function addAct($act): static
 	{
 		$this->FactoryElementFieldAct = $act;
 		return $this;
@@ -89,12 +104,12 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addFieldset($params): FactoryElementFieldAbstract
+	public function addFieldset($params): static
 	{
 		if (!class_exists(FactoryElementFieldsetAbstract::class, FALSE)) {
 			require_once __DIR__ . '/FactoryElementFieldsetAbstract.php';
 		}
-		$this->FactoryElementFieldFieldset = new FactoryElementFieldsetAbstract($params);
+		$this->FactoryElementFieldFieldset = (new FactoryElementFieldsetAbstract())->configureFactory($params);
 		return $this;
 	}
 
@@ -106,7 +121,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addLabel($label): FactoryElementFieldAbstract
+	public function addLabel($label): static
 	{
 		$this->FactoryElementFieldLabel = $label;
 		return $this;
@@ -120,7 +135,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addLength($length): FactoryElementFieldAbstract
+	public function addLength($length): static
 	{
 		$this->FactoryElementFieldLength = $length;
 		return $this;
@@ -138,7 +153,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addValueType($valueType): FactoryElementFieldAbstract
+	public function addValueType($valueType): static
 	{
 		if ($valueType instanceof FactoryElementPrimativeType) {
 			$this->FactoryElementFieldValueType = $valueType;
@@ -155,7 +170,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		return $this;
 	}
 
-	public function addValue($value): FactoryElementFieldAbstract
+	public function addValue($value): static
 	{
 		$_value_type = $this->FactoryElementFieldValueType?->value ?? FactoryElementPrimativeType::STRING->value;
 		$_field_prop = sprintf('FactoryElementField%sValue', ucfirst($_value_type));
@@ -214,8 +229,8 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		$_model = $this->getElementFactoryDefaultPropertiesFromParams($params);
 
 		foreach ($this->FactoryElementAttributeMap as $_attribute => $_attribute_value) {
-			if (array_key_exists($_attribute, $params)) {
-				$_model[$_attribute_value] = $this->getElementFactoryProperty($_attribute, $params[$_attribute_value]);
+			if (array_key_exists($_attribute_value, $params)) {
+				$_model[$_attribute_value] = $this->getElementFactoryProperty($_attribute_value, $params[$_attribute_value]);
 			}
 		}
 
@@ -332,3 +347,4 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 	}
 
 }
+

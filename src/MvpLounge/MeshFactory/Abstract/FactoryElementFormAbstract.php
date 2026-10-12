@@ -3,6 +3,13 @@
 namespace MvpLounge\MeshFactory\Abstract;
 
 
+
+require_once __DIR__ . '/../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Element\Field\FormButton;
@@ -16,6 +23,12 @@ require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
 
 
 
+/**
+ * Form element support for submission and autofill attributes.
+ *
+ * MDN element reference:
+ * https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form
+ */
 abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 {
 
@@ -32,15 +45,21 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 	];
 
 	protected ?FactoryElement $FactoryElement = FactoryElement::FORM;
+	/** @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#action */
 	protected ?string $FactoryElementFormAction = NULL;
 	protected ?string $FactoryElementFormActivity = NULL;
+	/** @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#autocomplete */
 	protected string $FactoryElementFormAuto = 'off';
 	protected ?array $FactoryElementFormButtons = [];
+	/** @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#enctype */
 	protected ?string $FactoryElementFormEnc = NULL;
 	protected ?array $FactoryElementFormHiddenVars = [];
+	/** @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#method */
 	protected string $FactoryElementFormMethod = 'post';
+	/** @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#novalidate */
 	protected ?string $FactoryElementFormNoValidate = NULL;
 	protected ?array $FactoryElementFormSectionFields = [];
+	/** @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#target */
 	protected ?string $FactoryElementFormTarget = NULL;
 	protected ?array $FactoryElementUserClass = ['generic-form'];
 
@@ -57,11 +76,9 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addAction($action): FactoryElementFormAbstract
+	public function addAction($action): static
 	{
-
-		$this->FactoryElementFormAction = strtolower($action);
-
+		$this->FactoryElementFormAction = is_null($action) ? NULL : (string) $action;
 		return $this;
 	}
 
@@ -79,21 +96,18 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addEnc($enc): FactoryElementFormAbstract
+	public function addEnc($enc): static
 	{
-
-		$this->FactoryElementFormEnc = strtolower($enc);
-
+		$this->FactoryElementFormEnc = is_null($enc) ? NULL : (string) $enc;
 		return $this;
 	}
 
-	public function addAutoComplete($autoComplete): FactoryElementFormAbstract
+	public function addAutoComplete($autoComplete): static
 	{
 		if (is_null($autoComplete)) {
 			$this->FactoryElementFormAuto = 'off';
 			return $this;
 		}
-
 		$_auto_complete = strtolower(trim((string) $autoComplete));
 		$this->FactoryElementFormAuto = $_auto_complete === 'on' ? 'on' : 'off';
 		return $this;
@@ -107,15 +121,12 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addMethod($method): FactoryElementFormAbstract
+	public function addMethod($method): static
 	{
-
-		if (
-			in_array(strtolower($method), [
-				'post',
-				'get'
-			])
-		) {
+		if (is_string($method) && in_array(strtolower($method), [
+			'post',
+			'get'
+		], TRUE)) {
 			$this->FactoryElementFormMethod = strtolower($method);
 		}
 		return $this;
@@ -129,11 +140,10 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addNoValidate($novalid): FactoryElementFormAbstract
+	public function addNoValidate($novalid): static
 	{
-
-		if (is_string($novalid)) {
-			$this->FactoryElementFormNoValidate = $novalid;
+		if (!is_null($novalid) && $novalid !== '') {
+			$this->FactoryElementFormNoValidate = (string) $novalid;
 		}
 
 		return $this;
@@ -147,37 +157,31 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		}
 	}
 
-	public function addTarget($target): FactoryElementFormAbstract
+	public function addTarget($target): static
 	{
-
-		if (
-			in_array(strtolower($target), [
-				'_self',
-				'_blank'
-			])
-		) {
+		if (is_string($target) && in_array(strtolower($target), [
+			'_self',
+			'_blank'
+		], TRUE)) {
 			$this->FactoryElementFormTarget = strtolower($target);
 		}
 		return $this;
 	}
 
-	public function addActivity($action): FactoryElementFormAbstract
+	public function addActivity($action): static
 	{
-
-		$this->FactoryElementFormActivity = strtolower($action);
-
+		$this->FactoryElementFormActivity = is_null($action) ? NULL : (string) $action;
 		return $this;
 	}
 
-	public function addFormResetButton($value = '', $id = NULL, $user = NULL, $data = NULL, $fieldset = [], $system = NULL): FactoryElementFormAbstract
+	public function addFormResetButton($value = '', $id = NULL, $user = NULL, $data = NULL, $fieldset = [], $system = NULL): static
 	{
 		return $this->addFormButton($value, 'reset', $id, $user, $data, $fieldset, $system);
 	}
 
-	public function addFormButton($value = '', $type = 'button', $id = NULL, $user = NULL, $data = NULL, $fieldset = [], $system = NULL): FactoryElementFormAbstract
+	public function addFormButton($value = '', $type = 'button', $id = NULL, $user = NULL, $data = NULL, $fieldset = [], $system = NULL): static
 	{
-
-		$this->FactoryElementFormButtons[$type] = new FormButton([
+		$this->FactoryElementFormButtons[(string) $type] = new FormButton([
 			'value' => $value,
 			'id' => $id,
 			'user' => $user,
@@ -189,10 +193,9 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		return $this;
 	}
 
-	public function addFormSectionFields($section = 'main', $namesrace = NULL, $field = NULL): FactoryElementFormAbstract
+	public function addFormSectionFields($section = 'main', $namesrace = NULL, $field = NULL): static
 	{
 		$_section = strtolower($section);
-
 		if (!isset($this->FactoryElementFormSectionFields[$_section])) {
 			$this->FactoryElementFormSectionFields[$_section] = [];
 		}
@@ -204,14 +207,13 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		return $this;
 	}
 
-	public function addFormSubmitButton($value = '', $id = NULL, $user = NULL, $data = NULL, $fieldset = [], $system = NULL): FactoryElementFormAbstract
+	public function addFormSubmitButton($value = '', $id = NULL, $user = NULL, $data = NULL, $fieldset = [], $system = NULL): static
 	{
 		return $this->addFormButton($value, 'submit', $id, $user, $data, $fieldset, $system);
 	}
 
-	public function addHiddenPostField($params): FactoryElementFormAbstract
+	public function addHiddenPostField($params): static
 	{
-
 		if (is_array($params)) {
 			$this->FactoryElementFormHiddenVars[] = new HiddenInput($params);
 		}
@@ -580,3 +582,4 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 	}
 
 }
+

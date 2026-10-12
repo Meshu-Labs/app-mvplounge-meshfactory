@@ -2,6 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Abstract;
 
+
+require_once __DIR__ . '/../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElementFieldType;
 use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
@@ -11,6 +18,12 @@ require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
 require_once __DIR__ . '/../Enum/FactoryElementFieldType.php';
 require_once __DIR__ . '/../Enum/FactoryElementPrimativeType.php';
 
+/**
+ * Single-control input support.
+ *
+ * MDN element reference:
+ * https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input
+ */
 abstract class FactoryElementFieldInputAbstract extends FactoryElementFieldAbstract {
 	
 	protected array $AllowedFactoryElementAttributes = [
@@ -34,7 +47,7 @@ abstract class FactoryElementFieldInputAbstract extends FactoryElementFieldAbstr
 		}
 	}
 	
-	public function addType($type) : FactoryElementFieldInputAbstract {
+	public function addType($type) : static {
 		if ($type instanceof FactoryElementFieldType) {
 			$this->FactoryElementFieldType = $type;
 			return $this;
@@ -93,3 +106,4 @@ abstract class FactoryElementFieldInputAbstract extends FactoryElementFieldAbstr
 		return $this->FactoryElementFieldType?->value;
 	}
 }
+

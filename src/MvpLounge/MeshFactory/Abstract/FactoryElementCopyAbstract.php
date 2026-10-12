@@ -2,6 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Abstract;
 
+
+require_once __DIR__ . '/../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
@@ -46,13 +53,13 @@ class FactoryElementCopyAbstract extends FactoryElementAbstract {
 		}
 	}
 
-	public function addAlt($alt): FactoryElementCopyAbstract
+	public function addAlt($alt): static
 	{
 		$this->FactoryElementCopyAlt = is_null($alt) ? NULL : (string) $alt;
 		return $this;
 	}
 
-	public function addSrc($src): FactoryElementCopyAbstract
+	public function addSrc($src): static
 	{
 		$this->FactoryElementCopySrc = is_null($src) ? NULL : (string) $src;
 		return $this;
@@ -81,3 +88,4 @@ class FactoryElementCopyAbstract extends FactoryElementAbstract {
 		return in_array(FactoryElementAttribute::SRC->value, $allowed, TRUE) ? $this->FactoryElementCopySrc : NULL;
 	}
 }
+

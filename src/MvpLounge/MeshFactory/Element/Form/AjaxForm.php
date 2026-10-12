@@ -3,7 +3,14 @@
 	namespace MvpLounge\MeshFactory\Element\Form;
 	
 	
-	use MvpLounge\MeshFactory\Enum\FactoryElement;
+	
+require_once __DIR__ . '/../../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
+use MvpLounge\MeshFactory\Enum\FactoryElement;
 	use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 	use MvpLounge\MeshFactory\Element\Field\FormButton;
 	
@@ -12,6 +19,11 @@
 
 
 	
+	/**
+	 * Button-driven form variation for Ajax submission flows.
+	 *
+	 * MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form
+	 */
 	class AjaxForm extends PostForm {
 		protected array $AllowedFactoryElements = [
 			FactoryElement::FORM,
@@ -54,3 +66,4 @@
 		}
 		
 	}
+

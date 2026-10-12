@@ -2,6 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Element\Field;
 
+
+require_once __DIR__ . '/../../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
@@ -83,6 +90,13 @@ class SelectOptions extends FactoryElementFieldAbstract
 		return $this->FactoryElementFieldSelected;
 	}
 
+	protected function __process_selected($params): void
+	{
+		if (isset($params['selected'])) {
+			$this->addSelected($params['selected']);
+		}
+	}
+
 	public function string(): ?string
 	{
 		return $this->getElementOpen()
@@ -90,22 +104,23 @@ class SelectOptions extends FactoryElementFieldAbstract
 			. $this->getElementClose();
 	}
 
-	public function not_selected(): SelectOptions
+	public function not_selected(): static
 	{
 		$this->addSelected(FALSE);
 		return $this;
 	}
 
-	public function selected(): SelectOptions
+	public function selected(): static
 	{
 		$this->addSelected(TRUE);
 		return $this;
 	}
 
-	public function addSelected($selected): SelectOptions
+	public function addSelected($selected): static
 	{
 		$this->FactoryElementFieldSelected = (bool) $selected;
 		return $this;
 	}
 
 }
+

@@ -36,7 +36,8 @@
             ".instructions.md",
             "/AGENTS.md",
             "/docs/",
-            "/sandbox/"
+            "/sandbox/",
+            "/src/MvpLounge/Sandbox/"
         ]
     },
     "archive": {
@@ -44,6 +45,7 @@
             "/.github",
             "/docs",
             "/sandbox",
+            "/src/MvpLounge/Sandbox",
             "/AGENTS.md",
             "/.instructions.md",
             "/.vscode",

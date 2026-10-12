@@ -3,6 +3,13 @@
 namespace MvpLounge\MeshFactory\Element\Table;
 
 
+
+require_once __DIR__ . '/../../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Element\Table\TableCell;
 use MvpLounge\MeshFactory\Abstract\FactoryElementTableAbstract;
 use MvpLounge\MeshFactory\Element\Table\TableHeader;
@@ -71,3 +78,4 @@ class TableRow extends FactoryElementTableAbstract
 	}
 
 }
+

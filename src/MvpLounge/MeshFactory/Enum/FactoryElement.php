@@ -2,6 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Enum;
 
+
+require_once __DIR__ . '/../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 enum FactoryElement: string
 {
 	case P = 'p';
@@ -12,6 +19,7 @@ enum FactoryElement: string
 	case H5 = 'h5';
 	case H6 = 'h6';
 	case HL = 'hl';
+	case HGROUP = 'hgroup';
 	case IMG = 'img';
 	case FIELDSET = 'fieldset';
 	case INPUT = 'input';
@@ -25,6 +33,7 @@ enum FactoryElement: string
 	case LABEL = 'label';
 	case ASIDE = 'aside';
 	case CONTENT = 'content';
+	case SLOT = 'slot';
 	case HEADER = 'header';
 	case FIGURE = 'figure';
 	case MAIN = 'main';
@@ -40,3 +49,4 @@ enum FactoryElement: string
 	case TABLE_FOOT = 'tfoot';
 	case TABLE_BODY = 'tbody';
 }
+

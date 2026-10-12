@@ -2,6 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Abstract;
 
+
+require_once __DIR__ . '/../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
@@ -11,6 +18,12 @@ require_once __DIR__ . '/../Element/Field/FormButton.php';
 require_once __DIR__ . '/../Element/Field/HiddenInput.php';
 require_once __DIR__ . '/FactoryElementFieldAbstract.php';
 
+/**
+ * HTML5 semantic container support.
+ *
+ * MDN element reference:
+ * https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
+ */
 abstract class FactoryElementHtml5Abstract extends FactoryElementAbstract
 {
 
@@ -67,3 +80,4 @@ abstract class FactoryElementHtml5Abstract extends FactoryElementAbstract
 	}
 
 }
+

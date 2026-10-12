@@ -2,6 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Element\Html5;
 
+
+require_once __DIR__ . '/../../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 
 
@@ -15,4 +22,5 @@ class Span extends Html5
 
     protected ?FactoryElement $FactoryElement = FactoryElement::SPAN;
 }
+
 

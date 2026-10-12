@@ -2,6 +2,13 @@
 
 namespace MvpLounge\MeshFactory\Abstract;
 
+
+require_once __DIR__ . '/../Constants.php';
+
+if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
+    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+}
+
 use MvpLounge\MeshFactory\Abstract\FactoryAbstract;
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
@@ -50,6 +57,10 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 	public function __construct($params = [])
 	{
 		parent::__construct($params);
+
+		if (is_countable($params) && array_key_exists('content', $params)) {
+			$this->__process_content($params);
+		}
 	}
 
 	protected function registerAllowedFactoryElementAttributeMap(): void
@@ -77,7 +88,7 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 		}
 	}
 
-	public function addContent($content, $overwrite = FALSE): FactoryElementAbstract
+	public function addContent($content, $overwrite = FALSE): static
 	{
 		if ($overwrite) {
 			$this->FactoryElementContent = $content;
@@ -89,7 +100,6 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 				return is_string($value) && trim($value) !== '';
 			})));
 		}
-
 		return $this;
 	}
 
@@ -110,7 +120,7 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 
 	}
 
-	public function addElement($element): FactoryElementAbstract
+	public function addElement($element): static
 	{
 		if ($element instanceof FactoryElement) {
 			$this->FactoryElement = $element;
@@ -137,7 +147,7 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 		}
 	}
 
-	public function addId($id): FactoryElementAbstract
+	public function addId($id): static
 	{
 		$this->FactoryId = $id;
 		return $this;
@@ -150,7 +160,7 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 		}
 	}
 
-	public function addName($name): FactoryElementAbstract
+	public function addName($name): static
 	{
 		$this->FactoryName = $name;
 		$this->FactoryElementName = $name;
@@ -173,9 +183,8 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 		}
 	}
 
-	public function addClass($class): FactoryElementAbstract
+	public function addClass($class): static
 	{
-
 		if (is_array($class)) {
 			foreach ($class as $_class) {
 				if (!$this->hasClass($_class)) {
@@ -205,9 +214,8 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 		}
 	}
 
-	public function addData($data = []): FactoryElementAbstract
+	public function addData($data = []): static
 	{
-
 		foreach ($data as $_data => $_data_var) {
 
 			if (!is_string($_data)) {
@@ -380,7 +388,7 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 
 		$_model = $this->getElementFactoryDefaultPropertiesFromParams($params);
 
-		foreach ($this->getAllowedFactoryElementAttributes() as $_attribute) {
+		foreach ($this->getFactoryElementAttributeValues() as $_attribute) {
 			if (array_key_exists($_attribute, $params)) {
 				$_model[$_attribute] = $this->getElementFactoryProperty($_attribute, $params[$_attribute]);
 			}
@@ -521,3 +529,4 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 	}
 
 }
+

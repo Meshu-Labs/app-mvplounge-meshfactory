@@ -30,6 +30,26 @@ Use VS Code tasks from `.vscode/tasks.json`:
 - `Quality Check: Links Domain`
 - `Quality Check: All Domains`
 
+## Sandbox Test-Type Standard
+
+Library sandbox suites are organized under `src/MvpLounge/Sandbox/{Library}/`.
+
+For MeshFactory, sandbox tests are split by test type under each domain folder in `src/MvpLounge/Sandbox/MeshFactory/`:
+
+- `Generic/`
+- `Factory/`
+- `Params/`
+
+Each domain should provide scripts per type using structured try/catch output.
+
+The test-type scripts are written as standalone, explicit examples with local assertions only, so downstream consumers can copy real-world usage patterns directly.
+
+Run the MeshFactory sandbox suite through the library runner:
+
+```powershell
+& "C:/xampp_devops_test/php/php.exe" "c:/_src/app-mvplounge-meshfactory/src/MvpLounge/Sandbox/MeshFactory/run-all.php"
+```
+
 ## Bulk No-BOM Rewrite Procedure
 
 ```powershell
