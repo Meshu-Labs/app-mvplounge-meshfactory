@@ -1,0 +1,100 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'New stable release tag (for example v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: main-publishing
+  cancel-in-progress: false
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            if (context.ref !== 'refs/heads/main') {
+              core.setFailed('Publishing is allowed only from main.');
+            }
+            if (context.eventName === 'workflow_dispatch') {
+              if (!['mcs-labs-dk', 'meshucs'].includes(context.actor)) {
+                core.setFailed('Only approved release accounts may create releases.');
+              }
+              if (!/^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(context.payload.inputs.release_tag)) {
+                core.setFailed('A stable semantic version tag is required.');
+              }
+            }
+
+  release:
+    if: github.event_name == 'workflow_dispatch'
+    needs: authorize
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const tag = context.payload.inputs.release_tag;
+            try {
+              await github.rest.git.getRef({...context.repo, ref: `tags/${tag}`});
+              throw new Error('Release tags must be new; existing tags cannot be reused.');
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            await github.rest.git.createRef({
+              ...context.repo, ref: `refs/tags/${tag}`, sha: context.sha
+            });
+            await github.rest.repos.createRelease({
+              ...context.repo,
+              tag_name: tag,
+              name: tag,
+              generate_release_notes: true
+            });
+
+  packagist:
+    if: always() && needs.authorize.result == 'success' && (needs.release.result == 'success' || needs.release.result == 'skipped')
+    needs: [authorize, release]
+    runs-on: ubuntu-latest
+    environment: packagist
+    steps:
+      - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        env:
+          PACKAGIST_USERNAME: ${{ secrets.PACKAGIST_USERNAME }}
+          PACKAGIST_API_TOKEN: ${{ secrets.PACKAGIST_API_TOKEN }}
+        with:
+          script: |
+            const {PACKAGIST_USERNAME: username, PACKAGIST_API_TOKEN: token} = process.env;
+            if (!username || !token) {
+              core.setFailed('Configure the packagist environment secrets before publishing.');
+              return;
+            }
+            const url = new URL('https://packagist.org/api/update-package');
+            url.searchParams.set('username', username);
+            url.searchParams.set('apiToken', token);
+            try {
+              const response = await fetch(url, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                  repository: {url: `https://github.com/${context.repo.owner}/${context.repo.repo}`}
+                })
+              });
+              if (!response.ok || (await response.json()).status !== 'success') {
+                core.setFailed('Packagist rejected the update; verify the package repository and credentials.');
+              }
+            } catch {
+              core.setFailed('Packagist update failed; retry the workflow once connectivity is restored.');
+            }
