@@ -1,8 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# Exclude agent and local workflow docs from archive artifacts.
-AGENTS.md export-ignore
-docs/ export-ignore
-.instructions.md export-ignore
-.vscode/ export-ignore
+# Export whitelist for archive artifacts.
+* export-ignore
+README.md -export-ignore
+src/MvpLounge/MeshFactory/** -export-ignore

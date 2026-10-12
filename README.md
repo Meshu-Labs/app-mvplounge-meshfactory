@@ -9,6 +9,16 @@ This README is the primary summary for the platform.
 - Detailed architecture encyclopedia: [docs/architecture/AX-overview.md](docs/architecture/AX-overview.md)
 - Agent governance and operating policy: [AGENTS.md](AGENTS.md)
 
+## Recent Repository Updates
+
+- Adopted domain-coded documentation naming across docs domains.
+- Domain codes now include `AX` (Architecture), `BV` (Behavior), `TK` (Task), and `AG` (Agents).
+- Promoted [docs/.instructions.md](docs/.instructions.md) to the canonical docs entrypoint and index.
+- Distributed governance/instruction content into domain-owned files for maintainability.
+- Renamed clarification output location from `docs/clarifications/` to [docs/behavior](docs/behavior).
+- Replaced monolithic governance text with routing entrypoints in [AGENTS.md](AGENTS.md) and [docs/agents/AG-repository-governance.md](docs/agents/AG-repository-governance.md).
+- Standardized clarification report output naming to `BV-*.md`.
+
 ## Platform Summary
 
 MeshFactory builds DOM and HTML element output through a predictable PHP factory structure:
@@ -28,8 +38,8 @@ Use the clarification workflow when evaluating new ideas, implementation example
 ## Documentation Conventions
 
 - Use domain-prefixed markdown names in docs domains using `{DomainCode}-{name}.md`.
-- Domain codes: `AX` for Architecture, `BV` for Behavior, and `TK` for Task.
-- Examples: `AX-system-overview.md`, `BV-20261011-initial-meshfactory-distribution.md`, and `TK-architecture-clarification-task.md`.
+- Domain codes: `AX` for Architecture, `BV` for Behavior, `TK` for Task, and `AG` for Agents.
+- Examples: `AX-system-overview.md`, `BV-20261011-initial-meshfactory-distribution.md`, `TK-architecture-clarification-task.md`, and `AG-repository-governance.md`.
 - Use lowercase directory names, for example architecture, tasks, and agents.
 - Keep reserved index filenames in uppercase where conventional, for example README.md and AGENTS.md.
 
