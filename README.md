@@ -51,6 +51,18 @@ Use the clarification workflow when evaluating new ideas, implementation example
 - Task workflows: docs/tasks/
 - Agent governance docs: docs/agents/
 
+## Development and Releases
+
+Branch from `dev` and submit PRs to `dev`. Approved accounts or Copilot promote
+`dev` to `main` through reviewed PRs. `main` refreshes
+[Packagist](https://packagist.org/packages/mvplounge/meshfactory); approved
+release accounts can run the **Publish** workflow on `main` to create versioned
+releases.
+
+An administrator must activate the supplied rulesets, set `dev` as the default
+branch, and configure protected publishing environments before this is enforced.
+See the [branching and publishing setup](docs/tasks/TK-quality-check-playbook.md#branching-and-publishing-setup-administrator).
+
 ## Installation
 
 This package requires PHP 8.1 or later.
@@ -64,4 +76,3 @@ Composer loads the package classes automatically. For manual bootstrap, include 
 ```php
 require __DIR__ . '/vendor/autoload.php';
 ```
-
