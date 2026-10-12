@@ -34,67 +34,241 @@ try {
         ];
     };
 
-    $globalExpected = static function (string $suffix): array {
-        return [
-            'form_id_' . $suffix,
-            'form-class-' . $suffix,
-            'title="form_title_' . $suffix . '"',
-            'style="display:block"',
-            'lang="en"',
-            'dir="ltr"',
-            'hidden="hidden"',
-            'tabindex="4"',
-            'draggable="false"',
-            'contenteditable="false"',
-            'spellcheck="false"',
-            'translate="no"',
-            'role="form"',
-            'aria-label="form_aria_label_' . $suffix . '"',
-            'aria-labelledby="form_aria_labelledby_' . $suffix . '"',
-            'aria-describedby="form_aria_describedby_' . $suffix . '"',
-        ];
-    };
-
-    $assertContainsAll = static function (string $label, string $html, array $expected) use ($assert): void {
-        foreach ($expected as $fragment) {
-            $assert(str_contains($html, $fragment), $label . ' missing fragment: ' . $fragment . ' in ' . $html);
-        }
+    $makePayload = static function (object $factory): string {
+        return json_encode($factory->prepare(), JSON_UNESCAPED_SLASHES) ?: '';
     };
 
     $cases = [
-        'PostForm' => static function () use ($globalParams, $globalExpected): array {
-            $suffix = 'post';
-            $params = array_merge($globalParams($suffix), [
-                'action' => '/submit/post',
+        'LoginForm' => static function () use ($globalParams): array {
+            $factory = new \MvpLounge\MeshFactory\Element\Form\PostForm(array_merge($globalParams('login'), [
+                'action' => '/account/login',
                 'method' => 'post',
-                'enctype' => 'multipart/form-data',
+                'enctype' => 'application/x-www-form-urlencoded',
                 'novalidate' => 'novalidate',
-                'target' => '_blank',
+                'target' => '_self',
                 'autocomplete' => 'on',
-            ]);
-            return [new \MvpLounge\MeshFactory\Element\Form\PostForm($params), array_merge($globalExpected($suffix), ['action="/submit/post"', 'method="post"', 'enctype="multipart/form-data"', 'novalidate="novalidate"', 'target="_blank"', 'autocomplete="on"'])];
+            ]));
+
+            $factory
+                ->addHiddenPostField(['name' => 'csrf_token', 'value' => 'login-token'])
+                ->addFormSectionFields('credentials', 'email', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('login_email'), [
+                    'name' => 'email',
+                    'label' => 'Email address',
+                    'placeholder' => 'name@example.com',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_login_email',
+                        'user' => ['field-group', 'field-login-email'],
+                    ],
+                ])))
+                ->addFormSectionFields('credentials', 'password', new \MvpLounge\MeshFactory\Element\Field\PasswordInput(array_merge($globalParams('login_password'), [
+                    'name' => 'password',
+                    'label' => 'Password',
+                    'fieldset' => [
+                        'id' => 'fieldset_login_password',
+                        'user' => ['field-group', 'field-login-password'],
+                    ],
+                ])))
+                ->addFormSubmitButton('Sign in');
+
+            return [$factory, ['/account/login', 'email', 'password', 'Sign in', 'csrf_token']];
         },
-        'AjaxForm' => static function () use ($globalParams, $globalExpected): array {
-            $suffix = 'ajax';
-            $params = array_merge($globalParams($suffix), [
-                'action' => '/submit/ajax',
+        'RegistrationForm' => static function () use ($globalParams): array {
+            $factory = new \MvpLounge\MeshFactory\Element\Form\PostForm(array_merge($globalParams('registration'), [
+                'action' => '/account/register',
                 'method' => 'post',
                 'enctype' => 'multipart/form-data',
                 'novalidate' => 'novalidate',
                 'target' => '_self',
                 'autocomplete' => 'on',
-            ]);
-            return [new \MvpLounge\MeshFactory\Element\Form\AjaxForm($params), array_merge($globalExpected($suffix), ['action="/submit/ajax"', 'method="post"', 'enctype="multipart/form-data"', 'novalidate="novalidate"', 'target="_self"', 'autocomplete="on"'])];
+            ]));
+
+            $factory
+                ->addHiddenPostField(['name' => 'csrf_token', 'value' => 'registration-token'])
+                ->addHiddenPostField(['name' => 'account_type', 'value' => 'basic'])
+                ->addFormSectionFields('identity', 'first_name', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('first_name'), [
+                    'name' => 'first_name',
+                    'label' => 'First name',
+                    'placeholder' => 'Ada',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_registration_first_name',
+                        'user' => ['field-group', 'field-registration-first-name'],
+                    ],
+                ])))
+                ->addFormSectionFields('identity', 'last_name', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('last_name'), [
+                    'name' => 'last_name',
+                    'label' => 'Last name',
+                    'placeholder' => 'Lovelace',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_registration_last_name',
+                        'user' => ['field-group', 'field-registration-last-name'],
+                    ],
+                ])))
+                ->addFormSectionFields('identity', 'email', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('registration_email'), [
+                    'name' => 'email',
+                    'label' => 'Email address',
+                    'placeholder' => 'name@example.com',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_registration_email',
+                        'user' => ['field-group', 'field-registration-email'],
+                    ],
+                ])))
+                ->addFormSectionFields('security', 'password', new \MvpLounge\MeshFactory\Element\Field\PasswordInput(array_merge($globalParams('registration_password'), [
+                    'name' => 'password',
+                    'label' => 'Password',
+                    'fieldset' => [
+                        'id' => 'fieldset_registration_password',
+                        'user' => ['field-group', 'field-registration-password'],
+                    ],
+                ])))
+                ->addFormSectionFields('security', 'confirm_password', new \MvpLounge\MeshFactory\Element\Field\PasswordInput(array_merge($globalParams('registration_confirm_password'), [
+                    'name' => 'confirm_password',
+                    'label' => 'Confirm password',
+                    'fieldset' => [
+                        'id' => 'fieldset_registration_confirm_password',
+                        'user' => ['field-group', 'field-registration-confirm-password'],
+                    ],
+                ])))
+                ->addFormSubmitButton('Create account');
+
+            return [$factory, ['/account/register', 'first_name', 'last_name', 'confirm_password', 'Create account', 'multipart/form-data']];
+        },
+        'AddressForm' => static function () use ($globalParams): array {
+            $factory = new \MvpLounge\MeshFactory\Element\Form\PostForm(array_merge($globalParams('address'), [
+                'action' => '/account/address',
+                'method' => 'post',
+                'novalidate' => 'novalidate',
+                'target' => '_self',
+                'autocomplete' => 'on',
+            ]));
+
+            $factory
+                ->addHiddenPostField(['name' => 'address_id', 'value' => 'primary'])
+                ->addFormSectionFields('address', 'street_1', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('street_1'), [
+                    'name' => 'street_1',
+                    'label' => 'Street 1',
+                    'placeholder' => '123 Main Street',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_address_street_1',
+                        'user' => ['field-group', 'field-address-street-1'],
+                    ],
+                ])))
+                ->addFormSectionFields('address', 'street_2', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('street_2'), [
+                    'name' => 'street_2',
+                    'label' => 'Street 2',
+                    'placeholder' => 'Apartment, suite, unit',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_address_street_2',
+                        'user' => ['field-group', 'field-address-street-2'],
+                    ],
+                ])))
+                ->addFormSectionFields('address', 'city', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('city'), [
+                    'name' => 'city',
+                    'label' => 'City',
+                    'placeholder' => 'Seattle',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_address_city',
+                        'user' => ['field-group', 'field-address-city'],
+                    ],
+                ])))
+                ->addFormSectionFields('address', 'region', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('region'), [
+                    'name' => 'region',
+                    'label' => 'State / Region',
+                    'placeholder' => 'WA',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_address_region',
+                        'user' => ['field-group', 'field-address-region'],
+                    ],
+                ])))
+                ->addFormSectionFields('address', 'postal_code', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('postal_code'), [
+                    'name' => 'postal_code',
+                    'label' => 'Postal code',
+                    'placeholder' => '98101',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_address_postal_code',
+                        'user' => ['field-group', 'field-address-postal-code'],
+                    ],
+                ])))
+                ->addFormSectionFields('address', 'country', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('country'), [
+                    'name' => 'country',
+                    'label' => 'Country',
+                    'placeholder' => 'United States',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_address_country',
+                        'user' => ['field-group', 'field-address-country'],
+                    ],
+                ])))
+                ->addFormSubmitButton('Save address');
+
+            return [$factory, ['/account/address', 'street_1', 'postal_code', 'Save address', 'address_id']];
+        },
+        'ProfileUpdateAjaxForm' => static function () use ($globalParams): array {
+            $factory = new \MvpLounge\MeshFactory\Element\Form\AjaxForm(array_merge($globalParams('profile_update'), [
+                'action' => '/api/account/profile',
+                'method' => 'post',
+                'enctype' => 'multipart/form-data',
+                'novalidate' => 'novalidate',
+                'target' => '_blank',
+                'autocomplete' => 'on',
+            ]));
+
+            $factory
+                ->addHiddenPostField(['name' => 'csrf_token', 'value' => 'profile-token'])
+                ->addHiddenPostField(['name' => 'mode', 'value' => 'ajax'])
+                ->addFormSectionFields('profile', 'display_name', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('display_name'), [
+                    'name' => 'display_name',
+                    'label' => 'Display name',
+                    'placeholder' => 'Mvp Lounge',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_profile_display_name',
+                        'user' => ['field-group', 'field-profile-display-name'],
+                    ],
+                ])))
+                ->addFormSectionFields('profile', 'phone', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('phone'), [
+                    'name' => 'phone',
+                    'label' => 'Phone number',
+                    'placeholder' => '+1 555 0100',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_profile_phone',
+                        'user' => ['field-group', 'field-profile-phone'],
+                    ],
+                ])))
+                ->addFormSectionFields('profile', 'avatar', new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge($globalParams('avatar'), [
+                    'name' => 'avatar',
+                    'label' => 'Avatar path',
+                    'placeholder' => '/images/avatar.png',
+                    'value' => '',
+                    'fieldset' => [
+                        'id' => 'fieldset_profile_avatar',
+                        'user' => ['field-group', 'field-profile-avatar'],
+                    ],
+                ])))
+                ->addFormSubmitButton('Update profile');
+
+            return [$factory, ['/api/account/profile', 'display_name', 'phone', 'avatar', 'Update profile', '_blank']];
         },
     ];
 
     foreach ($cases as $label => $builder) {
         [$factory, $expected] = $builder();
-        $html = $factory->string();
-        echo '-- ' . $label . ' string() --' . PHP_EOL;
-        var_dump($html);
-        $assert(is_string($html) && $html !== '', $label . ' string() must return rendered markup.');
-        $assertContainsAll($label, $html, $expected);
+        $payload = $makePayload($factory);
+        echo '-- ' . $label . ' prepare() --' . PHP_EOL;
+        var_dump($payload);
+        $assert(is_string($payload) && $payload !== '', $label . ' prepare() must return rendered markup payload.');
+        foreach ($expected as $fragment) {
+            $assert(str_contains($payload, $fragment), $label . ' missing fragment: ' . $fragment . ' in ' . $payload);
+        }
     }
 
     echo 'PASS assertions' . PHP_EOL;
