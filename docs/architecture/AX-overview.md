@@ -14,6 +14,7 @@ Use this folder for deep technical and design details.
 - [Attribute Model and Deductions](AX-attribute-model-and-deductions.md)
 - [Supported Elements and Enums](AX-supported-elements-and-enums.md)
 - [HTML Element Domain Mapping](AX-html-element-domain-mapping.md)
+- [Element Group Abstract Inventory](AX-element-group-abstract-inventory.md)
 - [Family Responsibilities](AX-family-responsibilities.md)
 - [Composer and Consumption](AX-composer-and-consumption.md)
 - [Architecture Clarification Task](../tasks/TK-architecture-clarification-task.md)

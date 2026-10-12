@@ -25,6 +25,14 @@ When abstracts are migrated, update all concrete implementations immediately.
 - Replace static parent calls with `parent::` where appropriate.
 - Ensure no `use` statements point to legacy abstract locations.
 
+## Abstract Depth Contract
+
+- Default maximum abstract depth from `FactoryAbstract` is two levels.
+  - Canonical default path: `FactoryAbstract -> FactoryElementAbstract -> FactoryElement{Domain}Abstract`.
+- Field families are an approved exception and may use up to four abstract levels.
+  - Approved field path: `FactoryAbstract -> FactoryElementAbstract -> FactoryElementFieldAbstract -> FactoryElementFieldInputAbstract`.
+- Do not introduce additional abstract layers outside this contract.
+
 ## Form Namespace Consolidation
 
 - Use the singular namespace and folder for form elements:

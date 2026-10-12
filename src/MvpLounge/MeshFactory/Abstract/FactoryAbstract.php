@@ -13,7 +13,6 @@ use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 
 abstract class FactoryAbstract
 {
-	public const LIBRARY_BASE_PATH = MVPLOUNGE_MESHFACTORY_BASE_PATH;
 	public const DEFAULT_CONFIGURATION = [];
 	protected array $FactoryElementAttributes = [
 		FactoryElementAttribute::ID,

@@ -71,10 +71,29 @@ $bytes = [System.IO.File]::ReadAllBytes($filePath) | Select-Object -First 3
 - No runtime references may remain to `MvpLounge\MeshFactory\Element\Forms\*`.
 - Remove deprecated `src/MvpLounge/MeshFactory/Element/Forms/*` files after migration.
 
+### Phase 3.8: Abstract Depth Verification
+
+- Default hierarchy must not exceed two abstract levels from `FactoryAbstract`.
+- Field families may use up to four levels from `FactoryAbstract`.
+- Confirm field input classes continue to route through `FactoryElementFieldInputAbstract` when applicable.
+
 ### Phase 4: Legacy Cleanup Verification
 
 - Remove obsolete legacy files after migration.
 - Confirm no remaining references to removed files.
+
+### Phase 5: Full Element Coverage Verification
+
+- Execute all sandbox suites via `src/MvpLounge/Sandbox/MeshFactory/run-all.php`.
+- Confirm Generic, Params, and Factory strategies execute for full Element coverage.
+- Confirm all compile pathways are exercised by coverage suites:
+	- `compileAsArray()`
+	- `compile()`
+	- `compileAsJson()` where implemented
+	- `compleAsHtmlString()` where implemented
+	- `string()` where implemented
+- Confirm runtime output has no PHP warnings or sandbox error markers.
+- Required completion marker: `All sandbox scripts executed.`
 
 ## Required Outcomes
 

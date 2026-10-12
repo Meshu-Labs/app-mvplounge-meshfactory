@@ -12,11 +12,13 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+use MvpLounge\MeshFactory\Enum\FactoryElementFieldType;
 use MvpLounge\MeshFactory\Enum\FactoryElementPrimativeType;
 
 
 require_once __DIR__ . '/FactoryElementAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
+require_once __DIR__ . '/../Enum/FactoryElementFieldType.php';
 require_once __DIR__ . '/../Enum/FactoryElementPrimativeType.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';
 
@@ -50,6 +52,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 	];
 
 	protected ?FactoryElement $FactoryElement = NULL;
+	protected ?FactoryElementFieldType $FactoryElementFieldType = NULL;
 	protected ?FactoryElementPrimativeType $FactoryElementFieldValueType = FactoryElementPrimativeType::STRING;
 	/** Internal enabled or disabled state rendered from the legacy access flag. */
 	protected ?bool $FactoryElementFieldAccess = NULL;
@@ -138,6 +141,30 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 	public function addLength($length): static
 	{
 		$this->FactoryElementFieldLength = $length;
+		return $this;
+	}
+
+	protected function __process_type($params): void
+	{
+		if (!empty($params['type'])) {
+			$this->addType($params['type']);
+		}
+	}
+
+	public function addType($type): static
+	{
+		if ($type instanceof FactoryElementFieldType) {
+			$this->FactoryElementFieldType = $type;
+			return $this;
+		}
+
+		if (is_string($type)) {
+			$_type = FactoryElementFieldType::tryFrom(strtolower($type));
+			if ($_type instanceof FactoryElementFieldType) {
+				$this->FactoryElementFieldType = $_type;
+			}
+		}
+
 		return $this;
 	}
 
@@ -264,6 +291,9 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 				'access' => $this->getFactoryElementFieldAccess($_allowed),
 				'value' => $this->getFactoryElementFieldValue($_allowed),
 				'selected' => $this->getFactoryElementFieldSelected($_allowed),
+				'type' => $this->getFactoryElementFieldType($_allowed),
+				'placeholder' => $this->getFactoryElementFieldPlaceholder($_allowed),
+				'checked' => $this->getFactoryElementFieldChecked($_allowed)
 			]
 		);
 	}
@@ -283,6 +313,21 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		return in_array(FactoryElementAttribute::SELECTED->value, $allowed, TRUE) && method_exists($this, 'getElementFieldSelected') ? $this->getElementFieldSelected() : NULL;
 	}
 
+	public function getFactoryElementFieldType(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::TYPE->value, $allowed, TRUE) ? $this->getElementFieldType() : NULL;
+	}
+
+	public function getFactoryElementFieldPlaceholder(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::PLACEHOLDER->value, $allowed, TRUE) && method_exists($this, 'getPlaceholderText') ? $this->getPlaceholderText() : NULL;
+	}
+
+	public function getFactoryElementFieldChecked(array $allowed)
+	{
+		return in_array(FactoryElementAttribute::CHECKED->value, $allowed, TRUE) && method_exists($this, 'getElementFieldChecked') ? $this->getElementFieldChecked() : NULL;
+	}
+
 	public function getElementFieldValue()
 	{
 		$_value_type = $this->FactoryElementFieldValueType?->value ?? FactoryElementPrimativeType::STRING->value;
@@ -298,6 +343,11 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 	public function getElementFieldValueType()
 	{
 		return $this->FactoryElementFieldValueType?->value;
+	}
+
+	public function getElementFieldType(): ?string
+	{
+		return $this->FactoryElementFieldType?->value;
 	}
 
 	public function getElementFieldLabel(): ?string

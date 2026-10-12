@@ -482,7 +482,11 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 
 		foreach ($this->getFormHiddenVars() as $_hidden) {
 			$_fld_detail = $_hidden->compileAsArray();
-			$_field_return[$_fld_detail['name']] = $string ? $_hidden->compleAsHtmlString() : $_fld_detail['field'];
+			$_field_name = $_fld_detail['name'] ?? NULL;
+			if (!is_string($_field_name) || trim($_field_name) === '') {
+				$_field_name = sprintf('hidden_%s', count($_field_return));
+			}
+			$_field_return[$_field_name] = $string ? $_hidden->compleAsHtmlString() : ($_fld_detail['field'] ?? '');
 		}
 
 		return $_field_return;

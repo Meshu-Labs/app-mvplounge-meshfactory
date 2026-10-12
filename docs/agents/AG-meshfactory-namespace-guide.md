@@ -30,10 +30,16 @@ All abstract factory base classes follow the naming convention `FactoryElement{D
 - `FactoryElementFieldInputAbstract` - Specific input field behavior
 - `FactoryElementFieldsetAbstract` - Fieldset container behavior
 - `FactoryElementFormAbstract` - Form container behavior
-- `FactoryElementHtml5Abstract` - HTML5 semantic element families
+- `FactoryElementHtmlAbstract` - Generic HTML element families
 - `FactoryElementTableAbstract` - Table and table-related element families
 - `FactoryElementLinkAbstract` - Link/anchor element behavior
 - `FactoryElementCopyAbstract` - Copy/text element families
+
+## Abstraction Depth Rule
+
+- Default maximum depth from `FactoryAbstract` is two abstract levels.
+- Field families are explicitly allowed up to four abstract levels.
+- Approved field chain: `FactoryAbstract -> FactoryElementAbstract -> FactoryElementFieldAbstract -> FactoryElementFieldInputAbstract`.
 
 ## What To Preserve
 
@@ -109,7 +115,7 @@ All abstract factory base classes follow the naming convention `FactoryElement{D
 	- Prefer `FactoryElementAttribute` when the attribute is a common HTML field/input attribute.
 	- Prefer a family-specific enum only when the attribute is not a good fit for the shared field attribute set.
 	- `FactoryElementFieldAbstract` owns shared field attributes like `access`, `value`, and `selected`.
-	- `FactoryElementFieldInputAbstract` owns input-specific attributes like `type`, `placeholder`, and `checked`.
+	- `FactoryElementFieldInputAbstract` owns input-specific field grouping behavior and default input allowlists.
 	- `TextInput`, `EmailerInput`, and `PasswordInput` should expose the input shape their type implies, not a broader set.
 	- `HiddenInput` should stay minimal and only expose hidden-input behavior.
 	- `RadioInput` should expose `checked` and the radio collection behavior.
@@ -162,7 +168,7 @@ Use these enums as the source of truth for attribute support:
 - `FactoryAbstract` owns the shared DOM attributes and base collection shape.
 - `FactoryElementAbstract` owns element-level behavior, allowed elements, and element-specific collection rules.
 - `FactoryElementFieldAbstract` and its descendants handle form input behavior and value typing.
-- `FactoryElementHtml5Abstract` and its descendants handle the smaller HTML5-only attribute set.
+- `FactoryElementHtmlAbstract` and its descendants handle generic HTML-domain element behavior.
 - `FactoryElementLinkAbstract` handles anchor/link-specific attribute behavior.
 - `FactoryElementTableAbstract` handles table, row, cell, head, and body behavior.
 - `FactoryElementFormAbstract` handles form-wide attributes and form child composition.

@@ -9,11 +9,11 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
-use MvpLounge\MeshFactory\Abstract\FactoryElementHtmlAbstract;
+use MvpLounge\MeshFactory\Abstract\FactoryElementFormElementsAbstract;
 
-require_once __DIR__ . '/../../Abstract/FactoryElementHtmlAbstract.php';
+require_once __DIR__ . '/../../Abstract/FactoryElementFormElementsAbstract.php';
 
-class Datalist extends FactoryElementHtmlAbstract
+class Datalist extends FactoryElementFormElementsAbstract
 {
     protected array $AllowedFactoryElements = [
         FactoryElement::DATALIST

@@ -6,6 +6,11 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 echo '=== Form Sandbox (Factory) ===' . PHP_EOL;
 
+$runAllPath = realpath(__DIR__ . '/../../run-all.php') ?: (__DIR__ . '/../../run-all.php');
+$singlePath = realpath(__FILE__) ?: __FILE__;
+echo 'DEBUG_RUN_ALL: ' . $runAllPath . PHP_EOL;
+echo 'DEBUG_SINGLE: ' . $singlePath . PHP_EOL;
+
 try {
     $assert = static function (bool $condition, string $message): void {
         if (!$condition) {
@@ -149,6 +154,8 @@ try {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;
     echo 'ERROR_MESSAGE: ' . $e->getMessage() . PHP_EOL;
     echo 'ERROR_FILE: ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
+    echo 'DEBUG_RUN_ALL: ' . $runAllPath . PHP_EOL;
+    echo 'DEBUG_SINGLE: ' . $singlePath . PHP_EOL;
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
     exit(1);

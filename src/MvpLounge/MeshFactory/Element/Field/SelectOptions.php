@@ -24,6 +24,11 @@ require_once __DIR__ . '/../../Enum/FactoryElementPrimativeType.php';
 
 class SelectOptions extends FactoryElementFieldAbstract
 {
+	protected array $AllowedFactoryElementAttributes = [
+		FactoryElementAttribute::VALUE,
+		FactoryElementAttribute::SELECTED
+	];
+
 	protected ?FactoryElement $FactoryElement = FactoryElement::OPTION;
 	protected ?FactoryElementPrimativeType $FactoryElementFieldValueType = FactoryElementPrimativeType::INT;
 	protected ?object $FactoryElementFieldFieldset = NULL;

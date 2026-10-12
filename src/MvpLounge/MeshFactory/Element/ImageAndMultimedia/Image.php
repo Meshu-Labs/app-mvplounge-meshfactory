@@ -9,11 +9,11 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
-use MvpLounge\MeshFactory\Abstract\FactoryElementHtmlAbstract;
+use MvpLounge\MeshFactory\Abstract\FactoryElementImageAndMultimediaAbstract;
 
-require_once __DIR__ . '/../../Abstract/FactoryElementHtmlAbstract.php';
+require_once __DIR__ . '/../../Abstract/FactoryElementImageAndMultimediaAbstract.php';
 
-class Image extends FactoryElementHtmlAbstract
+class Image extends FactoryElementImageAndMultimediaAbstract
 {
     protected array $AllowedFactoryElements = [
         FactoryElement::IMAGE

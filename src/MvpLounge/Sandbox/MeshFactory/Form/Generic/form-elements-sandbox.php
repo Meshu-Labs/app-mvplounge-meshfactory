@@ -15,7 +15,15 @@ try {
 
     $factories = [
         'PostForm' => new \MvpLounge\MeshFactory\Element\Form\PostForm(),
-        'AjaxForm' => new \MvpLounge\MeshFactory\Element\Form\AjaxForm()
+        'AjaxForm' => new \MvpLounge\MeshFactory\Element\Form\AjaxForm(),
+        'Button' => new \MvpLounge\MeshFactory\Element\Form\Button(),
+        'Datalist' => new \MvpLounge\MeshFactory\Element\Form\Datalist(),
+        'Label' => new \MvpLounge\MeshFactory\Element\Form\Label(),
+        'Legend' => new \MvpLounge\MeshFactory\Element\Form\Legend(),
+        'Meter' => new \MvpLounge\MeshFactory\Element\Form\Meter(),
+        'Optgroup' => new \MvpLounge\MeshFactory\Element\Form\Optgroup(),
+        'Output' => new \MvpLounge\MeshFactory\Element\Form\Output(),
+        'Progress' => new \MvpLounge\MeshFactory\Element\Form\Progress()
     ];
 
     foreach ($factories as $label => $factory) {

@@ -9,11 +9,11 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
-use MvpLounge\MeshFactory\Abstract\FactoryElementHtmlAbstract;
+use MvpLounge\MeshFactory\Abstract\FactoryElementScriptingAbstract;
 
-require_once __DIR__ . '/../../Abstract/FactoryElementHtmlAbstract.php';
+require_once __DIR__ . '/../../Abstract/FactoryElementScriptingAbstract.php';
 
-class Noscript extends FactoryElementHtmlAbstract
+class Noscript extends FactoryElementScriptingAbstract
 {
     protected array $AllowedFactoryElements = [
         FactoryElement::NOSCRIPT

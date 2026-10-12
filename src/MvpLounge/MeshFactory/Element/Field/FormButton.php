@@ -24,7 +24,6 @@ require_once __DIR__ . '/../../Enum/FactoryElementPrimativeType.php';
 
 class FormButton extends FactoryElementFieldInputAbstract
 {
-
 	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::INPUT;
 	protected ?FactoryElementFieldType $FactoryElementFieldType = FactoryElementFieldType::BUTTON;
 	protected ?FactoryElementPrimativeType $FactoryElementFieldValueType = FactoryElementPrimativeType::STRING;

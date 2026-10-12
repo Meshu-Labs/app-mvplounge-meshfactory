@@ -6,7 +6,7 @@ namespace MvpLounge\MeshFactory\Enum;
 require_once __DIR__ . '/../Constants.php';
 
 if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
-    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+	throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
 }
 
 enum FactoryElementAttribute: string
@@ -59,4 +59,16 @@ enum FactoryElementAttribute: string
 	case MEDIA = 'media';
 	case PING = 'ping';
 	case REFERRERPOLICY = 'referrerpolicy';
+	case AS = 'as';
+	case INTEGRITY = 'integrity';
+	case CROSSORIGIN = 'crossorigin';
+	case LOADING = 'loading';
+	case DECODING = 'decoding';
+	case FETCHPRIORITY = 'fetchpriority';
+	case PRELOAD = 'preload';
+	case POSTER = 'poster';
+	case AUTOPLAY = 'autoplay';
+	case CONTROLS = 'controls';
+	case LOOP = 'loop';
+	case MUTED = 'muted';
 }

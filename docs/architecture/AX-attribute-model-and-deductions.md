@@ -25,6 +25,15 @@ Attribute handling is the dynamic layer of MeshFactory.
 - Use enum value checks for allowed attributes.
 - Keep per-attribute helper methods explicit and predictable.
 
+## Attribute Scope Refinement Rule
+
+- Constructor params and fluent attribute methods should only expose attributes that are valid for the class opening tag.
+- Effective sandbox and runtime attribute scope is the union of:
+	- `FactoryAbstract::$FactoryElementAttributes`
+	- the active class-chain `AllowedFactoryElementAttributes`
+- If more than five derived FactoryElement classes inherit `AllowedFactoryElementAttributes` they do not use, introduce or refine an intermediate `FactoryElement*Abstract` with a narrower allowed-attribute set.
+- Keep the opening-tag contract minimal: broad inherited attribute pools should be treated as a design smell and refactored.
+
 ## Field and HTML5 Guidance
 
 - Input classes should expose input-specific opening-tag attributes.

@@ -1,35 +1,43 @@
 # Sandbox Factory Tests
 
-Sandbox scripts for MeshFactory are organized by domain under `src/MvpLounge/Sandbox/MeshFactory/`:
+Sandbox scripts for MeshFactory are organized by Element domain under `src/MvpLounge/Sandbox/MeshFactory/`.
 
-- Field
-- Form
-- Html
-- Links
-- Table
-
-Each domain is organized by test type:
+Each Element domain has three strategy folders:
 
 - Generic
 - Factory
 - Params
 
-Each sandbox script now validates:
+Inside each strategy folder, scripts are class-based and use this naming pattern:
 
-1. Default factory initialization with no constructor params.
-2. Fluent factory usage without constructor params until compileAsArray or compleAsHtmlString inspection.
-3. Constructor-param rendering where all supported attributes for the tested factory appear in the rendered `compleAsHtmlString()` output.
+- `{FactoryElementClassName}-sandbox.php`
 
-Use-case standards:
+Examples:
 
-1. Generic use case: default constructor and baseline contract assertions.
-2. Factory use case: fluent chaining style such as addContent, addClass, addId, then compleAsHtmlString().
-3. Param use case: constructor params from exhaustive allowed attribute keys followed by compleAsHtmlString().
+- `src/MvpLounge/Sandbox/MeshFactory/InlineTextSemantics/Factory/Anchor-sandbox.php`
+- `src/MvpLounge/Sandbox/MeshFactory/TextContent/Params/Div-sandbox.php`
+- `src/MvpLounge/Sandbox/MeshFactory/Root/Generic/Html-sandbox.php`
 
-These scripts are intentionally verbose standalone examples and do not rely on shared coverage assertion helpers.
-Each script includes explicit try/catch blocks with structured error output for human and AI-readable parsing.
+Strategy contract:
 
-Html Params sandbox (`Html/Params/html-elements-sandbox.php`) discovers element classes recursively to support domainized namespaces under `MeshFactory/Element/Html/{Domain}/`.
+1. Generic: no constructor params, baseline compile/render assertions.
+2. Factory: fluent attribute method calls based on allowed attributes, then compile/render assertions.
+3. Params: constructor params based on allowed attributes, then compile/render assertions.
+
+Attribute injection rule:
+
+- Params used in sandbox scripts must be scoped to attribute names defined by:
+	- `FactoryAbstract::$FactoryElementAttributes`
+	- `FactoryElement*::$AllowedFactoryElementAttributes` for the tested class chain
+
+Shared helpers:
+
+- Reusable helper functions live in `src/MvpLounge/Sandbox/MeshFactory/_shared/factory-element-sandbox-shared.php`.
+- Per-class scripts keep local assertions and explicit try/catch output while using shared builders for repeatable attribute setup.
+
+Current phased migration note:
+
+- Table, Form, and Field domains are temporarily excluded from this per-class refactor.
 
 Run all MeshFactory sandbox scripts:
 
