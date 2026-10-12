@@ -7,15 +7,15 @@ require_once __DIR__ . '/../../bootstrap.php';
 echo '=== Links Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $factory = new \MvpLounge\MeshFactory\Element\Links\Anchor();
+    $factory = new \MvpLounge\MeshFactory\Element\InlineTextSemantics\Anchor();
     if ($factory->addClass('generic-anchor') !== $factory) {
         throw new RuntimeException('Anchor addClass() must remain fluent.');
     }
-    $html = $factory->string();
-    echo '-- Anchor string() --' . PHP_EOL;
+    $html = $factory->compleAsHtmlString();
+    echo '-- Anchor compleAsHtmlString() --' . PHP_EOL;
     var_dump($html);
     if (!is_string($html)) {
-        throw new RuntimeException('Anchor string() must return a string.');
+        throw new RuntimeException('Anchor compleAsHtmlString() must return a string.');
     }
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {

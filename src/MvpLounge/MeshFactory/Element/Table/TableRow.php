@@ -71,7 +71,7 @@ class TableRow extends FactoryElementTableAbstract
 		];
 
 		foreach ($this->FactoryElementRowCells as $RowCell) {
-			$_content['cells'][] = $RowCell->compile();
+			$_content['cells'][] = $RowCell->compileAsArray();
 		}
 
 		return array_merge(parent::getFactoryModel(), $_content);

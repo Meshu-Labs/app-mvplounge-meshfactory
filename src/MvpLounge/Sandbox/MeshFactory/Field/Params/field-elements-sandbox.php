@@ -30,7 +30,7 @@ try {
             'role' => 'textbox',
             'aria-label' => 'field_aria_label_' . $suffix,
             'aria-labelledby' => 'field_aria_labelledby_' . $suffix,
-            'aria-describedby' => 'field_aria_describedby_' . $suffix,
+            'aria-describedby' => 'field_aria_describedby_' . $suffix
         ];
     };
 
@@ -51,7 +51,7 @@ try {
             'role="textbox"',
             'aria-label="field_aria_label_' . $suffix . '"',
             'aria-labelledby="field_aria_labelledby_' . $suffix . '"',
-            'aria-describedby="field_aria_describedby_' . $suffix . '"',
+            'aria-describedby="field_aria_describedby_' . $suffix . '"'
         ];
     };
 
@@ -144,15 +144,15 @@ try {
                 'content' => 'Two',
             ]);
             return [new \MvpLounge\MeshFactory\Element\Field\SelectOptions($params), array_merge($globalExpected($suffix), ['value="2"', 'selected', '>Two<'])];
-        },
+        }
     ];
 
     foreach ($cases as $label => $builder) {
         [$factory, $expected] = $builder();
-        $html = $factory->string();
-        echo '-- ' . $label . ' string() --' . PHP_EOL;
+        $html = $factory->compleAsHtmlString();
+        echo '-- ' . $label . ' compleAsHtmlString() --' . PHP_EOL;
         var_dump($html);
-        $assert(is_string($html) && $html !== '', $label . ' string() must return rendered markup.');
+        $assert(is_string($html) && $html !== '', $label . ' compleAsHtmlString() must return rendered markup.');
         $assertContainsAll($label, $html, $expected);
     }
 

@@ -6,7 +6,7 @@ namespace MvpLounge\MeshFactory\Element\Field;
 require_once __DIR__ . '/../../Constants.php';
 
 if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
-    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+	throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
@@ -97,11 +97,16 @@ class SelectOptions extends FactoryElementFieldAbstract
 		}
 	}
 
-	public function string(): ?string
+	public function compleAsHtmlString(): ?string
 	{
 		return $this->getElementOpen()
 			. $this->getElementContent()
 			. $this->getElementClose();
+	}
+
+	public function string(): ?string
+	{
+		return $this->compleAsHtmlString();
 	}
 
 	public function not_selected(): static

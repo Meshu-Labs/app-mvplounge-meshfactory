@@ -10,7 +10,7 @@ Each library suite owns its own:
 
 - `bootstrap.php`
 - `run-all.php`
-- domain folders such as `Field/`, `Form/`, `Html5/`, `Links/`, and `Table/`
+- domain folders such as `Field/`, `Form/`, `Html/`, `Links/`, and `Table/`
 
 MeshFactory domain suites are organized by test type inside each domain:
 

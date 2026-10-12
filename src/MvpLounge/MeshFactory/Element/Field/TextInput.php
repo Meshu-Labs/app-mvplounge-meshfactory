@@ -64,7 +64,7 @@ use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
 			return [
 				 'field' => $this->getElementOpen(),
 				 'label' => $this->getElementFieldLabel(),
-				 'fieldset' => $this->getElementFieldset()->compile()
+				 'fieldset' => $this->getElementFieldset()->compileAsArray()
 			];
 		}
 		

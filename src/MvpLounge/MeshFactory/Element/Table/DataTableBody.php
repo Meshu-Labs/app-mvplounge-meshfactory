@@ -35,9 +35,9 @@ require_once __DIR__ . '/TableBody.php';
 			return
 				 [
 						'open' => $this->getElementOpen(),
-						'thead' => $this->getHeader()->compile(),
-						'tbody' => $this->getRowBody()->compile(),
-						'tfoot' => $this->getFooter()->compile(),
+						'thead' => $this->getHeader()->compileAsArray(),
+						'tbody' => $this->getRowBody()->compileAsArray(),
+						'tfoot' => $this->getFooter()->compileAsArray(),
 						'close' => $this->getElementClose()
 				 ];
 		}

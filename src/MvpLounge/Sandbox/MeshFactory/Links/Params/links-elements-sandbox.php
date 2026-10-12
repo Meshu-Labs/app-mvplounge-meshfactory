@@ -32,7 +32,7 @@ try {
         'ping' => 'https://example.test/ping',
         'referrerpolicy' => 'no-referrer',
         'type' => 'text/html',
-        'content' => 'Anchor',
+        'content' => 'Anchor'
     ];
 
     $expected = [
@@ -60,15 +60,15 @@ try {
         'ping="https://example.test/ping"',
         'referrerpolicy="no-referrer"',
         'type="text/html"',
-        '>Anchor<',
+        '>Anchor<'
     ];
 
-    $factory = new \MvpLounge\MeshFactory\Element\Links\Anchor($params);
-    $html = $factory->string();
-    echo '-- Anchor string() --' . PHP_EOL;
+    $factory = new \MvpLounge\MeshFactory\Element\InlineTextSemantics\Anchor($params);
+    $html = $factory->compleAsHtmlString();
+    echo '-- Anchor compleAsHtmlString() --' . PHP_EOL;
     var_dump($html);
     if (!is_string($html) || $html === '') {
-        throw new RuntimeException('Anchor string() must return rendered markup.');
+        throw new RuntimeException('Anchor compleAsHtmlString() must return rendered markup.');
     }
     foreach ($expected as $fragment) {
         if (!str_contains($html, $fragment)) {

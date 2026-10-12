@@ -21,7 +21,7 @@ try {
         'PasswordInput' => new \MvpLounge\MeshFactory\Element\Field\PasswordInput(),
         'RadioInput' => new \MvpLounge\MeshFactory\Element\Field\RadioInput(),
         'SelectOption' => new \MvpLounge\MeshFactory\Element\Field\SelectOption(),
-        'SelectOptions' => new \MvpLounge\MeshFactory\Element\Field\SelectOptions(),
+        'SelectOptions' => new \MvpLounge\MeshFactory\Element\Field\SelectOptions()
     ];
 
     foreach ($factories as $label => $factory) {
@@ -29,10 +29,10 @@ try {
             $assert($factory->addClass('generic-' . strtolower($label)) === $factory, $label . ' addClass() must remain fluent.');
         }
 
-        echo '-- ' . $label . ' string() --' . PHP_EOL;
-        $html = $factory->string();
+        echo '-- ' . $label . ' compleAsHtmlString() --' . PHP_EOL;
+        $html = $factory->compleAsHtmlString();
         var_dump($html);
-        $assert(is_string($html), $label . ' string() must return a string.');
+        $assert(is_string($html), $label . ' compleAsHtmlString() must return a string.');
     }
 
     echo 'PASS assertions' . PHP_EOL;

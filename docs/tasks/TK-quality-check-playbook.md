@@ -30,6 +30,25 @@ Use VS Code tasks from `.vscode/tasks.json`:
 - `Quality Check: Links Domain`
 - `Quality Check: All Domains`
 
+## Array Style Check (Global)
+
+Rule: the last item in a PHP array must not end with a trailing comma.
+
+Quick check:
+
+```powershell
+$files = Get-ChildItem "src" -Recurse -Filter "*.php"
+$violations = @()
+foreach ($f in $files) {
+	$content = Get-Content -Raw $f.FullName
+	if ([regex]::IsMatch($content, ',\s*\r?\n\s*\];')) {
+		$violations += $f.FullName
+	}
+}
+$violations
+"Total violations: $($violations.Count)"
+```
+
 ## Sandbox Test-Type Standard
 
 Library sandbox suites are organized under `src/MvpLounge/Sandbox/{Library}/`.

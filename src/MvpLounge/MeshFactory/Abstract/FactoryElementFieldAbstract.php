@@ -7,7 +7,7 @@ namespace MvpLounge\MeshFactory\Abstract;
 require_once __DIR__ . '/../Constants.php';
 
 if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
-    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+	throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
@@ -333,12 +333,17 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		return $this->FactoryElementFieldFieldset;
 	}
 
-	public function string(): ?string
+	public function compleAsHtmlString(): ?string
 	{
 		return $this->getElementFieldset()->getElementOpen()
 			. $this->getElementFieldLabel()
 			. $this->getElementOpen()
 			. $this->getElementFieldset()->getElementClose();
+	}
+
+	public function string(): ?string
+	{
+		return $this->compleAsHtmlString();
 	}
 
 	public function buildElementLabel()

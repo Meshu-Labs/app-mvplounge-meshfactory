@@ -44,6 +44,33 @@ $bytes = [System.IO.File]::ReadAllBytes($filePath) | Select-Object -First 3
 - `require_once` paths use `__DIR__` relative format.
 - Concrete classes reference abstract parents from `/Abstract/`.
 
+### Phase 3.1: Array Formatting Verification
+
+- Verify no PHP array has a trailing comma on the final array item.
+- Apply this as a global style rule across all touched and impacted files.
+
+### Phase 3.5: Output API Contract Verification
+
+- `compleAsHtmlString()` returns `?string`.
+- `compileAsArray()` returns `?array`.
+- `compileAsJson()` returns JSON payload string or `NULL` when encoding fails.
+- Sandbox and usage examples call canonical output methods.
+
+### Phase 3.6: HTML Domain Namespace Verification
+
+- HTML element class folder path under `Element/Html/*` matches declared namespace.
+- Domain folder names follow source-of-truth normalization:
+	- `Main root` -> `Root`
+	- `Document metadata` -> `MetaData`
+- Mapping doc stays aligned with code:
+	- `docs/architecture/AX-html-element-domain-mapping.md`
+
+### Phase 3.7: Form Namespace Consolidation Verification
+
+- Form classes must use `MvpLounge\MeshFactory\Element\Form\*`.
+- No runtime references may remain to `MvpLounge\MeshFactory\Element\Forms\*`.
+- Remove deprecated `src/MvpLounge/MeshFactory/Element/Forms/*` files after migration.
+
 ### Phase 4: Legacy Cleanup Verification
 
 - Remove obsolete legacy files after migration.

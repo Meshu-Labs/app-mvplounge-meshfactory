@@ -25,6 +25,15 @@ When abstracts are migrated, update all concrete implementations immediately.
 - Replace static parent calls with `parent::` where appropriate.
 - Ensure no `use` statements point to legacy abstract locations.
 
+## Form Namespace Consolidation
+
+- Use the singular namespace and folder for form elements:
+  - `MvpLounge\MeshFactory\Element\Form\*`
+  - `src/MvpLounge/MeshFactory/Element/Form/*`
+- Do not create or reference classes in the deprecated plural namespace:
+  - `MvpLounge\MeshFactory\Element\Forms\*`
+  - `src/MvpLounge/MeshFactory/Element/Forms/*`
+
 ## HTML Element and Attribute Authority
 
 Use these references as authoritative for elements and attributes:
@@ -38,6 +47,25 @@ Research order:
 2. Confirm practical behavior in MDN.
 3. Verify enum coverage in `src/MvpLounge/MeshFactory/Enum/`.
 4. Add missing enums before wiring behavior.
+
+## HTML Element Domain Organization
+
+HTML element classes under `src/MvpLounge/MeshFactory/Element/Html/` must be apportioned into source-of-truth domains.
+
+- `Main root` is normalized to `Root`.
+- `Document metadata` is normalized to `MetaData`.
+- Canonical source-of-truth element classes live under `Element/Html/{Domain}/`.
+- Each element class namespace must match its folder domain:
+  - `MvpLounge\MeshFactory\Element\Html\{Domain}\{Class}`
+- Shared HTML base class remains:
+  - `MvpLounge\MeshFactory\Element\Html\HtmlElement`
+- Keep reserved keyword-safe class names where needed:
+  - `object` -> `ObjectElement`
+  - `var` -> `VarElement`
+
+Use the canonical mapping reference:
+
+- `docs/architecture/AX-html-element-domain-mapping.md`
 
 ## Fluent Interface Contract
 
@@ -56,11 +84,22 @@ Research order:
 - Parent constructor orchestrates parameter dispatch.
 - `__process_*()` methods each own one logical parameter group.
 
+## Array Formatting Contract
+
+- Do not use a trailing comma on the final item in PHP array declarations.
+- Applies to all array styles used in this repository, including short arrays (`[]`) and nested arrays.
+
 ## Return Type Safety and Null Handling
 
 - Use explicit return types.
 - Use null-safe access where needed.
 - Use sensible defaults for empty strings and arrays when contract requires non-null outputs.
+
+## Output Method Contract
+
+- Use `compleAsHtmlString(): ?string` as the canonical HTML rendering method.
+- Use `compileAsArray(): ?array` as the canonical structured compile method.
+- Use `compileAsJson(): ?string` for headless transport payloads where JSON output is required.
 
 ## View Output Convention
 

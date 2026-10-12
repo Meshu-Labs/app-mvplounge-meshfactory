@@ -6,7 +6,7 @@ namespace MvpLounge\MeshFactory\Abstract;
 require_once __DIR__ . '/../Constants.php';
 
 if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
-    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+	throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
@@ -41,15 +41,18 @@ abstract class FactoryElementHtml5Abstract extends FactoryElementAbstract
 		FactoryElement::FOOTER,
 		FactoryElement::NAV
 	];
-	protected array $AllowedFactoryElementAttributes = [
-		FactoryElementAttribute::FOR
-	];
 	protected ?FactoryElement $FactoryElement = FactoryElement::DIV;
 	protected ?string $FactoryElementSystemClass = NULL;
 
 	public function __construct($params = [])
 	{
 		parent::__construct($params);
+	}
+
+	protected function registerAllowedFactoryElementAttributeMap(): void
+	{
+		parent::registerAllowedFactoryElementAttributeMap();
+		$this->addFactoryAttributeEnumToMap(FactoryElementAttribute::FOR , 'FactoryElementHtml');
 	}
 
 	public function addElementClose(): void
@@ -74,9 +77,14 @@ abstract class FactoryElementHtml5Abstract extends FactoryElementAbstract
 		return $this->getDefaultFactoryAttributePropertyCollection();
 	}
 
-	public function string(): ?string
+	public function compleAsHtmlString(): ?string
 	{
 		return $this->getElementOpen() . $this->getElementContent() . $this->getElementClose();
+	}
+
+	public function string(): ?string
+	{
+		return $this->compleAsHtmlString();
 	}
 
 }

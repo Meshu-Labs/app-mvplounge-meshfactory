@@ -77,15 +77,15 @@ function sandboxAssertFluentFactoryLifecycle(object $factory, string $label): vo
         'addCheckedElements' => [[['name' => 'sandbox_name', 'value' => 'sandbox-value']]],
         'addPlaceholder' => ['Sandbox Placeholder'],
         'addSelected' => [true],
-        'addFor' => ['sandbox_for_id'],
+        'addFor' => ['sandbox_for_id']
     ];
 
     foreach ($methodArguments as $method => $arguments) {
         sandboxAssertSameFactoryInstance($factory, $method, $arguments, $label);
     }
 
-    sandboxAssertTrue(method_exists($factory, 'compile'), $label . ': missing compile()');
-    sandboxAssertTrue(is_array($factory->compile()), $label . ': compile() must return an array');
+    sandboxAssertTrue(method_exists($factory, 'compileAsArray'), $label . ': missing compileAsArray()');
+    sandboxAssertTrue(is_array($factory->compileAsArray()), $label . ': compileAsArray() must return an array');
 }
 
 function sandboxResolveFactoryElementValue(object $factory): ?string

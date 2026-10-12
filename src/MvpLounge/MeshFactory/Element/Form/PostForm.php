@@ -21,7 +21,7 @@ require_once __DIR__ . '/../../Abstract/FactoryElementFormAbstract.php';
 	 */
 	class PostForm extends FactoryElementFormAbstract {
 		protected array $AllowedFactoryElements = [
-			FactoryElement::FORM,
+			FactoryElement::FORM
 		];
 		
 		protected ?array $FactoryElementUserClass = ['post-form'];

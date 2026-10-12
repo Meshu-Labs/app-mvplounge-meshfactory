@@ -6,7 +6,7 @@ namespace MvpLounge\MeshFactory\Abstract;
 require_once __DIR__ . '/../Constants.php';
 
 if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
-    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+	throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
 }
 
 use MvpLounge\MeshFactory\Abstract\FactoryAbstract;
@@ -289,6 +289,7 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 
 		return [
 			'open' => $this->getElementOpen(),
+			'content' => $this->getElementContent(),
 			'close' => $this->getElementClose()
 		];
 	}

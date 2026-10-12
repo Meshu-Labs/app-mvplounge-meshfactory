@@ -32,7 +32,7 @@ abstract class FactoryElementFieldInputAbstract extends FactoryElementFieldAbstr
 		FactoryElementAttribute::TYPE,
 		FactoryElementAttribute::VALUE,
 		FactoryElementAttribute::CHECKED,
-		FactoryElementAttribute::ACCESS,
+		FactoryElementAttribute::ACCESS
 	];
 	protected ?FactoryElementFieldType $FactoryElementFieldType = NULL;
 	

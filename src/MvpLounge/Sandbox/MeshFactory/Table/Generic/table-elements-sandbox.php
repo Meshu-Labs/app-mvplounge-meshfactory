@@ -15,18 +15,18 @@ try {
         'TableHead' => new \MvpLounge\MeshFactory\Element\Table\TableHead(),
         'TableHeader' => new \MvpLounge\MeshFactory\Element\Table\TableHeader(),
         'TableRow' => new \MvpLounge\MeshFactory\Element\Table\TableRow(),
-        'TableRowBody' => new \MvpLounge\MeshFactory\Element\Table\TableRowBody(),
+        'TableRowBody' => new \MvpLounge\MeshFactory\Element\Table\TableRowBody()
     ];
 
     foreach ($factories as $label => $factory) {
         if (method_exists($factory, 'addClass') && $factory->addClass('generic-' . strtolower($label)) !== $factory) {
             throw new RuntimeException($label . ' addClass() must remain fluent.');
         }
-        $html = $factory->string();
-        echo '-- ' . $label . ' string() --' . PHP_EOL;
+        $html = $factory->compleAsHtmlString();
+        echo '-- ' . $label . ' compleAsHtmlString() --' . PHP_EOL;
         var_dump($html);
         if (!is_string($html)) {
-            throw new RuntimeException($label . ' string() must return a string.');
+            throw new RuntimeException($label . ' compleAsHtmlString() must return a string.');
         }
     }
 

@@ -26,7 +26,7 @@ use MvpLounge\MeshFactory\Enum\FactoryElement;
 	 */
 	class AjaxForm extends PostForm {
 		protected array $AllowedFactoryElements = [
-			FactoryElement::FORM,
+			FactoryElement::FORM
 		];
 		
 		protected ?array $FactoryElementUserClass = ['ajax-form'];
@@ -62,7 +62,7 @@ use MvpLounge\MeshFactory\Enum\FactoryElement;
 		
 		public function compileFormSubmitButton() : array {
 			
-			return $this->getFormSubmitButton()->asButton()->compile();
+			return $this->getFormSubmitButton()->asButton()->compileAsArray();
 		}
 		
 	}

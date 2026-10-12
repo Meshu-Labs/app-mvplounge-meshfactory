@@ -62,7 +62,7 @@ class TableHead extends FactoryElementTableAbstract
 		return array_merge(
 			parent::getFactoryModel(),
 			[
-				'headers' => $this->getHeaderRow()->compile()
+				'headers' => $this->getHeaderRow()->compileAsArray()
 
 			]
 		);

@@ -39,6 +39,7 @@ All abstract factory base classes follow the naming convention `FactoryElement{D
 
 - Keep class structure deductive: enum, element, base class, then concrete element.
 - Put shared behavior in the nearest base class that already owns it.
+- Keep form concrete classes in `MvpLounge\MeshFactory\Element\Form` (singular) only.
 - Use explicit `getFactoryAttributePropertyCollection()` methods when a class has its own allowed attributes.
 - Keep helper methods small and direct. Prefer inheritance over copying the same ternary logic in many leaf classes.
 - Keep arrays flat unless nesting is required by the data shape.

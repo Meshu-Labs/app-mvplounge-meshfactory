@@ -30,12 +30,12 @@ try {
             'role' => 'table',
             'aria-label' => $suffix . ' table',
             'aria-labelledby' => 'label_' . $suffix,
-            'aria-describedby' => 'help_' . $suffix,
+            'aria-describedby' => 'help_' . $suffix
         ];
     };
 
     $makePayload = static function (object $factory): string {
-        return json_encode($factory->compile(), JSON_UNESCAPED_SLASHES) ?: '';
+        return json_encode($factory->compileAsArray(), JSON_UNESCAPED_SLASHES) ?: '';
     };
 
     $collectStrings = static function ($value) use (&$collectStrings): array {
@@ -117,7 +117,7 @@ try {
             $factory->addRow()->addCell('Users')->addCell('12,400')->addCell('11,900')->addCell('+4%');
 
             return [$factory, ['Metric', 'Current', 'Previous', 'Delta', 'Revenue', 'Users', 'cellspacing="0"', 'cellpadding="1"', 'border="1"']];
-        },
+        }
     ];
 
     foreach ($cases as $label => $builder) {
@@ -125,9 +125,9 @@ try {
         $payload = $makePayload($factory);
         $decoded = json_decode($payload, true);
         $haystack = is_array($decoded) ? implode("\n", $collectStrings($decoded)) : $payload;
-        echo '-- ' . $label . ' compile() --' . PHP_EOL;
+        echo '-- ' . $label . ' compileAsArray() --' . PHP_EOL;
         var_dump($payload);
-        $assert(is_string($payload) && $payload !== '', $label . ' compile() must return rendered markup payload.');
+        $assert(is_string($payload) && $payload !== '', $label . ' compileAsArray() must return rendered markup payload.');
         foreach ($expected as $fragment) {
             $assert(str_contains($haystack, $fragment), $label . ' missing fragment: ' . $fragment . ' in ' . $haystack);
         }

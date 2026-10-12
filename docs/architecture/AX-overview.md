@@ -13,6 +13,7 @@ Use this folder for deep technical and design details.
 - [Factory Naming and Inheritance](AX-factory-naming-and-inheritance.md)
 - [Attribute Model and Deductions](AX-attribute-model-and-deductions.md)
 - [Supported Elements and Enums](AX-supported-elements-and-enums.md)
+- [HTML Element Domain Mapping](AX-html-element-domain-mapping.md)
 - [Family Responsibilities](AX-family-responsibilities.md)
 - [Composer and Consumption](AX-composer-and-consumption.md)
 - [Architecture Clarification Task](../tasks/TK-architecture-clarification-task.md)

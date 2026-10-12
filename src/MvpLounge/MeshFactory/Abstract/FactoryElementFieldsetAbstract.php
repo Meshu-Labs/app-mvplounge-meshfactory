@@ -18,11 +18,11 @@ require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
 class FactoryElementFieldsetAbstract extends FactoryElementFieldAbstract {
 	
 	protected array $AllowedFactoryElements = [
-		FactoryElement::FIELDSET,
+		FactoryElement::FIELDSET
 	];
 	protected array $AllowedFactoryElementAttributes = [
 		FactoryElementAttribute::NAME,
-		FactoryElementAttribute::ACCESS,
+		FactoryElementAttribute::ACCESS
 	];
 	protected ?FactoryElement $FactoryElement = FactoryElement::FIELDSET;
 	protected ?string $FactoryElementSystemClass = 'generic-fieldset';

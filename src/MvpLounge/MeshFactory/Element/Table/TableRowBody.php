@@ -53,7 +53,7 @@ require_once __DIR__ . '/../../Abstract/FactoryElementTableAbstract.php';
 			];
 			
 			foreach($this->FactoryElementTableRows as $TableRow) {
-				$_content['rows'][] = $TableRow->compile();
+				$_content['rows'][] = $TableRow->compileAsArray();
 			}
 			
 			return array_merge(parent::getFactoryModel(), $_content);

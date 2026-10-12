@@ -53,15 +53,15 @@ try {
             $factory = new \MvpLounge\MeshFactory\Element\Field\SelectOptions();
             $factory->addValue(2)->selected()->addContent('Two');
             return $factory;
-        },
+        }
     ];
 
     foreach ($cases as $label => $builder) {
         $factory = $builder();
-        echo '-- ' . $label . ' string() --' . PHP_EOL;
-        $html = $factory->string();
+        echo '-- ' . $label . ' compleAsHtmlString() --' . PHP_EOL;
+        $html = $factory->compleAsHtmlString();
         var_dump($html);
-        $assert(is_string($html) && $html !== '', $label . ' string() must return rendered markup.');
+        $assert(is_string($html) && $html !== '', $label . ' compleAsHtmlString() must return rendered markup.');
     }
 
     echo 'PASS assertions' . PHP_EOL;

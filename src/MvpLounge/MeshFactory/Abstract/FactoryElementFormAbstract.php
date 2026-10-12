@@ -7,7 +7,7 @@ namespace MvpLounge\MeshFactory\Abstract;
 require_once __DIR__ . '/../Constants.php';
 
 if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
-    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+	throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
@@ -43,7 +43,7 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		FactoryElementAttribute::ENCTYPE,
 		FactoryElementAttribute::NOVALIDATE,
 		FactoryElementAttribute::TARGET,
-		FactoryElementAttribute::AUTOCOMPLETE,
+		FactoryElementAttribute::AUTOCOMPLETE
 	];
 
 	protected ?FactoryElement $FactoryElement = FactoryElement::FORM;
@@ -125,10 +125,12 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 
 	public function addMethod($method): static
 	{
-		if (is_string($method) && in_array(strtolower($method), [
-			'post',
-			'get'
-		], TRUE)) {
+		if (
+			is_string($method) && in_array(strtolower($method), [
+				'post',
+				'get'
+			], TRUE)
+		) {
 			$this->FactoryElementFormMethod = strtolower($method);
 		}
 		return $this;
@@ -161,10 +163,12 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 
 	public function addTarget($target): static
 	{
-		if (is_string($target) && in_array(strtolower($target), [
-			'_self',
-			'_blank'
-		], TRUE)) {
+		if (
+			is_string($target) && in_array(strtolower($target), [
+				'_self',
+				'_blank'
+			], TRUE)
+		) {
 			$this->FactoryElementFormTarget = strtolower($target);
 		}
 		return $this;
@@ -451,10 +455,10 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 	public function compileFormResetButton()
 	{
 
-		echo $this->getFormResetButton()->compile();
+		echo $this->getFormResetButton()->compileAsArray();
 	}
 
-	public function compile(): array
+	public function compileAsArray(): ?array
 	{
 
 		return [
@@ -466,14 +470,19 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		];
 	}
 
+	public function compile(): ?array
+	{
+		return $this->compileAsArray();
+	}
+
 	public function compileFormHiddenVars($string = FALSE): array
 	{
 
 		$_field_return = [];
 
 		foreach ($this->getFormHiddenVars() as $_hidden) {
-			$_fld_detail = $_hidden->compile();
-			$_field_return[$_fld_detail['name']] = $string ? $_hidden->string() : $_fld_detail['field'];
+			$_fld_detail = $_hidden->compileAsArray();
+			$_field_return[$_fld_detail['name']] = $string ? $_hidden->compleAsHtmlString() : $_fld_detail['field'];
 		}
 
 		return $_field_return;
@@ -501,7 +510,7 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 	public function compileFormSubmitButton(): array
 	{
 
-		return $this->getFormSubmitButton()->asSubmit()->compile();
+		return $this->getFormSubmitButton()->asSubmit()->compileAsArray();
 	}
 
 	public function compileFormSection($section, $string = FALSE): array
@@ -516,7 +525,7 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		foreach ($section as $_fld_index => $_field) {
 
 			if ($_field instanceof FactoryElementFieldAbstract) {
-				$_field_return[$_fld_index] = $string ? $_field->string() : $_field->compile();
+				$_field_return[$_fld_index] = $string ? $_field->compleAsHtmlString() : $_field->compileAsArray();
 			} else {
 				$_field_return[$_fld_index] = $_field;
 			}
@@ -578,9 +587,21 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 			'open' => $this->getElementOpen(),
 			'hidden' => $this->compileFormHiddenVars(TRUE),
 			'fields' => $this->compileFormFields(TRUE),
-			'buttons' => $this->getFormSubmitButton()->string(),
+			'buttons' => $this->getFormSubmitButton()->compleAsHtmlString(),
 			'close' => $this->getElementClose()
 		];
+	}
+
+	public function compileAsJson(): ?string
+	{
+		$_payload = $this->prepare();
+		$_json = json_encode($_payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+		return is_string($_json) ? $_json : NULL;
+	}
+
+	public function complieAsJson(): ?string
+	{
+		return $this->compileAsJson();
 	}
 
 }

@@ -5,7 +5,7 @@ namespace MvpLounge\MeshFactory\Abstract;
 require_once __DIR__ . '/../Constants.php';
 
 if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
-    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+	throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
@@ -60,7 +60,7 @@ abstract class FactoryAbstract
 	protected ?string $FactoryAriaDescribedby = NULL;
 
 	public function __construct($params = [])
-	{		
+	{
 		$this->__process_params($params);
 	}
 
@@ -100,7 +100,7 @@ abstract class FactoryAbstract
 			}
 		}
 	}
-  
+
 	protected function registerFactoryElementAttributeMap(): void
 	{
 		foreach ($this->FactoryElementAttributes as $_attribute) {
@@ -117,7 +117,7 @@ abstract class FactoryAbstract
 	}
 
 	protected abstract function registerAllowedFactoryElementAttributeMap(): void;
-	
+
 
 	public function getFactoryAttributePropertyCollection(): array
 	{
@@ -138,7 +138,7 @@ abstract class FactoryAbstract
 			'role' => $this->FactoryRole,
 			'aria-label' => $this->FactoryAriaLabel,
 			'aria-labelledby' => $this->FactoryAriaLabelledby,
-			'aria-describedby' => $this->FactoryAriaDescribedby,
+			'aria-describedby' => $this->FactoryAriaDescribedby
 		];
 	}
 
@@ -246,9 +246,15 @@ abstract class FactoryAbstract
 		$this->FactoryAriaDescribedby = $describedby;
 		return $this;
 	}
-	public function compile(): array
+	public function compileAsArray(): ?array
 	{
-		return $this->getFactoryModel();
+		$_model = $this->getFactoryModel();
+		return is_array($_model) ? $_model : NULL;
+	}
+
+	public function compile(): ?array
+	{
+		return $this->compileAsArray();
 	}
 	public function getFactoryModel(): array
 	{
@@ -368,12 +374,17 @@ abstract class FactoryAbstract
 		return $this->FactoryId;
 	}
 
-	public function string(): ?string
+	public function compleAsHtmlString(): ?string
 	{
 		if (method_exists($this, 'getElementOpen') && method_exists($this, 'getElementContent') && method_exists($this, 'getElementClose')) {
 			return $this->getElementOpen() . $this->getElementContent() . $this->getElementClose();
 		}
 		return NULL;
+	}
+
+	public function string(): ?string
+	{
+		return $this->compleAsHtmlString();
 	}
 }
 

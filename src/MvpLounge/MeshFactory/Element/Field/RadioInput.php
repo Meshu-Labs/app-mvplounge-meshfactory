@@ -86,7 +86,7 @@ class RadioInput extends FactoryElementFieldInputAbstract
 
 		return [
 			'fields' => $this->getElementRadios(),
-			'fieldset' => $this->getElementFieldset()->compile()
+			'fieldset' => $this->getElementFieldset()->compileAsArray()
 		];
 	}
 

@@ -30,7 +30,7 @@ try {
             'role' => 'form',
             'aria-label' => $suffix . ' form',
             'aria-labelledby' => 'label_' . $suffix,
-            'aria-describedby' => 'help_' . $suffix,
+            'aria-describedby' => 'help_' . $suffix
         ];
     };
 
@@ -59,7 +59,7 @@ try {
     };
 
     $makePayload = static function (object $factory): string {
-        return json_encode($factory->prepare(), JSON_UNESCAPED_SLASHES) ?: '';
+        return $factory->compileAsJson() ?? '';
     };
 
     $cases = [
@@ -130,15 +130,15 @@ try {
                 ->addFormSubmitButton('Update profile');
 
             return [$factory, ['/api/account/profile', 'display_name', 'phone', 'avatar', 'Update profile', '_blank']];
-        },
+        }
     ];
 
     foreach ($cases as $label => $builder) {
         [$factory, $expected] = $builder();
         $payload = $makePayload($factory);
-        echo '-- ' . $label . ' prepare() --' . PHP_EOL;
+        echo '-- ' . $label . ' compileAsJson() --' . PHP_EOL;
         var_dump($payload);
-        $assert(is_string($payload) && $payload !== '', $label . ' prepare() must return rendered markup payload.');
+        $assert(is_string($payload) && $payload !== '', $label . ' compileAsJson() must return rendered markup payload.');
         foreach ($expected as $fragment) {
             $assert(str_contains($payload, $fragment), $label . ' missing fragment: ' . $fragment . ' in ' . $payload);
         }

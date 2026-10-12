@@ -15,15 +15,15 @@ try {
 
     $factories = [
         'PostForm' => new \MvpLounge\MeshFactory\Element\Form\PostForm(),
-        'AjaxForm' => new \MvpLounge\MeshFactory\Element\Form\AjaxForm(),
+        'AjaxForm' => new \MvpLounge\MeshFactory\Element\Form\AjaxForm()
     ];
 
     foreach ($factories as $label => $factory) {
         $assert($factory->addClass('generic-' . strtolower($label)) === $factory, $label . ' addClass() must remain fluent.');
-        $html = $factory->string();
-        echo '-- ' . $label . ' string() --' . PHP_EOL;
+        $html = $factory->compleAsHtmlString();
+        echo '-- ' . $label . ' compleAsHtmlString() --' . PHP_EOL;
         var_dump($html);
-        $assert(is_string($html), $label . ' string() must return a string.');
+        $assert(is_string($html), $label . ' compleAsHtmlString() must return a string.');
     }
 
     echo 'PASS assertions' . PHP_EOL;
