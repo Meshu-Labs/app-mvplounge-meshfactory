@@ -1,0 +1,29 @@
+name: Branch policy
+
+on:
+  pull_request_target:
+    branches: [dev, main]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  branch-policy:
+    name: Branch policy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (pr.base.ref === 'dev') {
+              return;
+            }
+            const allowed = ['mcs-labs-dk', 'meshucs', 'Copilot', 'copilot-swe-agent[bot]'];
+            if (pr.base.ref !== 'main' ||
+                pr.head.ref !== 'dev' ||
+                pr.head.repo?.full_name !== context.repo.owner + '/' + context.repo.repo ||
+                !allowed.includes(pr.user.login)) {
+              core.setFailed('main accepts only same-repository dev PRs authored by an approved promotion account or Copilot.');
+            }
