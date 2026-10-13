@@ -109,6 +109,21 @@ public function getFactoryElementTableScope(array $allowed): ?string
 - Parent constructor orchestrates parameter dispatch.
 - `__process_*()` methods each own one logical parameter group.
 
+## Element Param Resolution Contract
+
+- Callers should pass element intent through constructor params using `['element' => '<tag>']`.
+- `FactoryElementAbstract::__process_element()` must route through `addElement()`.
+- `addElement()` must resolve against `FactoryElement::tryFrom(...)` and set `FactoryElement` only when enum-backed value matches.
+- High-level helpers (for example heading helpers) should forward `element` params into concrete factories rather than hard-coding local allowlists.
+- Preferred call shape:
+
+```php
+public function H4(): FactoryElementAbstract
+{
+  return $this->H(['element' => 'h4']);
+}
+```
+
 ## Array Formatting Contract
 
 - Do not use a trailing comma on the final item in PHP array declarations.

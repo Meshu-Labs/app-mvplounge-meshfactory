@@ -9,12 +9,22 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+use MvpLounge\MeshFactory\Enum\FactoryElement;
 
 require_once __DIR__ . '/FactoryElementHtmlAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
+require_once __DIR__ . '/../Enum/FactoryElement.php';
 
 abstract class FactoryElementMetaDataAbstract extends FactoryElementHtmlAbstract
 {
+    protected array $AllowedFactoryElements = [
+        FactoryElement::BASE,
+        FactoryElement::LINK,
+        FactoryElement::META,
+        FactoryElement::STYLE,
+        FactoryElement::TITLE
+    ];
+
     protected array $AllowedFactoryElementAttributes = [
         FactoryElementAttribute::HREF,
         FactoryElementAttribute::REL,

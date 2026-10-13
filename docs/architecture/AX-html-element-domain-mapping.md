@@ -7,6 +7,36 @@ This document maps source-of-truth HTML element domains to MeshFactory class nam
 - Main root -> Root
 - Document metadata -> MetaData
 
+## Current Namespace Root
+
+- Canonical classes currently resolve under `MvpLounge\\MeshFactory\\Element\\{Domain}\\{Class}`.
+
+## APP-EELC Core Element Routing
+
+| Enum | Canonical Class | Domain |
+|---|---|---|
+| `FactoryElement::P` | `MvpLounge\\MeshFactory\\Element\\TextContent\\P` | `TextContent` |
+| `FactoryElement::H1` | `MvpLounge\\MeshFactory\\Element\\TextContent\\H1` | `TextContent` |
+| `FactoryElement::H2` | `MvpLounge\\MeshFactory\\Element\\TextContent\\H2` | `TextContent` |
+| `FactoryElement::H3` | `MvpLounge\\MeshFactory\\Element\\TextContent\\H3` | `TextContent` |
+| `FactoryElement::H4` | `MvpLounge\\MeshFactory\\Element\\TextContent\\H4` | `TextContent` |
+| `FactoryElement::H5` | `MvpLounge\\MeshFactory\\Element\\TextContent\\H5` | `TextContent` |
+| `FactoryElement::H6` | `MvpLounge\\MeshFactory\\Element\\TextContent\\H6` | `TextContent` |
+| `FactoryElement::HL` | `MvpLounge\\MeshFactory\\Element\\TextContent\\Hl` | `TextContent` |
+| `FactoryElement::IMG` | `MvpLounge\\MeshFactory\\Element\\ImageAndMultimedia\\Img` | `ImageAndMultimedia` |
+| `FactoryElement::DIV` | `MvpLounge\\MeshFactory\\Element\\TextContent\\Div` | `TextContent` |
+| `FactoryElement::SPAN` | `MvpLounge\\MeshFactory\\Element\\InlineTextSemantics\\Span` | `InlineTextSemantics` |
+| `FactoryElement::LABEL` | `MvpLounge\\MeshFactory\\Element\\Form\\Label` | `Form` |
+| `FactoryElement::ASIDE` | `MvpLounge\\MeshFactory\\Element\\SectioningContent\\Aside` | `SectioningContent` |
+| `FactoryElement::CONTENT` | `MvpLounge\\MeshFactory\\Element\\WebComponents\\Content` | `WebComponents` |
+| `FactoryElement::HEADER` | `MvpLounge\\MeshFactory\\Element\\SectioningContent\\Header` | `SectioningContent` |
+| `FactoryElement::FIGURE` | `MvpLounge\\MeshFactory\\Element\\TextContent\\Figure` | `TextContent` |
+| `FactoryElement::MAIN` | `MvpLounge\\MeshFactory\\Element\\TextContent\\Main` | `TextContent` |
+| `FactoryElement::SECTION` | `MvpLounge\\MeshFactory\\Element\\SectioningContent\\Section` | `SectioningContent` |
+| `FactoryElement::ARTICLE` | `MvpLounge\\MeshFactory\\Element\\SectioningContent\\Article` | `SectioningContent` |
+| `FactoryElement::FOOTER` | `MvpLounge\\MeshFactory\\Element\\SectioningContent\\Footer` | `SectioningContent` |
+| `FactoryElement::NAV` | `MvpLounge\\MeshFactory\\Element\\SectioningContent\\Nav` | `SectioningContent` |
+
 ## Mapping
 
 | Source Domain | Library Domain Namespace | Source Element | Library Class | Notes |
@@ -130,9 +160,9 @@ This document maps source-of-truth HTML element domains to MeshFactory class nam
 
 ## Canonical Import Rule
 
-- Import and instantiate classes from `Element/Html/{Domain}` only.
+- Import and instantiate classes from `Element/{Domain}` only.
 - Do not use `Element/Html5/*` or `Element/Links/Anchor` for new or existing integrations.
 
 ## Base Class
 
-- Shared HTML base class: MvpLounge\\MeshFactory\\Element\\Html\\HtmlElement in src/MvpLounge/MeshFactory/Element/Html/HtmlElement.php.
+- Shared HTML behavior base class: `MvpLounge\\MeshFactory\\Abstract\\FactoryElementHtmlAbstract` in `src/MvpLounge/MeshFactory/Abstract/FactoryElementHtmlAbstract.php`.

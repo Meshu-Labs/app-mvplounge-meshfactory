@@ -9,9 +9,11 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+use MvpLounge\MeshFactory\Enum\FactoryElement;
 
 require_once __DIR__ . '/FactoryElementFieldAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
+require_once __DIR__ . '/../Enum/FactoryElement.php';
 
 /**
  * Input-control specialization layer.
@@ -21,6 +23,10 @@ require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
  */
 abstract class FactoryElementFieldInputAbstract extends FactoryElementFieldAbstract
 {
+    protected array $AllowedFactoryElements = [
+        FactoryElement::INPUT
+    ];
+
     protected array $AllowedFactoryElementAttributes = [
         FactoryElementAttribute::NAME,
         FactoryElementAttribute::PLACEHOLDER,
