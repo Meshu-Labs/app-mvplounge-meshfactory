@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Picture Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\EmbeddedContent\\Picture';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\EmbeddedContent\Picture();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-picture_embeddedcontent');
-    }
+    $factory->addClass('generic-picture_embeddedcontent');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-picture_embeddedcontent', true);
-    }
+    $factory->addContent('generic-content-picture_embeddedcontent', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\EmbeddedContent\Picture::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\EmbeddedContent\Picture::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

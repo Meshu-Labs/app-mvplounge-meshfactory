@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Content Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\WebComponents\\Content';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\WebComponents\Content();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-content_webcomponents');
-    }
+    $factory->addClass('generic-content_webcomponents');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-content_webcomponents', true);
-    }
+    $factory->addContent('generic-content-content_webcomponents', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\WebComponents\Content::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\WebComponents\Content::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

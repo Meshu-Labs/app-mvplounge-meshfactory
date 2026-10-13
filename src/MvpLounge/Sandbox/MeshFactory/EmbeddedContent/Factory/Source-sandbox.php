@@ -7,28 +7,41 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 
 echo '=== Source Sandbox (Factory) ===' . PHP_EOL;
 
+// Template reference: docs/tasks/TK-factory-sandbox-template.md
+
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\EmbeddedContent\\Source';
-    $factory = new $className();
-    $params = mfBuildScopedParams($factory, 'source_embeddedcontent');
 
-    foreach ($params as $attribute => $value) {
-        $method = mfMethodForAttribute((string) $attribute);
-        if (method_exists($factory, $method)) {
-            $factory->{$method}($value);
-        }
-    }
+    #region Test Definition
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('factory-content-source_embeddedcontent', true);
-    }
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
 
-    if (method_exists($factory, 'configureFactory')) {
-        $factory->configureFactory($params);
-    }
+    $factory = new \MvpLounge\MeshFactory\Element\EmbeddedContent\Source();
+    $params = [
+        'id' => 'el_id_source_embeddedcontent',
+        'class' => 'el-class-source_embeddedcontent',
+        'title' => 'Element title source_embeddedcontent',
+        'style' => 'display:block',
+        'lang' => 'en'
+    ];
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    $factory->addId((string) $params['id'])
+        ->addClass((string) $params['class'])
+        ->addTitle((string) $params['title'])
+        ->addStyle((string) $params['style'])
+        ->addLang((string) $params['lang'])
+        ->addSrc('/embedded/content/resource')
+        ->addType('text/html')
+        ->addName('embedded_content_name')
+        ->addLoading('lazy')
+        ->addDecoding('async')
+        ->addFetchpriority('high')
+        ->addContent('factory-content-source_embeddedcontent', true);
+
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\EmbeddedContent\Source::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\EmbeddedContent\Source::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;
@@ -37,4 +50,6 @@ try {
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
     exit(1);
+
+    #endregion
 }

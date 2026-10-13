@@ -23,7 +23,7 @@ abstract class FactoryElementMetaDataAbstract extends FactoryElementHtmlAbstract
         FactoryElementAttribute::REFERRERPOLICY,
         FactoryElementAttribute::TYPE,
         FactoryElementAttribute::NAME,
-        FactoryElementAttribute::AS,
+        FactoryElementAttribute:: AS ,
         FactoryElementAttribute::INTEGRITY,
         FactoryElementAttribute::CROSSORIGIN
     ];
@@ -145,10 +145,20 @@ abstract class FactoryElementMetaDataAbstract extends FactoryElementHtmlAbstract
         return $this;
     }
 
+    public function addType($type): static
+    {
+        return $this->addMetaType($type);
+    }
+
     public function addMetaName($name): static
     {
         $this->FactoryElementMetaName = is_null($name) ? NULL : (string) $name;
         return $this;
+    }
+
+    public function addName($name): static
+    {
+        return $this->addMetaName($name);
     }
 
     public function addAs($as): static
@@ -169,6 +179,56 @@ abstract class FactoryElementMetaDataAbstract extends FactoryElementHtmlAbstract
         return $this;
     }
 
+    public function getFactoryElementMetaHref(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::HREF->value, $allowed, TRUE) ? $this->FactoryElementMetaHref : NULL;
+    }
+
+    public function getFactoryElementMetaRel(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::REL->value, $allowed, TRUE) ? $this->FactoryElementMetaRel : NULL;
+    }
+
+    public function getFactoryElementMetaHreflang(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::HREFLANG->value, $allowed, TRUE) ? $this->FactoryElementMetaHreflang : NULL;
+    }
+
+    public function getFactoryElementMetaMedia(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::MEDIA->value, $allowed, TRUE) ? $this->FactoryElementMetaMedia : NULL;
+    }
+
+    public function getFactoryElementMetaReferrerpolicy(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::REFERRERPOLICY->value, $allowed, TRUE) ? $this->FactoryElementMetaReferrerpolicy : NULL;
+    }
+
+    public function getFactoryElementMetaType(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::TYPE->value, $allowed, TRUE) ? $this->FactoryElementMetaType : NULL;
+    }
+
+    public function getFactoryElementMetaName(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::NAME->value, $allowed, TRUE) ? $this->FactoryElementMetaName : NULL;
+    }
+
+    public function getFactoryElementMetaAs(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute:: AS ->value, $allowed, TRUE) ? $this->FactoryElementMetaAs : NULL;
+    }
+
+    public function getFactoryElementMetaIntegrity(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::INTEGRITY->value, $allowed, TRUE) ? $this->FactoryElementMetaIntegrity : NULL;
+    }
+
+    public function getFactoryElementMetaCrossorigin(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::CROSSORIGIN->value, $allowed, TRUE) ? $this->FactoryElementMetaCrossorigin : NULL;
+    }
+
     public function getFactoryAttributePropertyCollection(): array
     {
         $_allowed = $this->getAllowedFactoryElementAttributes();
@@ -176,16 +236,16 @@ abstract class FactoryElementMetaDataAbstract extends FactoryElementHtmlAbstract
         return array_merge(
             $this->getDefaultFactoryAttributePropertyCollection(),
             [
-                'href' => in_array(FactoryElementAttribute::HREF->value, $_allowed, TRUE) ? $this->FactoryElementMetaHref : NULL,
-                'rel' => in_array(FactoryElementAttribute::REL->value, $_allowed, TRUE) ? $this->FactoryElementMetaRel : NULL,
-                'hreflang' => in_array(FactoryElementAttribute::HREFLANG->value, $_allowed, TRUE) ? $this->FactoryElementMetaHreflang : NULL,
-                'media' => in_array(FactoryElementAttribute::MEDIA->value, $_allowed, TRUE) ? $this->FactoryElementMetaMedia : NULL,
-                'referrerpolicy' => in_array(FactoryElementAttribute::REFERRERPOLICY->value, $_allowed, TRUE) ? $this->FactoryElementMetaReferrerpolicy : NULL,
-                'type' => in_array(FactoryElementAttribute::TYPE->value, $_allowed, TRUE) ? $this->FactoryElementMetaType : NULL,
-                'name' => in_array(FactoryElementAttribute::NAME->value, $_allowed, TRUE) ? $this->FactoryElementMetaName : NULL,
-                'as' => in_array(FactoryElementAttribute:: AS ->value, $_allowed, TRUE) ? $this->FactoryElementMetaAs : NULL,
-                'integrity' => in_array(FactoryElementAttribute::INTEGRITY->value, $_allowed, TRUE) ? $this->FactoryElementMetaIntegrity : NULL,
-                'crossorigin' => in_array(FactoryElementAttribute::CROSSORIGIN->value, $_allowed, TRUE) ? $this->FactoryElementMetaCrossorigin : NULL
+                'href' => $this->getFactoryElementMetaHref($_allowed),
+                'rel' => $this->getFactoryElementMetaRel($_allowed),
+                'hreflang' => $this->getFactoryElementMetaHreflang($_allowed),
+                'media' => $this->getFactoryElementMetaMedia($_allowed),
+                'referrerpolicy' => $this->getFactoryElementMetaReferrerpolicy($_allowed),
+                'type' => $this->getFactoryElementMetaType($_allowed),
+                'name' => $this->getFactoryElementMetaName($_allowed),
+                'as' => $this->getFactoryElementMetaAs($_allowed),
+                'integrity' => $this->getFactoryElementMetaIntegrity($_allowed),
+                'crossorigin' => $this->getFactoryElementMetaCrossorigin($_allowed)
             ]
         );
     }

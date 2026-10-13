@@ -44,8 +44,6 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		FactoryElementAttribute::PLACEHOLDER,
 		FactoryElementAttribute::TYPE,
 		FactoryElementAttribute::VALUE,
-		FactoryElementAttribute::ROWS,
-		FactoryElementAttribute::COLS,
 		FactoryElementAttribute::SELECTED,
 		FactoryElementAttribute::CHECKED,
 		FactoryElementAttribute::ACCESS

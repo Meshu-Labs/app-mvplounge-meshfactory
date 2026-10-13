@@ -24,6 +24,14 @@ require_once __DIR__ . '/../../Enum/FactoryElementPrimativeType.php';
 
 class RadioInput extends FactoryElementFieldInputAbstract
 {
+	protected array $AllowedFactoryElementAttributes = [
+		FactoryElementAttribute::NAME,
+		FactoryElementAttribute::PLACEHOLDER,
+		FactoryElementAttribute::TYPE,
+		FactoryElementAttribute::VALUE,
+		FactoryElementAttribute::CHECKED,
+		FactoryElementAttribute::ACCESS
+	];
 	protected bool $FactoryElementFieldChecked = FALSE;
 	protected ?array $FactoryElementFieldCollection = [];
 	protected ?\MvpLounge\MeshFactory\Enum\FactoryElement $FactoryElement = \MvpLounge\MeshFactory\Enum\FactoryElement::INPUT;

@@ -86,6 +86,23 @@ Use the canonical mapping reference:
 - Validate with strict comparisons.
 - Return `NULL` when an attribute is outside the allowlist.
 
+## Attribute Getter Modeling Contract
+
+- Do not place inline `in_array(...)?...:NULL` ternary expressions directly in `getFactoryAttributePropertyCollection()`.
+- Model each allowlist-gated attribute read as a dedicated `get*` method on the owning abstract class.
+- Getter methods must accept the resolved allowlist and follow the canonical pattern:
+
+```php
+public function getFactoryElementTableScope(array $allowed): ?string
+{
+  return in_array(FactoryElementAttribute::SCOPE->value, $allowed, TRUE) ? $this->FactoryElementTableScope : NULL;
+}
+```
+
+- `getFactoryAttributePropertyCollection()` should compose values by calling these `get*` methods.
+- Concrete classes must not override inherited `__process_*` or `get*` methods unless the derivative introduces domain-specific behavior that cannot live in the abstract.
+- Any concrete override exception for non-derivative classes must be explicitly approved in the `Quality Check: Concrete Override Audit` task registry and documented with rationale.
+
 ## Parameter Processing Convention
 
 - Constructors accept `$params = []`.

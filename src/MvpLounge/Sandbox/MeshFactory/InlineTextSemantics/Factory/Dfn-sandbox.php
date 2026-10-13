@@ -7,28 +7,35 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 
 echo '=== Dfn Sandbox (Factory) ===' . PHP_EOL;
 
+// Template reference: docs/tasks/TK-factory-sandbox-template.md
+
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\InlineTextSemantics\\Dfn';
-    $factory = new $className();
-    $params = mfBuildScopedParams($factory, 'dfn_inlinetextsemantics');
 
-    foreach ($params as $attribute => $value) {
-        $method = mfMethodForAttribute((string) $attribute);
-        if (method_exists($factory, $method)) {
-            $factory->{$method}($value);
-        }
-    }
+    #region Test Definition
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('factory-content-dfn_inlinetextsemantics', true);
-    }
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
 
-    if (method_exists($factory, 'configureFactory')) {
-        $factory->configureFactory($params);
-    }
+    $factory = new \MvpLounge\MeshFactory\Element\InlineTextSemantics\Dfn();
+    $params = [
+        'id' => 'el_id_dfn_inlinetextsemantics',
+        'class' => 'el-class-dfn_inlinetextsemantics',
+        'title' => 'Element title dfn_inlinetextsemantics',
+        'style' => 'display:block',
+        'lang' => 'en'
+    ];
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    $factory->addId((string) $params['id'])
+        ->addClass((string) $params['class'])
+        ->addTitle((string) $params['title'])
+        ->addStyle((string) $params['style'])
+        ->addLang((string) $params['lang'])
+        ->addContent('factory-content-dfn_inlinetextsemantics', true);
+
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\InlineTextSemantics\Dfn::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\InlineTextSemantics\Dfn::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;
@@ -37,4 +44,6 @@ try {
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
     exit(1);
+
+    #endregion
 }

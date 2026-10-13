@@ -19,7 +19,7 @@ try {
     ];
 
     foreach ($factories as $label => $factory) {
-        if (method_exists($factory, 'addClass') && $factory->addClass('generic-' . strtolower($label)) !== $factory) {
+        if ($factory->addClass('generic-' . strtolower($label)) !== $factory) {
             throw new RuntimeException($label . ' addClass() must remain fluent.');
         }
         $html = $factory->compleAsHtmlString();

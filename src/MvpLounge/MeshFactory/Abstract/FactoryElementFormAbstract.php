@@ -12,6 +12,7 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+use MvpLounge\MeshFactory\Enum\FactoryElementWindowTarget;
 use MvpLounge\MeshFactory\Element\Field\FormButton;
 use MvpLounge\MeshFactory\Element\Field\HiddenInput;
 
@@ -21,6 +22,7 @@ require_once __DIR__ . '/../Element/Field/FormButton.php';
 require_once __DIR__ . '/../Element/Field/HiddenInput.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
+require_once __DIR__ . '/../Enum/FactoryElementWindowTarget.php';
 
 
 
@@ -104,6 +106,11 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		return $this;
 	}
 
+	public function addEnctype($enctype): static
+	{
+		return $this->addEnc($enctype);
+	}
+
 	public function addAutoComplete($autoComplete): static
 	{
 		if (is_null($autoComplete)) {
@@ -165,8 +172,10 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 	{
 		if (
 			is_string($target) && in_array(strtolower($target), [
-				'_self',
-				'_blank'
+				FactoryElementWindowTarget::SELF->value,
+				FactoryElementWindowTarget::BLANK->value,
+				FactoryElementWindowTarget::PARENT->value,
+				FactoryElementWindowTarget::TOP->value
 			], TRUE)
 		) {
 			$this->FactoryElementFormTarget = strtolower($target);

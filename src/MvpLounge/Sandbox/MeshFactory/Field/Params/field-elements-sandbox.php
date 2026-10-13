@@ -6,7 +6,18 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 echo '=== Field Sandbox (Params) ===' . PHP_EOL;
 
+// Template reference: docs/tasks/TK-params-sandbox-template.md
+
+
 try {
+
+    #region Test Definition
+
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
+
     $assert = static function (bool $condition, string $message): void {
         if (!$condition) {
             throw new RuntimeException($message);
@@ -132,6 +143,11 @@ try {
                 'value' => 2,
                 'access' => true,
             ]);
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
+
             $factory = new \MvpLounge\MeshFactory\Element\Field\SelectOption($params);
             $factory->addOrtions([1 => 'One', 2 => 'Two']);
             return [$factory, array_merge($globalExpected($suffix), ['name="select_name"', 'value="2"', 'enabled', 'selected', '>Two<'])];
@@ -157,11 +173,23 @@ try {
     }
 
     echo 'PASS assertions' . PHP_EOL;
+    #endregion
+
 } catch (Throwable $e) {
+
+    #region Error Handling
+
+    // Agent or Human:
+    //
+    // Emit error diagnostic messages - customize after generation
+    //
+
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;
     echo 'ERROR_MESSAGE: ' . $e->getMessage() . PHP_EOL;
     echo 'ERROR_FILE: ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
     exit(1);
+
+    #endregion
 }

@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Base Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\MetaData\\Base';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\MetaData\Base();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-base_metadata');
-    }
+    $factory->addClass('generic-base_metadata');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-base_metadata', true);
-    }
+    $factory->addContent('generic-content-base_metadata', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\MetaData\Base::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\MetaData\Base::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

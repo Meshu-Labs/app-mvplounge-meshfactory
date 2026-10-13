@@ -12,42 +12,19 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 use MvpLounge\MeshFactory\Abstract\FactoryAbstract;
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+use MvpLounge\MeshFactory\Enum\FactoryElementWindowTarget;
 
 
 require_once __DIR__ . '/FactoryAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
+require_once __DIR__ . '/../Enum/FactoryElementWindowTarget.php';
 
 abstract class FactoryElementAbstract extends FactoryAbstract
 {
 
 	protected array $AllowedFactoryElements = [];
-	protected array $AllowedFactoryElementAttributes = [
-		FactoryElementAttribute::NAME,
-		FactoryElementAttribute::HREF,
-		FactoryElementAttribute::TARGET,
-		FactoryElementAttribute::REL,
-		FactoryElementAttribute::ACTION,
-		FactoryElementAttribute::METHOD,
-		FactoryElementAttribute::ENCTYPE,
-		FactoryElementAttribute::NOVALIDATE,
-		FactoryElementAttribute::PLACEHOLDER,
-		FactoryElementAttribute::TYPE,
-		FactoryElementAttribute::VALUE,
-		FactoryElementAttribute::ROWS,
-		FactoryElementAttribute::COLS,
-		FactoryElementAttribute::COLSPAN,
-		FactoryElementAttribute::ROWSPAN,
-		FactoryElementAttribute::SCOPE,
-		FactoryElementAttribute::HEADERS,
-		FactoryElementAttribute::ABBR,
-		FactoryElementAttribute::SELECTED,
-		FactoryElementAttribute::CHECKED,
-		FactoryElementAttribute::CELLSPACING,
-		FactoryElementAttribute::CELLPADDING,
-		FactoryElementAttribute::BORDER,
-		FactoryElementAttribute::ACCESS
-	];
+	protected array $AllowedFactoryElementAttributes = [];
 	protected ?FactoryElement $FactoryElement = NULL;
 	protected ?string $FactoryElementClose = NULL;
 	protected ?string $FactoryElementContent = '';
@@ -489,14 +466,14 @@ abstract class FactoryElementAbstract extends FactoryAbstract
 			case 'target':
 				$_target = strtolower((string) $_value);
 				switch ($_target) {
-					case '_self':
-					case '_blank':
-					case '_parent':
-					case '_top':
+					case FactoryElementWindowTarget::SELF->value:
+					case FactoryElementWindowTarget::BLANK->value:
+					case FactoryElementWindowTarget::PARENT->value:
+					case FactoryElementWindowTarget::TOP->value:
 						$_value = $_target;
 						break;
 					default:
-						$_value = '_self';
+						$_value = FactoryElementWindowTarget::SELF->value;
 						break;
 				}
 				return sprintf('target="%s"', $_value);

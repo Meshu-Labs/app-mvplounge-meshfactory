@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Q Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\InlineTextSemantics\\Q';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\InlineTextSemantics\Q();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-q_inlinetextsemantics');
-    }
+    $factory->addClass('generic-q_inlinetextsemantics');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-q_inlinetextsemantics', true);
-    }
+    $factory->addContent('generic-content-q_inlinetextsemantics', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\InlineTextSemantics\Q::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\InlineTextSemantics\Q::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Dialog Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\InteractiveElements\\Dialog';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\InteractiveElements\Dialog();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-dialog_interactiveelements');
-    }
+    $factory->addClass('generic-dialog_interactiveelements');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-dialog_interactiveelements', true);
-    }
+    $factory->addContent('generic-content-dialog_interactiveelements', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\InteractiveElements\Dialog::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\InteractiveElements\Dialog::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

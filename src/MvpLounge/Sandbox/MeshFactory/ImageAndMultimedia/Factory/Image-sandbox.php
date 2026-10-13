@@ -7,28 +7,47 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 
 echo '=== Image Sandbox (Factory) ===' . PHP_EOL;
 
+// Template reference: docs/tasks/TK-factory-sandbox-template.md
+
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\ImageAndMultimedia\\Image';
-    $factory = new $className();
-    $params = mfBuildScopedParams($factory, 'image_imageandmultimedia');
 
-    foreach ($params as $attribute => $value) {
-        $method = mfMethodForAttribute((string) $attribute);
-        if (method_exists($factory, $method)) {
-            $factory->{$method}($value);
-        }
-    }
+    #region Test Definition
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('factory-content-image_imageandmultimedia', true);
-    }
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
 
-    if (method_exists($factory, 'configureFactory')) {
-        $factory->configureFactory($params);
-    }
+    $factory = new \MvpLounge\MeshFactory\Element\ImageAndMultimedia\Image();
+    $params = [
+        'id' => 'el_id_image_imageandmultimedia',
+        'class' => 'el-class-image_imageandmultimedia',
+        'title' => 'Element title image_imageandmultimedia',
+        'style' => 'display:block',
+        'lang' => 'en'
+    ];
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    $factory->addId((string) $params['id'])
+        ->addClass((string) $params['class'])
+        ->addTitle((string) $params['title'])
+        ->addStyle((string) $params['style'])
+        ->addLang((string) $params['lang'])
+        ->addSrc('/media/resource.jpg')
+        ->addAlt('media resource')
+        ->addLoading('lazy')
+        ->addDecoding('async')
+        ->addFetchpriority('high')
+        ->addPreload('metadata')
+        ->addPoster('/media/poster.jpg')
+        ->addAutoplay(true)
+        ->addControls(true)
+        ->addLoop(false)
+        ->addMuted(false)
+        ->addCrossorigin('anonymous')
+        ->addContent('factory-content-image_imageandmultimedia', true);
+
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\ImageAndMultimedia\Image::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\ImageAndMultimedia\Image::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;
@@ -37,4 +56,6 @@ try {
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
     exit(1);
+
+    #endregion
 }

@@ -2,6 +2,15 @@
 
 This playbook provides operational procedures for running MeshFactory quality checks.
 
+Generated report storage policy and scripting references are defined in:
+
+- `docs/tasks/TK-generated-artifacts-storage-and-reporting.md`
+
+Artifact storage enforcement:
+
+- Store generated files in `/.tmp/{filetype}/` folders (`json/`, `txt/`, `php/`, `tmp/`).
+- Do not write generated artifacts directly into `/.tmp/` root.
+
 ## Single File Checks
 
 Syntax:
@@ -29,6 +38,7 @@ Use VS Code tasks from `.vscode/tasks.json`:
 - `Quality Check: Table Domain`
 - `Quality Check: Links Domain`
 - `Quality Check: All Domains`
+- `Quality Check: Concrete Override Audit`
 
 ## Abstraction Depth Audit (Static)
 
@@ -96,6 +106,64 @@ $violations
 "Total violations: $($violations.Count)"
 ```
 
+## Abstract Getter Contract Check
+
+Rules:
+
+- Do not use inline allowlist ternary expressions inside `getFactoryAttributePropertyCollection()`.
+- Required pattern is dedicated `get*` methods that accept `array $allowed` and return nullable typed values.
+
+Quick check for inline violations in abstract classes:
+
+```powershell
+Get-ChildItem "src/MvpLounge/MeshFactory/Abstract" -Filter "*.php" |
+ForEach-Object {
+	$hits = Select-String -Path $_.FullName -Pattern "in_array\(FactoryElementAttribute::.+\?\s*\$this->.+:\s*NULL" -AllMatches
+	if ($hits) {
+		[pscustomobject]@{
+			File = $_.Name
+			Count = $hits.Count
+		}
+	}
+} | Format-Table -AutoSize
+```
+
+Quick check for compliant getter signatures:
+
+```powershell
+Get-ChildItem "src/MvpLounge/MeshFactory/Abstract" -Filter "*.php" |
+ForEach-Object {
+	Select-String -Path $_.FullName -Pattern "public function getFactoryElement\w+\(array \$allowed\): \?\w+" |
+	ForEach-Object {
+		[pscustomobject]@{
+			File = $_.Filename
+			Line = $_.Line.Trim()
+		}
+	}
+} | Format-Table -AutoSize
+```
+
+## Concrete Override Audit
+
+Rules:
+
+- Concrete Element classes must not define local `__process_*` or `getFactoryElement*` methods when inherited abstract behavior is sufficient.
+- Exception cases are allowed only for class-specific behavior and must be explicitly listed in the approved exceptions registry inside the `Quality Check: Concrete Override Audit` task in `.vscode/tasks.json`.
+- Non-derivative concrete classes with unapproved local overrides are a quality failure.
+
+Run the enforcement task:
+
+```powershell
+Write-Host "Run task: Quality Check: Concrete Override Audit"
+```
+
+Maintenance rule for approved exceptions:
+
+- Keep each approved class mapped to explicit method names.
+- When adding a new exception, update both:
+	- `.vscode/tasks.json` approved exceptions registry
+	- `docs/architecture/AX-implementation-contracts.md` rationale for the exception
+
 ## Sandbox Test-Type Standard
 
 Library sandbox suites are organized under `src/MvpLounge/Sandbox/{Library}/`.
@@ -117,9 +185,46 @@ The test-type scripts must follow the established sandbox style:
 - Standalone file per FactoryElement class and strategy.
 - Local assertion checks in each script.
 - Shared helper support is allowed for repeatable parameter and compile-path setup.
+- Params strategy scripts must use explicit class-based flow in each file, in this order:
+	- `$factory = new \MvpLounge\MeshFactory\Element\...();`
+	- `$params = mfBuildScopedParams($factory, '<scope>');`
+	- `$factory->configureFactory($params);`
+	- `mfAssertRenderableOutputs($factory, $factory::class);`
+	- `echo 'PASS ' . $factory::class . PHP_EOL;`
+- Params strategy scripts must not pass scoped params through constructor arguments.
+- Factory strategy scripts must invoke supported factory setters explicitly (for example `addId()`, `addHref()`, `addTitle()`) in the sandbox file.
+- Dynamic attribute-to-method mapping (for example generated `add*` method names from attribute strings) is not allowed in factory strategy sandbox examples.
 - Structured `ERROR_CLASS`, `ERROR_MESSAGE`, `ERROR_FILE`, and `ERROR_TRACE` output on failure.
 
 The scripts are written as explicit examples with per-class readability, while shared helper functions keep repeated setup small and consistent.
+
+## Factory Sandbox Template
+
+Factory sandbox files should preserve the comment scaffold defined in `docs/tasks/TK-factory-sandbox-template.md`.
+
+Required boundaries:
+
+- Keep the test-definition region as the editable generation area for factory instantiation, explicit fluent setters, and assertions.
+- Keep the error-handling region as the editable generation area for diagnostic output.
+- Preserve the `#region` markers so generators can safely rewrite the file without disturbing the surrounding boilerplate.
+- Keep the scaffold aligned with the source-of-truth element scope and the canonical factory class.
+
+Run the MeshFactory sandbox suite through the library runner:
+
+```powershell
+& "C:/xampp_devops_test/php/php.exe" "c:/_src/app-mvplounge-meshfactory/src/MvpLounge/Sandbox/MeshFactory/run-all.php"
+```
+
+## Params Sandbox Template
+
+Params sandbox files should preserve the comment scaffold defined in `docs/tasks/TK-params-sandbox-template.md`.
+
+Required boundaries:
+
+- Keep the test-definition region as the editable generation area for factory instantiation, scoped params, and assertions.
+- Keep the error-handling region as the editable generation area for diagnostic output.
+- Preserve the `#region` markers so generators can safely rewrite the file without disturbing the surrounding boilerplate.
+- Keep the scaffold aligned with the source-of-truth element scope and the canonical factory class.
 
 Run the MeshFactory sandbox suite through the library runner:
 
@@ -161,6 +266,16 @@ Parameter restriction rule:
 - Sandbox params must only use attributes from:
 	- `FactoryAbstract::$FactoryElementAttributes`
 	- the active class-chain `AllowedFactoryElementAttributes`
+
+Attribute ownership rule:
+
+- `FactoryElementAbstract::$AllowedFactoryElementAttributes` must remain empty.
+- Non-global attribute ownership must be declared downstream in the most specific abstract or concrete class that supports the rendered property.
+
+Canonical fluent setter rule:
+
+- For each allowed attribute, expose a canonical `add*` method using normalized attribute naming.
+- Legacy specialized methods are allowed only when a canonical alias exists (for example `addType()` delegating to a specialized implementation).
 
 Refactor trigger rule:
 

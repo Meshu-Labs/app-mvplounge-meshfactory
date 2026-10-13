@@ -85,10 +85,20 @@ abstract class FactoryElementEmbeddedContentAbstract extends FactoryElementHtmlA
         return $this;
     }
 
+    public function addType($type): static
+    {
+        return $this->addEmbeddedType($type);
+    }
+
     public function addEmbeddedName($name): static
     {
         $this->FactoryElementEmbeddedName = is_null($name) ? NULL : (string) $name;
         return $this;
+    }
+
+    public function addName($name): static
+    {
+        return $this->addEmbeddedName($name);
     }
 
     public function addLoading($loading): static
@@ -109,6 +119,36 @@ abstract class FactoryElementEmbeddedContentAbstract extends FactoryElementHtmlA
         return $this;
     }
 
+    public function getFactoryElementEmbeddedSrc(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::SRC->value, $allowed, TRUE) ? $this->FactoryElementEmbeddedSrc : NULL;
+    }
+
+    public function getFactoryElementEmbeddedType(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::TYPE->value, $allowed, TRUE) ? $this->FactoryElementEmbeddedType : NULL;
+    }
+
+    public function getFactoryElementEmbeddedName(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::NAME->value, $allowed, TRUE) ? $this->FactoryElementEmbeddedName : NULL;
+    }
+
+    public function getFactoryElementEmbeddedLoading(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::LOADING->value, $allowed, TRUE) ? $this->FactoryElementEmbeddedLoading : NULL;
+    }
+
+    public function getFactoryElementEmbeddedDecoding(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::DECODING->value, $allowed, TRUE) ? $this->FactoryElementEmbeddedDecoding : NULL;
+    }
+
+    public function getFactoryElementEmbeddedFetchpriority(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::FETCHPRIORITY->value, $allowed, TRUE) ? $this->FactoryElementEmbeddedFetchpriority : NULL;
+    }
+
     public function getFactoryAttributePropertyCollection(): array
     {
         $_allowed = $this->getAllowedFactoryElementAttributes();
@@ -116,12 +156,12 @@ abstract class FactoryElementEmbeddedContentAbstract extends FactoryElementHtmlA
         return array_merge(
             $this->getDefaultFactoryAttributePropertyCollection(),
             [
-                'src' => in_array(FactoryElementAttribute::SRC->value, $_allowed, TRUE) ? $this->FactoryElementEmbeddedSrc : NULL,
-                'type' => in_array(FactoryElementAttribute::TYPE->value, $_allowed, TRUE) ? $this->FactoryElementEmbeddedType : NULL,
-                'name' => in_array(FactoryElementAttribute::NAME->value, $_allowed, TRUE) ? $this->FactoryElementEmbeddedName : NULL,
-                'loading' => in_array(FactoryElementAttribute::LOADING->value, $_allowed, TRUE) ? $this->FactoryElementEmbeddedLoading : NULL,
-                'decoding' => in_array(FactoryElementAttribute::DECODING->value, $_allowed, TRUE) ? $this->FactoryElementEmbeddedDecoding : NULL,
-                'fetchpriority' => in_array(FactoryElementAttribute::FETCHPRIORITY->value, $_allowed, TRUE) ? $this->FactoryElementEmbeddedFetchpriority : NULL
+                'src' => $this->getFactoryElementEmbeddedSrc($_allowed),
+                'type' => $this->getFactoryElementEmbeddedType($_allowed),
+                'name' => $this->getFactoryElementEmbeddedName($_allowed),
+                'loading' => $this->getFactoryElementEmbeddedLoading($_allowed),
+                'decoding' => $this->getFactoryElementEmbeddedDecoding($_allowed),
+                'fetchpriority' => $this->getFactoryElementEmbeddedFetchpriority($_allowed)
             ]
         );
     }

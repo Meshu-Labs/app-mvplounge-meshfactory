@@ -26,7 +26,6 @@ abstract class FactoryElementFieldInputAbstract extends FactoryElementFieldAbstr
         FactoryElementAttribute::PLACEHOLDER,
         FactoryElementAttribute::TYPE,
         FactoryElementAttribute::VALUE,
-        FactoryElementAttribute::CHECKED,
         FactoryElementAttribute::ACCESS
     ];
 

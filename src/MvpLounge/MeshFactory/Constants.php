@@ -7,7 +7,3 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 }
 
 
-final class Constants
-{
-    public const BASE_PATH = MVPLOUNGE_MESHFACTORY_BASE_PATH;
-}

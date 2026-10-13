@@ -60,8 +60,12 @@ enum FactoryElementAttribute: string
 	case PING = 'ping';
 	case REFERRERPOLICY = 'referrerpolicy';
 	case AS = 'as';
+	case DATA = 'data';
+	case CONTENT = 'content';
 	case INTEGRITY = 'integrity';
 	case CROSSORIGIN = 'crossorigin';
+	case SRCSET = 'srcset';
+	case SIZES = 'sizes';
 	case LOADING = 'loading';
 	case DECODING = 'decoding';
 	case FETCHPRIORITY = 'fetchpriority';
@@ -71,4 +75,15 @@ enum FactoryElementAttribute: string
 	case CONTROLS = 'controls';
 	case LOOP = 'loop';
 	case MUTED = 'muted';
+	case DISABLED = 'disabled';
+	case DEFAULT_STATE = 'default';
+	case FORM = 'form';
+	case MIN = 'min';
+	case MAX = 'max';
+	case STEP = 'step';
+	case HIGH = 'high';
+	case LOW = 'low';
+	case OPTIMUM = 'optimum';
+	case KIND = 'kind';
+	case SRCLANG = 'srclang';
 }

@@ -77,6 +77,42 @@ $bytes = [System.IO.File]::ReadAllBytes($filePath) | Select-Object -First 3
 - Field families may use up to four levels from `FactoryAbstract`.
 - Confirm field input classes continue to route through `FactoryElementFieldInputAbstract` when applicable.
 
+### Phase 3.9: Factory Sandbox Explicit Invocation Verification
+
+- In `Sandbox/MeshFactory/*/Factory/*-sandbox.php`, apply attributes using explicit `add*` calls in each file.
+- Do not use dynamic attribute-to-method mapping helpers in factory strategy examples.
+- Allow shared helpers for parameter generation and output assertions, but keep factory invocation readable and explicit for developer guidance.
+- Preserve the Factory sandbox comment scaffold and region markers from `docs/tasks/TK-factory-sandbox-template.md`.
+
+### Phase 3.10: Attribute Ownership and Fluent Alias Verification
+
+- `FactoryElementAbstract::$AllowedFactoryElementAttributes` must not expose domain-specific opening-tag attributes.
+- Downstream abstract/concrete classes must own only the attributes they render in `getFactoryAttributePropertyCollection()`.
+- Each allowed attribute must have a canonical fluent `add*` method, directly or through an alias to specialized legacy methods.
+
+### Phase 3.11: Params Sandbox Explicit Configure Flow Verification
+
+- In `Sandbox/MeshFactory/*/Params/*-sandbox.php`, create the factory with a no-args constructor.
+- Build scoped params through `mfBuildScopedParams($factory, ...)`.
+- Apply params through `$factory->configureFactory($params)`.
+- Validate output with `mfAssertRenderableOutputs($factory, $factory::class)`.
+- Emit success marker with `echo 'PASS ' . $factory::class . PHP_EOL;`.
+- Do not pass scoped params into constructor arguments in Params strategy scripts.
+
+### Phase 3.12: Params Template Boundary Verification
+
+- Preserve the Params scaffold comment block and region markers from `docs/tasks/TK-params-sandbox-template.md`.
+- Allow generation-time edits only inside the test-definition and error-handling regions.
+- Keep bootstrap, imports, and region markers outside the editable generation area.
+- Use the scaffold as the canonical shape when generating a new Params sandbox file from source-of-truth discovery.
+
+### Phase 3.13: Factory Template Boundary Verification
+
+- Preserve the Factory scaffold comment block and region markers from `docs/tasks/TK-factory-sandbox-template.md`.
+- Allow generation-time edits only inside the test-definition and error-handling regions.
+- Keep bootstrap, imports, and region markers outside the editable generation area.
+- Use the scaffold as the canonical shape when generating a new Factory sandbox file from source-of-truth discovery.
+
 ### Phase 4: Legacy Cleanup Verification
 
 - Remove obsolete legacy files after migration.

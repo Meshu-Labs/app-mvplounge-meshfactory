@@ -16,11 +16,7 @@ require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
 abstract class FactoryElementFormElementsAbstract extends FactoryElementHtmlAbstract
 {
     protected array $AllowedFactoryElementAttributes = [
-        FactoryElementAttribute::FOR ,
-        FactoryElementAttribute::NAME,
-        FactoryElementAttribute::VALUE,
-        FactoryElementAttribute::TYPE,
-        FactoryElementAttribute::SELECTED
+        FactoryElementAttribute::FOR
     ];
 
     protected ?string $FactoryElementFormFor = NULL;
@@ -43,6 +39,11 @@ abstract class FactoryElementFormElementsAbstract extends FactoryElementHtmlAbst
         return $this;
     }
 
+    public function getFactoryElementFormFor(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::FOR ->value, $allowed, TRUE) ? $this->FactoryElementFormFor : NULL;
+    }
+
     public function getFactoryAttributePropertyCollection(): array
     {
         $_allowed = $this->getAllowedFactoryElementAttributes();
@@ -50,7 +51,7 @@ abstract class FactoryElementFormElementsAbstract extends FactoryElementHtmlAbst
         return array_merge(
             $this->getDefaultFactoryAttributePropertyCollection(),
             [
-                'for' => in_array(FactoryElementAttribute::FOR ->value, $_allowed, TRUE) ? $this->FactoryElementFormFor : NULL
+                'for' => $this->getFactoryElementFormFor($_allowed)
             ]
         );
     }

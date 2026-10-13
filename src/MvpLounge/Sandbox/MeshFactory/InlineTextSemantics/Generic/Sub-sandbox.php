@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Sub Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\InlineTextSemantics\\Sub';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\InlineTextSemantics\Sub();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-sub_inlinetextsemantics');
-    }
+    $factory->addClass('generic-sub_inlinetextsemantics');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-sub_inlinetextsemantics', true);
-    }
+    $factory->addContent('generic-content-sub_inlinetextsemantics', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\InlineTextSemantics\Sub::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\InlineTextSemantics\Sub::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

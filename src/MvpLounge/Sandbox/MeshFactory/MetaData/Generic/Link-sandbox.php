@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Link Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\MetaData\\Link';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\MetaData\Link();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-link_metadata');
-    }
+    $factory->addClass('generic-link_metadata');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-link_metadata', true);
-    }
+    $factory->addContent('generic-content-link_metadata', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\MetaData\Link::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\MetaData\Link::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

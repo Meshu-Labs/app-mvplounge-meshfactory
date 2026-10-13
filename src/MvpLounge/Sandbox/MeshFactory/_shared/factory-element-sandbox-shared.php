@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+use MvpLounge\MeshFactory\Enum\FactoryElementWindowTarget;
+
 if (!function_exists('mfAssert')) {
     function mfAssert(bool $condition, string $message): void
     {
@@ -15,22 +18,22 @@ if (!function_exists('mfBaseAttributeValues')) {
     function mfBaseAttributeValues(string $suffix): array
     {
         return [
-            'id' => 'el_id_' . $suffix,
-            'class' => 'el-class-' . $suffix,
-            'title' => 'Element title ' . $suffix,
-            'style' => 'display:block',
-            'lang' => 'en',
-            'dir' => 'ltr',
-            'hidden' => 'hidden',
-            'tabindex' => 7,
-            'draggable' => 'false',
-            'contenteditable' => 'false',
-            'spellcheck' => 'false',
-            'translate' => 'no',
-            'role' => 'presentation',
-            'aria-label' => 'aria-label-' . $suffix,
-            'aria-labelledby' => 'aria-labelledby-' . $suffix,
-            'aria-describedby' => 'aria-describedby-' . $suffix
+            FactoryElementAttribute::ID->value => 'el_id_' . $suffix,
+            FactoryElementAttribute::HTML_CLASS->value => 'el-class-' . $suffix,
+            FactoryElementAttribute::TITLE->value => 'Element title ' . $suffix,
+            FactoryElementAttribute::STYLE->value => 'display:block',
+            FactoryElementAttribute::LANG->value => 'en',
+            FactoryElementAttribute::DIR->value => 'ltr',
+            FactoryElementAttribute::HIDDEN->value => 'hidden',
+            FactoryElementAttribute::TABINDEX->value => 7,
+            FactoryElementAttribute::DRAGGABLE->value => 'false',
+            FactoryElementAttribute::CONTENTEDITABLE->value => 'false',
+            FactoryElementAttribute::SPELLCHECK->value => 'false',
+            FactoryElementAttribute::TRANSLATE->value => 'no',
+            FactoryElementAttribute::ROLE->value => 'presentation',
+            FactoryElementAttribute::ARIA_LABEL->value => 'aria-label-' . $suffix,
+            FactoryElementAttribute::ARIA_LABELLEDBY->value => 'aria-labelledby-' . $suffix,
+            FactoryElementAttribute::ARIA_DESCRIBEDBY->value => 'aria-describedby-' . $suffix
         ];
     }
 }
@@ -39,117 +42,117 @@ if (!function_exists('mfAttributeSampleValue')) {
     function mfAttributeSampleValue(string $attribute, string $suffix)
     {
         switch ($attribute) {
-            case 'href':
+            case FactoryElementAttribute::HREF->value:
                 return 'https://example.test/' . $suffix;
-            case 'target':
-                return '_self';
-            case 'rel':
+            case FactoryElementAttribute::TARGET->value:
+                return FactoryElementWindowTarget::SELF->value;
+            case FactoryElementAttribute::REL->value:
                 return 'noopener noreferrer';
-            case 'action':
+            case FactoryElementAttribute::ACTION->value:
                 return '/submit/' . $suffix;
-            case 'method':
+            case FactoryElementAttribute::METHOD->value:
                 return 'post';
-            case 'enctype':
+            case FactoryElementAttribute::ENCTYPE->value:
                 return 'multipart/form-data';
-            case 'novalidate':
+            case FactoryElementAttribute::NOVALIDATE->value:
                 return 'novalidate';
-            case 'autocomplete':
+            case FactoryElementAttribute::AUTOCOMPLETE->value:
                 return 'on';
-            case 'placeholder':
+            case FactoryElementAttribute::PLACEHOLDER->value:
                 return 'placeholder_' . $suffix;
-            case 'type':
+            case FactoryElementAttribute::TYPE->value:
                 return 'text';
-            case 'value':
+            case FactoryElementAttribute::VALUE->value:
                 return 'value_' . $suffix;
-            case 'rows':
+            case FactoryElementAttribute::ROWS->value:
                 return 3;
-            case 'cols':
+            case FactoryElementAttribute::COLS->value:
                 return 12;
-            case 'colspan':
+            case FactoryElementAttribute::COLSPAN->value:
                 return 2;
-            case 'rowspan':
+            case FactoryElementAttribute::ROWSPAN->value:
                 return 2;
-            case 'scope':
+            case FactoryElementAttribute::SCOPE->value:
                 return 'col';
-            case 'headers':
+            case FactoryElementAttribute::HEADERS->value:
                 return 'h1 h2';
-            case 'abbr':
+            case FactoryElementAttribute::ABBR->value:
                 return 'abbr_' . $suffix;
-            case 'selected':
+            case FactoryElementAttribute::SELECTED->value:
                 return true;
-            case 'checked':
+            case FactoryElementAttribute::CHECKED->value:
                 return true;
-            case 'cellspacing':
+            case FactoryElementAttribute::CELLSPACING->value:
                 return 0;
-            case 'cellpadding':
+            case FactoryElementAttribute::CELLPADDING->value:
                 return 1;
-            case 'border':
+            case FactoryElementAttribute::BORDER->value:
                 return 1;
-            case 'access':
+            case FactoryElementAttribute::ACCESS->value:
                 return true;
-            case 'alt':
+            case FactoryElementAttribute::ALT->value:
                 return 'alt_' . $suffix;
-            case 'src':
+            case FactoryElementAttribute::SRC->value:
                 return '/assets/' . $suffix . '.png';
-            case 'for':
+            case FactoryElementAttribute::FOR ->value:
                 return 'field_' . $suffix;
-            case 'hreflang':
+            case FactoryElementAttribute::HREFLANG->value:
                 return 'en-US';
-            case 'media':
+            case FactoryElementAttribute::MEDIA->value:
                 return 'screen';
-            case 'ping':
+            case FactoryElementAttribute::PING->value:
                 return 'https://example.test/ping/' . $suffix;
-            case 'referrerpolicy':
+            case FactoryElementAttribute::REFERRERPOLICY->value:
                 return 'no-referrer';
-            case 'name':
+            case FactoryElementAttribute::NAME->value:
                 return 'name_' . $suffix;
-            case 'data':
+            case FactoryElementAttribute::DATA->value:
                 return [
                     'qa' => $suffix,
                     'component' => 'meshfactory'
                 ];
-            case 'content':
+            case FactoryElementAttribute::CONTENT->value:
                 return 'params-content-' . $suffix;
-            case 'srcset':
+            case FactoryElementAttribute::SRCSET->value:
                 return '/assets/' . $suffix . '-1x.png 1x, /assets/' . $suffix . '-2x.png 2x';
-            case 'sizes':
+            case FactoryElementAttribute::SIZES->value:
                 return '(max-width: 600px) 100vw, 50vw';
-            case 'crossorigin':
+            case FactoryElementAttribute::CROSSORIGIN->value:
                 return 'anonymous';
-            case 'integrity':
+            case FactoryElementAttribute::INTEGRITY->value:
                 return 'sha384-testhash-' . $suffix;
-            case 'as':
+            case FactoryElementAttribute:: AS ->value:
                 return 'script';
-            case 'fetchpriority':
+            case FactoryElementAttribute::FETCHPRIORITY->value:
                 return 'high';
-            case 'preload':
+            case FactoryElementAttribute::PRELOAD->value:
                 return 'metadata';
-            case 'poster':
+            case FactoryElementAttribute::POSTER->value:
                 return '/assets/' . $suffix . '-poster.png';
-            case 'autoplay':
-            case 'controls':
-            case 'loop':
-            case 'muted':
-            case 'disabled':
-            case 'default':
+            case FactoryElementAttribute::AUTOPLAY->value:
+            case FactoryElementAttribute::CONTROLS->value:
+            case FactoryElementAttribute::LOOP->value:
+            case FactoryElementAttribute::MUTED->value:
+            case FactoryElementAttribute::DISABLED->value:
+            case FactoryElementAttribute::DEFAULT_STATE->value:
                 return true;
-            case 'form':
+            case FactoryElementAttribute::FORM->value:
                 return 'form_' . $suffix;
-            case 'min':
+            case FactoryElementAttribute::MIN->value:
                 return '0';
-            case 'max':
+            case FactoryElementAttribute::MAX->value:
                 return '100';
-            case 'step':
+            case FactoryElementAttribute::STEP->value:
                 return '5';
-            case 'high':
+            case FactoryElementAttribute::HIGH->value:
                 return '80';
-            case 'low':
+            case FactoryElementAttribute::LOW->value:
                 return '20';
-            case 'optimum':
+            case FactoryElementAttribute::OPTIMUM->value:
                 return '50';
-            case 'kind':
+            case FactoryElementAttribute::KIND->value:
                 return 'captions';
-            case 'srclang':
+            case FactoryElementAttribute::SRCLANG->value:
                 return 'en';
             default:
                 return $attribute . '_' . $suffix;
@@ -262,14 +265,6 @@ if (!function_exists('mfBuildScopedParams')) {
         echo '-- End params payload --' . PHP_EOL;
 
         return $params;
-    }
-}
-
-if (!function_exists('mfMethodForAttribute')) {
-    function mfMethodForAttribute(string $attribute): string
-    {
-        $normalized = str_replace(['-', '_'], ' ', strtolower($attribute));
-        return 'add' . str_replace(' ', '', ucwords($normalized));
     }
 }
 

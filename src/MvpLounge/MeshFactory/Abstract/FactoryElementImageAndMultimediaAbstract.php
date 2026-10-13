@@ -199,6 +199,66 @@ abstract class FactoryElementImageAndMultimediaAbstract extends FactoryElementHt
         return $this;
     }
 
+    public function getFactoryElementMediaSrc(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::SRC->value, $allowed, TRUE) ? $this->FactoryElementMediaSrc : NULL;
+    }
+
+    public function getFactoryElementMediaAlt(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::ALT->value, $allowed, TRUE) ? $this->FactoryElementMediaAlt : NULL;
+    }
+
+    public function getFactoryElementMediaLoading(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::LOADING->value, $allowed, TRUE) ? $this->FactoryElementMediaLoading : NULL;
+    }
+
+    public function getFactoryElementMediaDecoding(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::DECODING->value, $allowed, TRUE) ? $this->FactoryElementMediaDecoding : NULL;
+    }
+
+    public function getFactoryElementMediaFetchpriority(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::FETCHPRIORITY->value, $allowed, TRUE) ? $this->FactoryElementMediaFetchpriority : NULL;
+    }
+
+    public function getFactoryElementMediaPreload(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::PRELOAD->value, $allowed, TRUE) ? $this->FactoryElementMediaPreload : NULL;
+    }
+
+    public function getFactoryElementMediaPoster(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::POSTER->value, $allowed, TRUE) ? $this->FactoryElementMediaPoster : NULL;
+    }
+
+    public function getFactoryElementMediaAutoplay(array $allowed): ?bool
+    {
+        return in_array(FactoryElementAttribute::AUTOPLAY->value, $allowed, TRUE) ? $this->FactoryElementMediaAutoplay : NULL;
+    }
+
+    public function getFactoryElementMediaControls(array $allowed): ?bool
+    {
+        return in_array(FactoryElementAttribute::CONTROLS->value, $allowed, TRUE) ? $this->FactoryElementMediaControls : NULL;
+    }
+
+    public function getFactoryElementMediaLoop(array $allowed): ?bool
+    {
+        return in_array(FactoryElementAttribute::LOOP->value, $allowed, TRUE) ? $this->FactoryElementMediaLoop : NULL;
+    }
+
+    public function getFactoryElementMediaMuted(array $allowed): ?bool
+    {
+        return in_array(FactoryElementAttribute::MUTED->value, $allowed, TRUE) ? $this->FactoryElementMediaMuted : NULL;
+    }
+
+    public function getFactoryElementMediaCrossorigin(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::CROSSORIGIN->value, $allowed, TRUE) ? $this->FactoryElementMediaCrossorigin : NULL;
+    }
+
     public function getFactoryAttributePropertyCollection(): array
     {
         $_allowed = $this->getAllowedFactoryElementAttributes();
@@ -206,18 +266,18 @@ abstract class FactoryElementImageAndMultimediaAbstract extends FactoryElementHt
         return array_merge(
             $this->getDefaultFactoryAttributePropertyCollection(),
             [
-                'src' => in_array(FactoryElementAttribute::SRC->value, $_allowed, TRUE) ? $this->FactoryElementMediaSrc : NULL,
-                'alt' => in_array(FactoryElementAttribute::ALT->value, $_allowed, TRUE) ? $this->FactoryElementMediaAlt : NULL,
-                'loading' => in_array(FactoryElementAttribute::LOADING->value, $_allowed, TRUE) ? $this->FactoryElementMediaLoading : NULL,
-                'decoding' => in_array(FactoryElementAttribute::DECODING->value, $_allowed, TRUE) ? $this->FactoryElementMediaDecoding : NULL,
-                'fetchpriority' => in_array(FactoryElementAttribute::FETCHPRIORITY->value, $_allowed, TRUE) ? $this->FactoryElementMediaFetchpriority : NULL,
-                'preload' => in_array(FactoryElementAttribute::PRELOAD->value, $_allowed, TRUE) ? $this->FactoryElementMediaPreload : NULL,
-                'poster' => in_array(FactoryElementAttribute::POSTER->value, $_allowed, TRUE) ? $this->FactoryElementMediaPoster : NULL,
-                'autoplay' => in_array(FactoryElementAttribute::AUTOPLAY->value, $_allowed, TRUE) && $this->FactoryElementMediaAutoplay,
-                'controls' => in_array(FactoryElementAttribute::CONTROLS->value, $_allowed, TRUE) && $this->FactoryElementMediaControls,
-                'loop' => in_array(FactoryElementAttribute::LOOP->value, $_allowed, TRUE) && $this->FactoryElementMediaLoop,
-                'muted' => in_array(FactoryElementAttribute::MUTED->value, $_allowed, TRUE) && $this->FactoryElementMediaMuted,
-                'crossorigin' => in_array(FactoryElementAttribute::CROSSORIGIN->value, $_allowed, TRUE) ? $this->FactoryElementMediaCrossorigin : NULL
+                'src' => $this->getFactoryElementMediaSrc($_allowed),
+                'alt' => $this->getFactoryElementMediaAlt($_allowed),
+                'loading' => $this->getFactoryElementMediaLoading($_allowed),
+                'decoding' => $this->getFactoryElementMediaDecoding($_allowed),
+                'fetchpriority' => $this->getFactoryElementMediaFetchpriority($_allowed),
+                'preload' => $this->getFactoryElementMediaPreload($_allowed),
+                'poster' => $this->getFactoryElementMediaPoster($_allowed),
+                'autoplay' => $this->getFactoryElementMediaAutoplay($_allowed),
+                'controls' => $this->getFactoryElementMediaControls($_allowed),
+                'loop' => $this->getFactoryElementMediaLoop($_allowed),
+                'muted' => $this->getFactoryElementMediaMuted($_allowed),
+                'crossorigin' => $this->getFactoryElementMediaCrossorigin($_allowed)
             ]
         );
     }

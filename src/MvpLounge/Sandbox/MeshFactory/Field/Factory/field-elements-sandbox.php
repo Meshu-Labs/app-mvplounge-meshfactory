@@ -6,7 +6,17 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 echo '=== Field Sandbox (Factory) ===' . PHP_EOL;
 
+// Template reference: docs/tasks/TK-factory-sandbox-template.md
+
 try {
+
+    #region Test Definition
+
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
+
     $assert = static function (bool $condition, string $message): void {
         if (!$condition) {
             throw new RuntimeException($message);
@@ -16,7 +26,7 @@ try {
     $cases = [
         'TextInput' => static function () {
             $factory = new \MvpLounge\MeshFactory\Element\Field\TextInput();
-            $factory->addName('text_name')->addPlaceholder('Text placeholder')->addValue('text_value')->addAccess(true);
+            $factory->addName('text_name')->addPlaceholder('Text placeholder')->addType('text')->addValue('text_value')->addAccess(true);
             return $factory;
         },
         'EmailerInput' => static function () {
@@ -71,5 +81,8 @@ try {
     echo 'ERROR_FILE: ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
+
+    #endregion
+
     exit(1);
 }

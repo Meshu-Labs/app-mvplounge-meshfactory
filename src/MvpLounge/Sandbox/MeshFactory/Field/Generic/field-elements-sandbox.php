@@ -25,9 +25,7 @@ try {
     ];
 
     foreach ($factories as $label => $factory) {
-        if (method_exists($factory, 'addClass')) {
-            $assert($factory->addClass('generic-' . strtolower($label)) === $factory, $label . ' addClass() must remain fluent.');
-        }
+        $assert($factory->addClass('generic-' . strtolower($label)) === $factory, $label . ' addClass() must remain fluent.');
 
         echo '-- ' . $label . ' compleAsHtmlString() --' . PHP_EOL;
         $html = $factory->compleAsHtmlString();

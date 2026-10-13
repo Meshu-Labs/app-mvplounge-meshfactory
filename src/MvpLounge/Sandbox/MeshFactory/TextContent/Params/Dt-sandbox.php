@@ -7,20 +7,64 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 
 echo '=== Dt Sandbox (Params) ===' . PHP_EOL;
 
-try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\TextContent\\Dt';
-    $probe = new $className();
-    $params = mfBuildScopedParams($probe, 'dt_textcontent');
-    $factory = new $className($params);
+// Template reference: docs/tasks/TK-params-sandbox-template.md
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+
+try {
+
+    #region Test Definition
+
+
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
+
+    $factory = new \MvpLounge\MeshFactory\Element\TextContent\Dt();
+
+    // Agent or Human:
+    //
+    // Build factory params
+    //
+
+    $params = mfBuildScopedParams($factory, 'dt_textcontent');
+
+    // Agent or Human:
+    //
+    // Configure the factory with the scoped params
+    //
+
+    $factory->configureFactory($params);
+
+    // Agent or Human:
+    //
+    // Assert renderable outputs
+    //
+
+    mfAssertRenderableOutputs($factory, $factory::class);
+
+    // Emit success diagnostic messages - customize after generation
+
+    echo 'PASS ' . $factory::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
+
+    #endregion
+
 } catch (Throwable $e) {
+
+    #region Error Handling
+
+    // Agent or Human:
+    //
+    // Emit error diagnostic messages - customize after generation
+    //
+
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;
     echo 'ERROR_MESSAGE: ' . $e->getMessage() . PHP_EOL;
     echo 'ERROR_FILE: ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
     exit(1);
+
+    #endregion
 }

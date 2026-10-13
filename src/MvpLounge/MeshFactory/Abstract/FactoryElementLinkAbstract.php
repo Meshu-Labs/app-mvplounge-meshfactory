@@ -7,15 +7,17 @@ namespace MvpLounge\MeshFactory\Abstract;
 require_once __DIR__ . '/../Constants.php';
 
 if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
-    throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
+	throw new \RuntimeException('MVPLOUNGE_MESHFACTORY_BASE_PATH is not defined.');
 }
 
 use MvpLounge\MeshFactory\Enum\FactoryElement;
 use MvpLounge\MeshFactory\Enum\FactoryElementAttribute;
+use MvpLounge\MeshFactory\Enum\FactoryElementWindowTarget;
 
 require_once __DIR__ . '/FactoryElementAbstract.php';
 require_once __DIR__ . '/../Enum/FactoryElement.php';
 require_once __DIR__ . '/../Enum/FactoryElementAttribute.php';
+require_once __DIR__ . '/../Enum/FactoryElementWindowTarget.php';
 
 
 
@@ -165,12 +167,20 @@ class FactoryElementLinkAbstract extends FactoryElementAbstract
 
 			switch (strtolower($params['target'])) {
 				case 'self':
-				case '_self':
-					$this->addTarget('_SELF');
+				case FactoryElementWindowTarget::SELF->value:
+					$this->addTarget(FactoryElementWindowTarget::SELF->value);
 					break;
 				case 'blank':
-				case '_blank':
-					$this->addTarget('_BLANK');
+				case FactoryElementWindowTarget::BLANK->value:
+					$this->addTarget(FactoryElementWindowTarget::BLANK->value);
+					break;
+				case 'parent':
+				case FactoryElementWindowTarget::PARENT->value:
+					$this->addTarget(FactoryElementWindowTarget::PARENT->value);
+					break;
+				case 'top':
+				case FactoryElementWindowTarget::TOP->value:
+					$this->addTarget(FactoryElementWindowTarget::TOP->value);
 					break;
 			}
 		}
@@ -212,6 +222,51 @@ class FactoryElementLinkAbstract extends FactoryElementAbstract
 		return $this;
 	}
 
+	public function addType($type): static
+	{
+		return $this->addLinkType($type);
+	}
+
+	public function getFactoryElementLinkHref(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::HREF->value, $allowed, TRUE) ? $this->FactoryElementPath : NULL;
+	}
+
+	public function getFactoryElementLinkTarget(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::TARGET->value, $allowed, TRUE) ? $this->FactoryElementTarget : NULL;
+	}
+
+	public function getFactoryElementLinkRel(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::REL->value, $allowed, TRUE) ? $this->FactoryElementRel : NULL;
+	}
+
+	public function getFactoryElementLinkHreflang(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::HREFLANG->value, $allowed, TRUE) ? $this->FactoryElementLinkHreflang : NULL;
+	}
+
+	public function getFactoryElementLinkMedia(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::MEDIA->value, $allowed, TRUE) ? $this->FactoryElementLinkMedia : NULL;
+	}
+
+	public function getFactoryElementLinkPing(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::PING->value, $allowed, TRUE) ? $this->FactoryElementLinkPing : NULL;
+	}
+
+	public function getFactoryElementLinkReferrerPolicy(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::REFERRERPOLICY->value, $allowed, TRUE) ? $this->FactoryElementLinkReferrerPolicy : NULL;
+	}
+
+	public function getFactoryElementLinkType(array $allowed): ?string
+	{
+		return in_array(FactoryElementAttribute::TYPE->value, $allowed, TRUE) ? $this->FactoryElementLinkType : NULL;
+	}
+
 	public function getFactoryAttributePropertyCollection(): array
 	{
 		$_allowed = $this->getAllowedFactoryElementAttributes();
@@ -220,14 +275,14 @@ class FactoryElementLinkAbstract extends FactoryElementAbstract
 			$this->getDefaultFactoryAttributePropertyCollection(),
 			[
 				'title' => $this->FactoryElementTitle ?? $this->FactoryTitle,
-				'href' => in_array(FactoryElementAttribute::HREF->value, $_allowed, TRUE) ? $this->FactoryElementPath : NULL,
-				'target' => in_array(FactoryElementAttribute::TARGET->value, $_allowed, TRUE) ? $this->FactoryElementTarget : NULL,
-				'rel' => in_array(FactoryElementAttribute::REL->value, $_allowed, TRUE) ? $this->FactoryElementRel : NULL,
-				'hreflang' => in_array(FactoryElementAttribute::HREFLANG->value, $_allowed, TRUE) ? $this->FactoryElementLinkHreflang : NULL,
-				'media' => in_array(FactoryElementAttribute::MEDIA->value, $_allowed, TRUE) ? $this->FactoryElementLinkMedia : NULL,
-				'ping' => in_array(FactoryElementAttribute::PING->value, $_allowed, TRUE) ? $this->FactoryElementLinkPing : NULL,
-				'referrerpolicy' => in_array(FactoryElementAttribute::REFERRERPOLICY->value, $_allowed, TRUE) ? $this->FactoryElementLinkReferrerPolicy : NULL,
-				'type' => in_array(FactoryElementAttribute::TYPE->value, $_allowed, TRUE) ? $this->FactoryElementLinkType : NULL,
+				'href' => $this->getFactoryElementLinkHref($_allowed),
+				'target' => $this->getFactoryElementLinkTarget($_allowed),
+				'rel' => $this->getFactoryElementLinkRel($_allowed),
+				'hreflang' => $this->getFactoryElementLinkHreflang($_allowed),
+				'media' => $this->getFactoryElementLinkMedia($_allowed),
+				'ping' => $this->getFactoryElementLinkPing($_allowed),
+				'referrerpolicy' => $this->getFactoryElementLinkReferrerPolicy($_allowed),
+				'type' => $this->getFactoryElementLinkType($_allowed)
 			]
 		);
 	}

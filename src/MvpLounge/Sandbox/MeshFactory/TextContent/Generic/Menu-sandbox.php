@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Menu Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\TextContent\\Menu';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\TextContent\Menu();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-menu_textcontent');
-    }
+    $factory->addClass('generic-menu_textcontent');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-menu_textcontent', true);
-    }
+    $factory->addContent('generic-content-menu_textcontent', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\TextContent\Menu::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\TextContent\Menu::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

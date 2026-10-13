@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Video Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\ImageAndMultimedia\\Video';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\ImageAndMultimedia\Video();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-video_imageandmultimedia');
-    }
+    $factory->addClass('generic-video_imageandmultimedia');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-video_imageandmultimedia', true);
-    }
+    $factory->addContent('generic-content-video_imageandmultimedia', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\ImageAndMultimedia\Video::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\ImageAndMultimedia\Video::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

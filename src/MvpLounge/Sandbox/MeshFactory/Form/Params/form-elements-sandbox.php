@@ -4,9 +4,22 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../bootstrap.php';
 
+use MvpLounge\MeshFactory\Enum\FactoryElementWindowTarget;
+
 echo '=== Form Sandbox (Params) ===' . PHP_EOL;
 
+// Template reference: docs/tasks/TK-params-sandbox-template.md
+
+
 try {
+
+    #region Test Definition
+
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
+
     $assert = static function (bool $condition, string $message): void {
         if (!$condition) {
             throw new RuntimeException($message);
@@ -40,12 +53,17 @@ try {
 
     $cases = [
         'LoginForm' => static function () use ($globalParams): array {
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
+
             $factory = new \MvpLounge\MeshFactory\Element\Form\PostForm(array_merge($globalParams('login'), [
                 'action' => '/account/login',
                 'method' => 'post',
                 'enctype' => 'application/x-www-form-urlencoded',
                 'novalidate' => 'novalidate',
-                'target' => '_self',
+                'target' => FactoryElementWindowTarget::SELF->value,
                 'autocomplete' => 'on',
             ]));
 
@@ -79,7 +97,7 @@ try {
                 'method' => 'post',
                 'enctype' => 'multipart/form-data',
                 'novalidate' => 'novalidate',
-                'target' => '_self',
+                'target' => FactoryElementWindowTarget::SELF->value,
                 'autocomplete' => 'on',
             ]));
 
@@ -141,7 +159,7 @@ try {
                 'action' => '/account/address',
                 'method' => 'post',
                 'novalidate' => 'novalidate',
-                'target' => '_self',
+                'target' => FactoryElementWindowTarget::SELF->value,
                 'autocomplete' => 'on',
             ]));
 
@@ -217,7 +235,7 @@ try {
                 'method' => 'post',
                 'enctype' => 'multipart/form-data',
                 'novalidate' => 'novalidate',
-                'target' => '_blank',
+                'target' => FactoryElementWindowTarget::BLANK->value,
                 'autocomplete' => 'on',
             ]));
 
@@ -256,7 +274,7 @@ try {
                 ])))
                 ->addFormSubmitButton('Update profile');
 
-            return [$factory, ['/api/account/profile', 'display_name', 'phone', 'avatar', 'Update profile', '_blank']];
+            return [$factory, ['/api/account/profile', 'display_name', 'phone', 'avatar', 'Update profile', FactoryElementWindowTarget::BLANK->value]];
         }
     ];
 
@@ -272,11 +290,23 @@ try {
     }
 
     echo 'PASS assertions' . PHP_EOL;
+    #endregion
+
 } catch (Throwable $e) {
+
+    #region Error Handling
+
+    // Agent or Human:
+    //
+    // Emit error diagnostic messages - customize after generation
+    //
+
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;
     echo 'ERROR_MESSAGE: ' . $e->getMessage() . PHP_EOL;
     echo 'ERROR_FILE: ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
     exit(1);
+
+    #endregion
 }

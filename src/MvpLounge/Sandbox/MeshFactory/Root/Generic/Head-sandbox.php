@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Head Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\Root\\Head';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\Root\Head();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-head_root');
-    }
+    $factory->addClass('generic-head_root');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-head_root', true);
-    }
+    $factory->addContent('generic-content-head_root', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\Root\Head::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\Root\Head::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

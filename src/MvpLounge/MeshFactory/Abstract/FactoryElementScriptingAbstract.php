@@ -76,6 +76,11 @@ abstract class FactoryElementScriptingAbstract extends FactoryElementHtmlAbstrac
         return $this;
     }
 
+    public function addType($type): static
+    {
+        return $this->addScriptType($type);
+    }
+
     public function addIntegrity($integrity): static
     {
         $this->FactoryElementScriptIntegrity = is_null($integrity) ? NULL : (string) $integrity;
@@ -94,6 +99,31 @@ abstract class FactoryElementScriptingAbstract extends FactoryElementHtmlAbstrac
         return $this;
     }
 
+    public function getFactoryElementScriptSrc(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::SRC->value, $allowed, TRUE) ? $this->FactoryElementScriptSrc : NULL;
+    }
+
+    public function getFactoryElementScriptType(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::TYPE->value, $allowed, TRUE) ? $this->FactoryElementScriptType : NULL;
+    }
+
+    public function getFactoryElementScriptIntegrity(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::INTEGRITY->value, $allowed, TRUE) ? $this->FactoryElementScriptIntegrity : NULL;
+    }
+
+    public function getFactoryElementScriptCrossorigin(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::CROSSORIGIN->value, $allowed, TRUE) ? $this->FactoryElementScriptCrossorigin : NULL;
+    }
+
+    public function getFactoryElementScriptReferrerpolicy(array $allowed): ?string
+    {
+        return in_array(FactoryElementAttribute::REFERRERPOLICY->value, $allowed, TRUE) ? $this->FactoryElementScriptReferrerpolicy : NULL;
+    }
+
     public function getFactoryAttributePropertyCollection(): array
     {
         $_allowed = $this->getAllowedFactoryElementAttributes();
@@ -101,11 +131,11 @@ abstract class FactoryElementScriptingAbstract extends FactoryElementHtmlAbstrac
         return array_merge(
             $this->getDefaultFactoryAttributePropertyCollection(),
             [
-                'src' => in_array(FactoryElementAttribute::SRC->value, $_allowed, TRUE) ? $this->FactoryElementScriptSrc : NULL,
-                'type' => in_array(FactoryElementAttribute::TYPE->value, $_allowed, TRUE) ? $this->FactoryElementScriptType : NULL,
-                'integrity' => in_array(FactoryElementAttribute::INTEGRITY->value, $_allowed, TRUE) ? $this->FactoryElementScriptIntegrity : NULL,
-                'crossorigin' => in_array(FactoryElementAttribute::CROSSORIGIN->value, $_allowed, TRUE) ? $this->FactoryElementScriptCrossorigin : NULL,
-                'referrerpolicy' => in_array(FactoryElementAttribute::REFERRERPOLICY->value, $_allowed, TRUE) ? $this->FactoryElementScriptReferrerpolicy : NULL
+                'src' => $this->getFactoryElementScriptSrc($_allowed),
+                'type' => $this->getFactoryElementScriptType($_allowed),
+                'integrity' => $this->getFactoryElementScriptIntegrity($_allowed),
+                'crossorigin' => $this->getFactoryElementScriptCrossorigin($_allowed),
+                'referrerpolicy' => $this->getFactoryElementScriptReferrerpolicy($_allowed)
             ]
         );
     }

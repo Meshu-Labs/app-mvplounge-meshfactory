@@ -8,19 +8,14 @@ require_once __DIR__ . '/../../_shared/factory-element-sandbox-shared.php';
 echo '=== Ol Sandbox (Generic) ===' . PHP_EOL;
 
 try {
-    $className = '\\MvpLounge\\MeshFactory\\Element\\TextContent\\Ol';
-    $factory = new $className();
+    $factory = new \MvpLounge\MeshFactory\Element\TextContent\Ol();
 
-    if (method_exists($factory, 'addClass')) {
-        $factory->addClass('generic-ol_textcontent');
-    }
+    $factory->addClass('generic-ol_textcontent');
 
-    if (method_exists($factory, 'addContent')) {
-        $factory->addContent('generic-content-ol_textcontent', true);
-    }
+    $factory->addContent('generic-content-ol_textcontent', true);
 
-    mfAssertRenderableOutputs($factory, $className);
-    echo 'PASS ' . $className . PHP_EOL;
+    mfAssertRenderableOutputs($factory, \MvpLounge\MeshFactory\Element\TextContent\Ol::class);
+    echo 'PASS ' . \MvpLounge\MeshFactory\Element\TextContent\Ol::class . PHP_EOL;
     echo 'PASS assertions' . PHP_EOL;
 } catch (Throwable $e) {
     echo 'ERROR_CLASS: ' . get_class($e) . PHP_EOL;

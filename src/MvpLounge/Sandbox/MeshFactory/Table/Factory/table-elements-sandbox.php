@@ -6,7 +6,17 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 echo '=== Table Sandbox (Factory) ===' . PHP_EOL;
 
+// Template reference: docs/tasks/TK-factory-sandbox-template.md
+
 try {
+
+    #region Test Definition
+
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
+
     $assert = static function (bool $condition, string $message): void {
         if (!$condition) {
             throw new RuntimeException($message);
@@ -63,6 +73,8 @@ try {
                 'border' => 1,
             ]));
 
+            $factory->addCellspacing(0)->addCellpadding(1)->addBorder(1);
+
             $factory
                 ->addHeader('Quarter')
                 ->addHeader('Revenue')
@@ -112,6 +124,8 @@ try {
                 'border' => 1,
             ]));
 
+            $factory->addCellspacing(0)->addCellpadding(1)->addBorder(1);
+
             $factory->addHeader('Metric')->addHeader('Current')->addHeader('Previous')->addHeader('Delta');
             $factory->addRow()->addCell('Revenue')->addCell('$138,000')->addCell('$125,000')->addCell('+10%');
             $factory->addRow()->addCell('Users')->addCell('12,400')->addCell('11,900')->addCell('+4%');
@@ -140,5 +154,8 @@ try {
     echo 'ERROR_FILE: ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
+
+    #endregion
+
     exit(1);
 }

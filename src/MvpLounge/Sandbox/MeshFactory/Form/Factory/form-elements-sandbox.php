@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../bootstrap.php';
 
+use MvpLounge\MeshFactory\Enum\FactoryElementWindowTarget;
+
 echo '=== Form Sandbox (Factory) ===' . PHP_EOL;
+
+// Template reference: docs/tasks/TK-factory-sandbox-template.md
 
 $runAllPath = realpath(__DIR__ . '/../../run-all.php') ?: (__DIR__ . '/../../run-all.php');
 $singlePath = realpath(__FILE__) ?: __FILE__;
@@ -12,6 +16,14 @@ echo 'DEBUG_RUN_ALL: ' . $runAllPath . PHP_EOL;
 echo 'DEBUG_SINGLE: ' . $singlePath . PHP_EOL;
 
 try {
+
+    #region Test Definition
+
+    // Agent or Human:
+    //
+    // Manage logic to instantiate the factory
+    //
+
     $assert = static function (bool $condition, string $message): void {
         if (!$condition) {
             throw new RuntimeException($message);
@@ -40,7 +52,7 @@ try {
     };
 
     $makeTextField = static function (string $name, string $label, string $placeholder, array $extra = []): \MvpLounge\MeshFactory\Element\Field\TextInput {
-        return new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge([
+        $field = new \MvpLounge\MeshFactory\Element\Field\TextInput(array_merge([
             'name' => $name,
             'label' => $label,
             'placeholder' => $placeholder,
@@ -50,6 +62,14 @@ try {
                 'user' => ['field-group', 'field-' . $name],
             ],
         ], $extra));
+
+        $field->addName($name)
+            ->addPlaceholder($placeholder)
+            ->addType('text')
+            ->addValue('')
+            ->addAccess(true);
+
+        return $field;
     };
 
     $makePasswordField = static function (string $name, string $label): \MvpLounge\MeshFactory\Element\Field\PasswordInput {
@@ -73,7 +93,7 @@ try {
                 ->addAction('/account/login')
                 ->addMethod('post')
                 ->addNoValidate('novalidate')
-                ->addTarget('_self')
+                ->addTarget(FactoryElementWindowTarget::SELF->value)
                 ->addAutoComplete('on')
                 ->addHiddenPostField(['name' => 'csrf_token', 'value' => 'login-token'])
                 ->addFormSectionFields('credentials', 'email', $makeTextField('email', 'Email address', 'name@example.com'))
@@ -88,7 +108,7 @@ try {
                 ->addMethod('post')
                 ->addEnc('multipart/form-data')
                 ->addNoValidate('novalidate')
-                ->addTarget('_self')
+                ->addTarget(FactoryElementWindowTarget::SELF->value)
                 ->addAutoComplete('on')
                 ->addHiddenPostField(['name' => 'csrf_token', 'value' => 'registration-token'])
                 ->addHiddenPostField(['name' => 'account_type', 'value' => 'basic'])
@@ -106,7 +126,7 @@ try {
                 ->addAction('/account/address')
                 ->addMethod('post')
                 ->addNoValidate('novalidate')
-                ->addTarget('_self')
+                ->addTarget(FactoryElementWindowTarget::SELF->value)
                 ->addAutoComplete('on')
                 ->addHiddenPostField(['name' => 'address_id', 'value' => 'primary'])
                 ->addFormSectionFields('address', 'street_1', $makeTextField('street_1', 'Street 1', '123 Main Street'))
@@ -125,7 +145,7 @@ try {
                 ->addMethod('post')
                 ->addEnc('multipart/form-data')
                 ->addNoValidate('novalidate')
-                ->addTarget('_blank')
+                ->addTarget(FactoryElementWindowTarget::BLANK->value)
                 ->addAutoComplete('on')
                 ->addHiddenPostField(['name' => 'csrf_token', 'value' => 'profile-token'])
                 ->addHiddenPostField(['name' => 'mode', 'value' => 'ajax'])
@@ -134,7 +154,7 @@ try {
                 ->addFormSectionFields('profile', 'avatar', $makeTextField('avatar', 'Avatar path', '/images/avatar.png'))
                 ->addFormSubmitButton('Update profile');
 
-            return [$factory, ['/api/account/profile', 'display_name', 'phone', 'avatar', 'Update profile', '_blank']];
+            return [$factory, ['/api/account/profile', 'display_name', 'phone', 'avatar', 'Update profile', FactoryElementWindowTarget::BLANK->value]];
         }
     ];
 
@@ -158,5 +178,8 @@ try {
     echo 'DEBUG_SINGLE: ' . $singlePath . PHP_EOL;
     echo 'ERROR_TRACE:' . PHP_EOL;
     echo $e->getTraceAsString() . PHP_EOL;
+
+    #endregion
+
     exit(1);
 }

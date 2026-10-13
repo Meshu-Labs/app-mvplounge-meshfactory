@@ -21,6 +21,7 @@ Current element support comes from `FactoryElement` and is validated against the
 
 - FactoryElement
 - FactoryElementAttribute
+- FactoryElementWindowTarget
 - FactoryElementFieldType
 - FactoryElementPrimativeType
 
