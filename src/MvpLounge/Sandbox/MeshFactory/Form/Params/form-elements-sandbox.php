@@ -53,11 +53,11 @@ try {
 
     $cases = [
         'LoginForm' => static function () use ($globalParams): array {
-    // Agent or Human:
-    //
-    // Manage logic to instantiate the factory
-    //
-
+            // Agent or Human:
+            //
+            // Manage logic to instantiate the factory
+            //
+    
             $factory = new \MvpLounge\MeshFactory\Element\Form\PostForm(array_merge($globalParams('login'), [
                 'action' => '/account/login',
                 'method' => 'post',

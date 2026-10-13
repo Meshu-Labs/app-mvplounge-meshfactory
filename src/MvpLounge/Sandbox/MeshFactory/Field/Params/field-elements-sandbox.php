@@ -143,11 +143,11 @@ try {
                 'value' => 2,
                 'access' => true,
             ]);
-    // Agent or Human:
-    //
-    // Manage logic to instantiate the factory
-    //
-
+            // Agent or Human:
+            //
+            // Manage logic to instantiate the factory
+            //
+    
             $factory = new \MvpLounge\MeshFactory\Element\Field\SelectOption($params);
             $factory->addOrtions([1 => 'One', 2 => 'Two']);
             return [$factory, array_merge($globalExpected($suffix), ['name="select_name"', 'value="2"', 'enabled', 'selected', '>Two<'])];

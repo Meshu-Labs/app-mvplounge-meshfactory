@@ -185,29 +185,19 @@ The test-type scripts must follow the established sandbox style:
 - Standalone file per FactoryElement class and strategy.
 - Local assertion checks in each script.
 - Shared helper support is allowed for repeatable parameter and compile-path setup.
-- Params strategy scripts must use explicit class-based flow in each file, in this order:
-	- `$factory = new \MvpLounge\MeshFactory\Element\...();`
-	- `$params = mfBuildScopedParams($factory, '<scope>');`
-	- `$factory->configureFactory($params);`
-	- `mfAssertRenderableOutputs($factory, $factory::class);`
-	- `echo 'PASS ' . $factory::class . PHP_EOL;`
+- Params strategy flow and boundary details are canonical in `docs/tasks/TK-params-sandbox-template.md`.
+- Factory strategy invocation and boundary details are canonical in `docs/tasks/TK-factory-sandbox-template.md`.
 - Params strategy scripts must not pass scoped params through constructor arguments.
-- Factory strategy scripts must invoke supported factory setters explicitly (for example `addId()`, `addHref()`, `addTitle()`) in the sandbox file.
-- Dynamic attribute-to-method mapping (for example generated `add*` method names from attribute strings) is not allowed in factory strategy sandbox examples.
+- Dynamic attribute-to-method mapping (for example generated `add*` method names from attribute strings) is not allowed in Factory strategy sandbox examples.
 - Structured `ERROR_CLASS`, `ERROR_MESSAGE`, `ERROR_FILE`, and `ERROR_TRACE` output on failure.
 
 The scripts are written as explicit examples with per-class readability, while shared helper functions keep repeated setup small and consistent.
 
 ## Factory Sandbox Template
 
-Factory sandbox files should preserve the comment scaffold defined in `docs/tasks/TK-factory-sandbox-template.md`.
+Factory strategy scaffold ownership and editable boundaries are defined in:
 
-Required boundaries:
-
-- Keep the test-definition region as the editable generation area for factory instantiation, explicit fluent setters, and assertions.
-- Keep the error-handling region as the editable generation area for diagnostic output.
-- Preserve the `#region` markers so generators can safely rewrite the file without disturbing the surrounding boilerplate.
-- Keep the scaffold aligned with the source-of-truth element scope and the canonical factory class.
+- `docs/tasks/TK-factory-sandbox-template.md`
 
 Run the MeshFactory sandbox suite through the library runner:
 
@@ -217,20 +207,9 @@ Run the MeshFactory sandbox suite through the library runner:
 
 ## Params Sandbox Template
 
-Params sandbox files should preserve the comment scaffold defined in `docs/tasks/TK-params-sandbox-template.md`.
+Params strategy scaffold ownership and editable boundaries are defined in:
 
-Required boundaries:
-
-- Keep the test-definition region as the editable generation area for factory instantiation, scoped params, and assertions.
-- Keep the error-handling region as the editable generation area for diagnostic output.
-- Preserve the `#region` markers so generators can safely rewrite the file without disturbing the surrounding boilerplate.
-- Keep the scaffold aligned with the source-of-truth element scope and the canonical factory class.
-
-Run the MeshFactory sandbox suite through the library runner:
-
-```powershell
-& "C:/xampp_devops_test/php/php.exe" "c:/_src/app-mvplounge-meshfactory/src/MvpLounge/Sandbox/MeshFactory/run-all.php"
-```
+- `docs/tasks/TK-params-sandbox-template.md`
 
 ## Comprehensive Element Coverage Suites
 

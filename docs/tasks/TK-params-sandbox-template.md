@@ -12,7 +12,7 @@ This task document defines the comment scaffold used for generated `Params` sand
 
 Use the current `Params` sandbox file structure as the template shape:
 
-- `// Agent: add reference documentation in this comment`
+- `// Template reference: docs/tasks/TK-params-sandbox-template.md`
 - `#region Test Definition`
 - Human or Agent generation notes inside the test-definition region.
 - `#region Error Handling`

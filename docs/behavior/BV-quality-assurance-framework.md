@@ -11,6 +11,8 @@ Apply this framework to:
 - All concrete implementations when parent abstracts change.
 - Path, namespace, or autoload-affecting edits.
 
+Operational command procedures live in `docs/tasks/TK-quality-check-playbook.md`.
+
 ## When Quality Checks Are Mandatory
 
 Run quality checks:
@@ -25,17 +27,13 @@ Run quality checks:
 
 ### Phase 1: Syntax Verification
 
-```powershell
-& "C:/xampp_devops_test/php/php.exe" -l <file>
-```
+- Execute syntax checks using the single-file and domain procedures in `docs/tasks/TK-quality-check-playbook.md`.
 
 ### Phase 2: UTF-8 No-BOM Verification
 
-```powershell
-$bytes = [System.IO.File]::ReadAllBytes($filePath) | Select-Object -First 3
-# Expected bytes: 3C 3F 70 (<?php)
-# Invalid BOM bytes: EF BB BF
-```
+- Execute encoding verification using the procedures in `docs/tasks/TK-quality-check-playbook.md`.
+- Expected first bytes: `3C 3F 70` (`<?php`).
+- Invalid BOM bytes: `EF BB BF`.
 
 ### Phase 3: Namespace and Path Verification
 
@@ -79,10 +77,11 @@ $bytes = [System.IO.File]::ReadAllBytes($filePath) | Select-Object -First 3
 
 ### Phase 3.9: Factory Sandbox Explicit Invocation Verification
 
-- In `Sandbox/MeshFactory/*/Factory/*-sandbox.php`, apply attributes using explicit `add*` calls in each file.
-- Do not use dynamic attribute-to-method mapping helpers in factory strategy examples.
-- Allow shared helpers for parameter generation and output assertions, but keep factory invocation readable and explicit for developer guidance.
-- Preserve the Factory sandbox comment scaffold and region markers from `docs/tasks/TK-factory-sandbox-template.md`.
+- In `Sandbox/MeshFactory/*/Factory/*-sandbox.php`, enforce explicit per-file fluent invocation behavior.
+- Do not allow dynamic attribute-to-method mapping helpers in Factory strategy examples.
+- Enforce scaffold and boundary conformance using:
+	- `docs/tasks/TK-factory-sandbox-template.md`
+	- `docs/tasks/TK-quality-check-playbook.md`
 
 ### Phase 3.10: Attribute Ownership and Fluent Alias Verification
 
@@ -92,26 +91,18 @@ $bytes = [System.IO.File]::ReadAllBytes($filePath) | Select-Object -First 3
 
 ### Phase 3.11: Params Sandbox Explicit Configure Flow Verification
 
-- In `Sandbox/MeshFactory/*/Params/*-sandbox.php`, create the factory with a no-args constructor.
-- Build scoped params through `mfBuildScopedParams($factory, ...)`.
-- Apply params through `$factory->configureFactory($params)`.
-- Validate output with `mfAssertRenderableOutputs($factory, $factory::class)`.
-- Emit success marker with `echo 'PASS ' . $factory::class . PHP_EOL;`.
-- Do not pass scoped params into constructor arguments in Params strategy scripts.
+- In `Sandbox/MeshFactory/*/Params/*-sandbox.php`, enforce the explicit configure flow and no constructor-scoped params rule.
+- Validate flow and output behavior using:
+	- `docs/tasks/TK-params-sandbox-template.md`
+	- `docs/tasks/TK-quality-check-playbook.md`
 
 ### Phase 3.12: Params Template Boundary Verification
 
-- Preserve the Params scaffold comment block and region markers from `docs/tasks/TK-params-sandbox-template.md`.
-- Allow generation-time edits only inside the test-definition and error-handling regions.
-- Keep bootstrap, imports, and region markers outside the editable generation area.
-- Use the scaffold as the canonical shape when generating a new Params sandbox file from source-of-truth discovery.
+- Enforce Params generation boundaries and scaffold ownership from `docs/tasks/TK-params-sandbox-template.md`.
 
 ### Phase 3.13: Factory Template Boundary Verification
 
-- Preserve the Factory scaffold comment block and region markers from `docs/tasks/TK-factory-sandbox-template.md`.
-- Allow generation-time edits only inside the test-definition and error-handling regions.
-- Keep bootstrap, imports, and region markers outside the editable generation area.
-- Use the scaffold as the canonical shape when generating a new Factory sandbox file from source-of-truth discovery.
+- Enforce Factory generation boundaries and scaffold ownership from `docs/tasks/TK-factory-sandbox-template.md`.
 
 ### Phase 4: Legacy Cleanup Verification
 

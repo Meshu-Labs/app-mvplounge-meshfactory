@@ -68,11 +68,11 @@ try {
 
     $cases = [
         'FourColumnSummaryTable' => static function () use ($globalParams): array {
-    // Agent or Human:
-    //
-    // Manage logic to instantiate the factory
-    //
-
+            // Agent or Human:
+            //
+            // Manage logic to instantiate the factory
+            //
+    
             $factory = new \MvpLounge\MeshFactory\Element\Table\TableBody(array_merge($globalParams('four-column-summary'), [
                 'cellspacing' => 0,
                 'cellpadding' => 1,
