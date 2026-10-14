@@ -102,7 +102,7 @@ class SelectOptions extends FactoryElementFieldAbstract
 		}
 	}
 
-	public function compleAsHtmlString(): ?string
+	public function compileAsHtmlString(): ?string
 	{
 		return $this->getElementOpen()
 			. $this->getElementContent()
@@ -111,7 +111,7 @@ class SelectOptions extends FactoryElementFieldAbstract
 
 	public function string(): ?string
 	{
-		return $this->compleAsHtmlString();
+		return $this->compileAsHtmlString();
 	}
 
 	public function not_selected(): static

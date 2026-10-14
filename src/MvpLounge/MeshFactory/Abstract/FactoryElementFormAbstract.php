@@ -495,7 +495,7 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 			if (!is_string($_field_name) || trim($_field_name) === '') {
 				$_field_name = sprintf('hidden_%s', count($_field_return));
 			}
-			$_field_return[$_field_name] = $string ? $_hidden->compleAsHtmlString() : ($_fld_detail['field'] ?? '');
+			$_field_return[$_field_name] = $string ? $_hidden->compileAsHtmlString() : ($_fld_detail['field'] ?? '');
 		}
 
 		return $_field_return;
@@ -538,7 +538,7 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 		foreach ($section as $_fld_index => $_field) {
 
 			if ($_field instanceof FactoryElementFieldAbstract) {
-				$_field_return[$_fld_index] = $string ? $_field->compleAsHtmlString() : $_field->compileAsArray();
+				$_field_return[$_fld_index] = $string ? $_field->compileAsHtmlString() : $_field->compileAsArray();
 			} else {
 				$_field_return[$_fld_index] = $_field;
 			}
@@ -600,7 +600,7 @@ abstract class FactoryElementFormAbstract extends FactoryElementAbstract
 			'open' => $this->getElementOpen(),
 			'hidden' => $this->compileFormHiddenVars(TRUE),
 			'fields' => $this->compileFormFields(TRUE),
-			'buttons' => $this->getFormSubmitButton()->compleAsHtmlString(),
+			'buttons' => $this->getFormSubmitButton()->compileAsHtmlString(),
 			'close' => $this->getElementClose()
 		];
 	}

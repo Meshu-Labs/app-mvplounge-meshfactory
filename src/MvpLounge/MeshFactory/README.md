@@ -17,7 +17,7 @@ if (!defined('MVPLOUNGE_MESHFACTORY_BASE_PATH')) {
 
 ## Output API Policy
 
-- Canonical HTML output method: `compleAsHtmlString(): ?string`
+- Canonical HTML output method: `compileAsHtmlString(): ?string`
 - Canonical structured output method: `compileAsArray(): ?array`
 - Canonical headless payload method: `compileAsJson(): ?string`
 

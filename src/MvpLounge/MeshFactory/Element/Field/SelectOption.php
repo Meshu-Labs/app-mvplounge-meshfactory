@@ -65,9 +65,9 @@ class SelectOption extends FactoryElementFieldAbstract
 	public function buildElementOptions()
 	{
 		if (count($this->FactoryElementSelectFieldOptions) > 0) {
-			foreach ($this->FactoryElementSelectFieldOptions as $_ortion_factory) {
-				if (($_ortion_factory instanceof SelectOptions)) {
-					$_ortion_factory->build();
+			foreach ($this->FactoryElementSelectFieldOptions as $_option_factory) {
+				if (($_option_factory instanceof SelectOptions)) {
+					$_option_factory->build();
 				}
 			}
 		}
@@ -78,56 +78,56 @@ class SelectOption extends FactoryElementFieldAbstract
 
 		return [
 			'open' => $this->getElementOpen(),
-			'ortions' => $this->getElementFieldOrtions(),
+			'options' => $this->getElementFieldOptions(),
 			'close' => $this->getElementClose(),
 			'fieldset' => $this->getElementFieldset()->compileAsArray()
 		];
 	}
 
-	public function getElementFieldOrtions($string = FALSE)
+	public function getElementFieldOptions($string = FALSE)
 	{
 
-		$_ortions = [];
-		$_ortions_string = '';
+		$_options = [];
+		$_options_string = '';
 
-		if ($this->hasOrtions()) {
-			foreach ($this->FactoryElementSelectFieldOptions as $_ortion_factory_value => $_ortion_factory) {
-				if (($_ortion_factory instanceof SelectOptions)) {
-					if ($this->getElementFieldValue() === $_ortion_factory_value) {
-						$_ortion_factory->selected();
+		if ($this->hasOptions()) {
+			foreach ($this->FactoryElementSelectFieldOptions as $_option_factory_value => $_option_factory) {
+				if (($_option_factory instanceof SelectOptions)) {
+					if ($this->getElementFieldValue() === $_option_factory_value) {
+						$_option_factory->selected();
 					} else {
-						$_ortion_factory->not_selected();
+						$_option_factory->not_selected();
 					}
 				}
 				if ($string) {
-					$_ortions_string .= $_ortion_factory->compleAsHtmlString();
+					$_options_string .= $_option_factory->compileAsHtmlString();
 				} else {
-					$_ortions[$_ortion_factory_value] = $_ortion_factory->compileAsArray();
+					$_options[$_option_factory_value] = $_option_factory->compileAsArray();
 				}
 			}
 		}
 
-		return $string ? $_ortions_string : $_ortions;
+		return $string ? $_options_string : $_options;
 	}
 
-	public function hasOrtions()
+	public function hasOptions()
 	{
 		return count($this->FactoryElementSelectFieldOptions) > 0;
 	}
 
-	public function compleAsHtmlString(): ?string
+	public function compileAsHtmlString(): ?string
 	{
 		return $this->getElementFieldset()->getElementOpen()
 			. $this->getElementFieldLabel()
 			. $this->getElementOpen()
-			. $this->getElementFieldOrtions(TRUE)
+			. $this->getElementFieldOptions(TRUE)
 			. $this->getElementClose()
 			. $this->getElementFieldset()->getElementClose();
 	}
 
 	public function string(): ?string
 	{
-		return $this->compleAsHtmlString();
+		return $this->compileAsHtmlString();
 	}
 
 	public function getElementFieldSelected(): bool
@@ -135,36 +135,36 @@ class SelectOption extends FactoryElementFieldAbstract
 		return $this->FactoryElementFieldSelected;
 	}
 
-	public function addOrtions($ortions): FactoryElementFieldAbstract
+	public function addOptions($options): FactoryElementFieldAbstract
 	{
 
-		if (is_array($ortions)) {
-			foreach ($ortions as $_ortion_index => $_ortion) {
+		if (is_array($options)) {
+			foreach ($options as $_option_index => $_option) {
 
-				if (!is_string($_ortion) && (!is_countable($_ortion) || !is_array($_ortion))) {
+				if (!is_string($_option) && (!is_countable($_option) || !is_array($_option))) {
 					continue;
 				}
 
-				if (!isset($this->FactoryElementSelectFieldOptions[$_ortion_index])) {
+				if (!isset($this->FactoryElementSelectFieldOptions[$_option_index])) {
 
-					if (is_string($_ortion)) {
-						$this->FactoryElementSelectFieldOptions[$_ortion_index] = new SelectOptions([
-							'value' => $_ortion_index,
-							'content' => $_ortion
+					if (is_string($_option)) {
+						$this->FactoryElementSelectFieldOptions[$_option_index] = new SelectOptions([
+							'value' => $_option_index,
+							'content' => $_option
 						]);
 					}
 
-					if (is_countable($_ortion) && is_array($_ortion)) {
+					if (is_countable($_option) && is_array($_option)) {
 
-						$this->FactoryElementSelectFieldOptions[$_ortion_index] = new SelectOptions([
-							'vType' => $_ortion['vType'] ?? NULL,
-							'value' => $_ortion['value'] ?? $_ortion_index,
-							'content' => $_ortion['label'] ?? NULL,
-							'id' => $_ortion['id'] ?? NULL,
-							'name' => $_ortion['name'] ?? NULL,
-							'data' => $_ortion['data'] ?? NULL,
-							'system' => $_ortion['system'] ?? NULL,
-							'user' => $_ortion['user'] ?? NULL
+						$this->FactoryElementSelectFieldOptions[$_option_index] = new SelectOptions([
+							'vType' => $_option['vType'] ?? NULL,
+							'value' => $_option['value'] ?? $_option_index,
+							'content' => $_option['label'] ?? NULL,
+							'id' => $_option['id'] ?? NULL,
+							'name' => $_option['name'] ?? NULL,
+							'data' => $_option['data'] ?? NULL,
+							'system' => $_option['system'] ?? NULL,
+							'user' => $_option['user'] ?? NULL
 
 						]);
 					}

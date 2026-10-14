@@ -381,7 +381,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 		return $this->FactoryElementFieldFieldset;
 	}
 
-	public function compleAsHtmlString(): ?string
+	public function compileAsHtmlString(): ?string
 	{
 		return $this->getElementFieldset()->getElementOpen()
 			. $this->getElementFieldLabel()
@@ -391,7 +391,7 @@ abstract class FactoryElementFieldAbstract extends FactoryElementAbstract
 
 	public function string(): ?string
 	{
-		return $this->compleAsHtmlString();
+		return $this->compileAsHtmlString();
 	}
 
 	public function buildElementLabel()

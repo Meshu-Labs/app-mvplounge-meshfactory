@@ -59,7 +59,7 @@ class FormButton extends FactoryElementFieldInputAbstract
 
 
 
-	public function compleAsHtmlString(): ?string
+	public function compileAsHtmlString(): ?string
 	{
 		return $this->getElementFieldset()->getElementOpen()
 			. $this->getElementOpen()
@@ -68,7 +68,7 @@ class FormButton extends FactoryElementFieldInputAbstract
 
 	public function string(): ?string
 	{
-		return $this->compleAsHtmlString();
+		return $this->compileAsHtmlString();
 	}
 
 	public function build()

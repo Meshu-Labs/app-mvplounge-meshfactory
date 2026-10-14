@@ -373,7 +373,7 @@ abstract class FactoryAbstract
 		return $this->FactoryId;
 	}
 
-	public function compleAsHtmlString(): ?string
+	public function compileAsHtmlString(): ?string
 	{
 		if (method_exists($this, 'getElementOpen') && method_exists($this, 'getElementContent') && method_exists($this, 'getElementClose')) {
 			return $this->getElementOpen() . $this->getElementContent() . $this->getElementClose();
@@ -383,7 +383,7 @@ abstract class FactoryAbstract
 
 	public function string(): ?string
 	{
-		return $this->compleAsHtmlString();
+		return $this->compileAsHtmlString();
 	}
 }
 

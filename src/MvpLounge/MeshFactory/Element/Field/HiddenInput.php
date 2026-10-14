@@ -36,14 +36,14 @@ class HiddenInput extends FactoryElementFieldInputAbstract
 
 	}
 
-	public function compleAsHtmlString(): ?string
+	public function compileAsHtmlString(): ?string
 	{
 		return $this->getElementOpen() . $this->getElementContent() . $this->getElementClose();
 	}
 
 	public function string(): ?string
 	{
-		return $this->compleAsHtmlString();
+		return $this->compileAsHtmlString();
 	}
 
 }
